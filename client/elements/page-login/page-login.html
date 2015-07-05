@@ -1,0 +1,35 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="part-login-form.html">
+<dom-module id="page-login">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-page>
+      <h3>Login</h3>
+      <part-login-form redirect="{{redirect}}"></part-login-form>
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-login',
+
+    properties: {
+      redirect: {
+        type: String,
+        value: '/admin'
+      }
+    },
+
+    ready: function () {}
+
+  });
+</script>

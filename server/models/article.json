@@ -1,0 +1,34 @@
+{
+  "name": "Article",
+  "plural": "Articles",
+  "base": "PersistedModel",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "date"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "Author",
+      "foreignKey": "authorId"
+    },
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": "categoryId"
+    }
+  },
+  "validations": [],
+  "methods": [],
+  "acls": []
+}

@@ -1,0 +1,51 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../api-model-find/api-model-find.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="part-category-articles.html">
+<dom-module id="page-category">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-find id="find" collection="Articles"
+      page="{{page}}" perpage="{{perpage}}"
+      response="{{articles}}"></api-model-find>
+
+    <app-page>
+      <h1>Category</h1>
+      <h2>{{category}}</h2>
+      <part-category-articles items="{{articles}}"></part-category-articles>
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-category',
+
+    properties: {
+      articles: {
+        type: Array
+      },
+      page: {
+        type: Number,
+        value: 0
+      },
+      perpage: {
+        type: Number,
+        value: 10
+      }
+    },
+
+    ready: function () {
+      this.$.find.send();
+    }
+
+  });
+</script>

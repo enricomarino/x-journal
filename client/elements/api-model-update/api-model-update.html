@@ -1,0 +1,55 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">   
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="api-model-update">
+  <template>
+    
+    <app-session id="session"></app-session>
+
+    <iron-ajax id="ajax" method="PUT" url="{{url}}" 
+      content-type="application/json" body="{{body}}"
+      last-response="{{response}}" handleAs="json">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-model-update',
+
+    properties: {
+      collection: {
+        type: String
+      },
+      model: {
+        type: Object
+      },
+      url: {
+        type: String,
+        computed: '_compute_url(collection, model)'
+      },
+      response: {
+        type: Object,
+        notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    _compute_url: function (collection, model) {
+      return '/api/' + collection + '/' + model.id;
+    },
+
+    send: function () {
+      var access_token = this.$.session.get('access_token');
+      this.$.ajax.headers = { Authorization: access_token };
+      var body = JSON.stringify(this.model);
+      this.$.ajax.body = body;       
+      this.$.ajax.generateRequest(); 
+    }
+
+  });
+</script>

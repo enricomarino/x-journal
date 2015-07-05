@@ -1,0 +1,30 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="part-privacy-content.html">
+<dom-module id="page-privacy">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-page>
+      <h1>Privacy</h1>
+      <part-privacy-content></part-privacy-content>
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-privacy',
+
+    properties: {},
+
+    ready: function () {}
+
+  });
+</script>

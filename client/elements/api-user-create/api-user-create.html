@@ -1,0 +1,38 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<dom-module id="api-user-create">
+  <template>
+
+    <iron-ajax id="ajax" method="POST" content-type="application/json"
+      last-response="{{response}}" handle-as="json">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-user-create',
+
+    properties: {
+      collection: {
+        type: String,
+        value: 'Users'
+      },
+      credentials: {
+        type: Object
+      },
+      response: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    send: function () {
+      this.$.ajax.url = '/api/' + this.collection;
+      this.$.ajax.body = JSON.stringify(this.credentials);
+      this.$.ajax.generateRequest();
+    }
+
+  });
+</script>

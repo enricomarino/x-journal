@@ -1,0 +1,46 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">   
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="api-model-exists">
+  <template>
+    
+    <app-session id="session"></app-session>
+
+    <iron-ajax id="ajax" method="GET" 
+      last-response="{{response}}" handleAs="json">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-model-exists',
+
+    properties: {
+      collection: {
+        type: String
+      },
+      model: {
+        type: Object
+      },
+      response: {
+        type: Object
+        notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    send: function () {
+      var access_token = this.$.session.get('access_token');
+      this.$.ajax.headers = { Authorization: access_token };
+      this.$.ajax.url = '/api/' + this.collection + '/' + model.id + '/exists';
+      this.$.ajax.generateRequest();      
+    }
+
+
+  });
+</script>

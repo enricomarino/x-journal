@@ -1,0 +1,52 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="api-user-login">
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <iron-ajax id="ajax" method="POST" content-type="application/json"
+      last-response="{{response}}" handle-as="json" on-response="on_response"
+      last-error="{{error}}">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-user-login',
+
+    properties: {
+      collection: {
+        type: String,
+        value: 'Users'
+      },
+      credentials: {
+        type: Object
+      },
+      response: {
+        type: Object,
+        notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    send: function () {
+      this.$.ajax.url = '/api/' + this.collection + '/login';
+      this.$.ajax.body = JSON.stringify(this.credentials);
+      this.$.ajax.generateRequest();
+    },
+
+    on_response: function (event) {
+      this.$.session.set('access_token', this.response.id);
+      this.$.session.set('user_id', this.response.userId);
+      this.$.session.set('ttl', this.response.ttl)
+    }
+
+  });
+</script>

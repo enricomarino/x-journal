@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
+  <title>journal</title>
+  <script src="/components/webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="/components/polymer/polymer.html">
+  <link rel="import" href="/elements/app-theme/app-theme.html">
+  <link rel="import" href="/elements/app-router/app-router.html">
+  <link rel="import" href="/elements/app-route/app-route.html">
+  <link rel="import" href="/elements/page-about/page-about.html">
+  <link rel="import" href="/elements/page-admin/page-admin.html">
+  <link rel="import" href="/elements/page-admin-article/page-admin-article.html">
+  <link rel="import" href="/elements/page-admin-category/page-admin-category.html">
+  <link rel="import" href="/elements/page-article/page-article.html">
+  <link rel="import" href="/elements/page-category/page-category.html">
+  <link rel="import" href="/elements/page-contact/page-contact.html">
+  <link rel="import" href="/elements/page-home/page-home.html">
+  <link rel="import" href="/elements/page-login/page-login.html">
+  <link rel="import" href="/elements/page-privacy/page-privacy.html">
+  <link rel="import" href="/elements/page-terms/page-terms.html">
+</head>
+<body>
+
+  <app-router id="router">
+    <app-route path="/" page="page-home"></app-route>
+    <app-route path="/about" page="page-about"></app-route>
+    <app-route path="/admin" page="page-admin"></app-route>
+    <app-route path="/admin/articles/:article_id" page="page-admin-article"></app-route>
+    <app-route path="/admin/categories/:category_id" page="page-admin-category"></app-route>
+    <app-route path="/articles/:article_id/" page="page-article"></app-route>
+    <app-route path="/categories/:category_id/" page="page-category"></app-route>
+    <app-route path="/contact" page="page-contact"></app-route>
+    <app-route path="/home" page="page-home"></app-route>
+    <app-route path="/login" page="page-login"></app-route>
+    <app-route path="/privacy" page="page-privacy"></app-route>
+    <app-route path="/terms" page="page-terms"></app-route>
+  </app-router>
+</body>
+</html>

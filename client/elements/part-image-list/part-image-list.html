@@ -1,0 +1,63 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-image-list/api-image-list.html">
+<link rel="import" href="part-image-list-item.html">
+<dom-module id="part-image-list">
+  <style>
+    :host {
+      display: block;
+    }
+
+    .thumb {
+      width: 300px;
+      height: auto;
+    }
+  </style>
+  <template>
+
+    <api-image-list id="list" list="{{list}}" folder="{{folder}}"></api-image-list>
+
+    <template is="dom-if" if="{{!list.length}}">
+      <span>empty</span>
+    </template>
+
+    <template is="dom-repeat" items="{{list}}" filter="filter">
+      <part-image-list-item item="{{item}}"></part-image-list-item>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-image-list',
+
+    properties: {
+      user: {
+        type: Object
+      },
+      folder: {
+        type: String,
+        value: ''
+      },
+      preview: {
+        type: Boolean,
+        value: false
+      },
+      list: {
+        type: Array,
+        value: []
+      }
+    },
+
+    update: function () {
+      this.$.list.send();
+    },
+
+    filter: function (item) {
+      var url = 'https://redomus-test.s3.amazonaws.com/' + item.key;
+      item.url = url;
+      return item;
+    }
+
+  });
+</script>

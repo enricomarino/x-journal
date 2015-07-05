@@ -1,0 +1,29 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<dom-module id="part-category-article">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <div>
+      <h3>{{article.title}}</h3>
+      <p>{{article.summary}}</p>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-category-article',
+
+    properties: {
+      article: {
+        type: Object
+      }
+    }
+
+  });
+</script>

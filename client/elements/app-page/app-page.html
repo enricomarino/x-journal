@@ -1,0 +1,28 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
+<dom-module id="app-page">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <part-header></part-header>
+
+    <content select="*"></content>
+
+    <part-footer></part-footer>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'app-page',
+
+    ready: function () {}
+
+  });
+</script>

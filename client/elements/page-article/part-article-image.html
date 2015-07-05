@@ -1,0 +1,28 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<dom-module id="part-article-image">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <div id="image"></div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-article-image',
+
+    properties: {
+      article: {
+        type: Object
+      }
+    },
+
+    ready: function () {}
+
+  });
+</script>

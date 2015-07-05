@@ -1,0 +1,51 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="api-user-logout">
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <iron-ajax id="ajax" method="POST"
+      last-response="{{response}}" handle-as="json"
+      on-response="on_response" on-error="on_error">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-user-logout',
+
+    properties: {
+      collection: {
+        type: String,
+        value: 'Users'
+      },
+      response: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    send: function () {
+      var access_token = this.$.session.get('access_token');
+      this.$.ajax.headers = { Authorization: access_token };
+      this.$.ajax.url = '/api/' + this.collection + '/logout';
+      this.$.ajax.generateRequest();
+    },
+
+    on_response: function (event) {
+      this.$.session.unset('access_token');
+      this.fire('logout');
+    },
+
+    on_error: function (event) {
+      this.$.session.unset('access_token');
+      this.fire('logout');
+      console.warn(event);
+    }
+
+  });
+</script>

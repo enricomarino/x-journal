@@ -1,0 +1,62 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-user-logout/api-user-logout.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="part-header">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <api-user-logout id="logout" name="Author" on-logout="on_logout"></api-user-logout>
+
+    <template is="dom-if" if="{{!access_token}}">
+      <ul>
+        <li><a is="app-link" href="/login">login</a></li>
+      </ul>
+    </template>
+
+    <template is="dom-if" if="{{access_token}}">
+      <ul>
+        <li><a is="app-link" href="/admin">admin</a></li>
+        <li><a href="/logout" on-click="on_click_logout">logout</a></li>
+      </ul>
+    </template>
+
+    <ul>
+      <li><a is="app-link" href="/home">home</a></li>
+      <li><a is="app-link" href="/categories/1">category</a></li>
+    </ul>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-header',
+
+    properties: {
+      access_token: {
+        type: String
+      }
+    },
+
+    ready: function () {
+      this.access_token = this.$.session.get('access_token');
+    },
+
+    on_click_logout: function (event) {
+      event.preventDefault();
+      this.$.logout.send();
+    },
+
+    on_logout: function () {
+      page('/');
+    }
+
+  });
+</script>

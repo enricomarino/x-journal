@@ -1,0 +1,83 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="api-model-find-one">
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <iron-ajax id="ajax" method="GET"
+      last-response="{{last_response}}" handleAs="json"
+      last-error="{{error}}">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-model-find-one',
+
+    properties: {
+      collection: {
+        type: String
+      },
+      path: {
+        type: String
+      },
+      pathParams: {
+        type: Object
+      },
+      url: {
+        type: String,
+        computed: '_compute_url(path, pathParams)'
+      },
+      last_response: {
+        type: Array,
+        observer: 'on_response'
+      },
+      response: {
+        type: Object,
+        notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
+      },
+      where: {
+        type: Object,
+        value: function () { return {}; },
+        observer: '_on_where'
+      }
+    },
+
+    _compute_url: function (path, pathParams) {
+      var regexp = /\${(\w+)}/ig;
+      var url = path.replace(regexp, function (match, key) {
+        return pathParams[key];
+      });
+      return url;
+    },
+
+    _on_where: function () {
+      console.log(this.where);
+    },
+
+    send: function () {
+      var access_token = this.$.session.get('access_token');
+      this.$.ajax.headers = { Authorization: access_token };
+      var filter = { where: this.where, limit: 1 };
+      var filter_stringified = JSON.stringify(filter);
+      var params = { filter: filter_stringified };
+      console.log(params);
+      this.$.ajax.params = params;
+      this.$.ajax.url = this.url || '/api/' + this.collection;
+      this.$.ajax.generateRequest();
+    },
+
+    on_response: function () {
+      this.response = this.last_response[0];
+    }
+
+  });
+</script>

@@ -1,0 +1,53 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-model-get/api-model-get.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="part-article-content.html">
+<link rel="import" href="part-article-image.html">
+<dom-module id="page-article">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <api-model-get id="get" auto collection="Articles" model-id="{{article_id}}"
+      response="{{article}}" error="{{error}}">
+    </api-model-get>
+
+    <template is="dom-if" if="{{error}}">
+      <app-page page>
+        <h1>404</h1>
+      </app-page>
+    </template>
+
+    <template is="dom-if" if="{{article}}">
+      <app-page>
+        <h1>Article</h1>
+        <part-article-image article="{{article}}"></part-article-image>
+        <part-article-content article="{{article}}"></part-article-content>
+      </app-page>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-article',
+
+    properties: {
+      article: {
+        type: Object
+      },
+      error: {
+        type: Object
+      }
+    }
+
+  });
+</script>

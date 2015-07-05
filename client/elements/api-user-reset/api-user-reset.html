@@ -1,0 +1,52 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="api-user-reset">
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <iron-ajax id="ajax" method="POST"
+      body="{{body}}"
+      last-response="{{response}}" handleAs="json">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-user-reset',
+
+    properties: {
+      collection: {
+        type: String,
+        value: 'Users'
+      },
+      email: {
+        type: String
+      },
+      body: {
+        type: String,
+        computed: '_compute_body(email)'
+      },
+      response: {
+        type: Object
+      }
+    },
+
+    _compute_body: function (email) {
+      var body = { email: email };
+      var string = JSON.stringify(body);
+      return string;
+    },
+
+    send: function () {
+      var access_token = this.$.session.get('access_token');
+      this.$.ajax.headers = { Authorization: access_token };
+      this.$.ajax.url = '/api/' + this.collection;
+      this.$.ajax.generateRequest();
+    }
+
+  });
+</script>
