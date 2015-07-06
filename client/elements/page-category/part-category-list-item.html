@@ -1,5 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<dom-module id="part-category-article">
+<dom-module id="part-category-list-item">
   <style>
     :host {
       display: block;
@@ -7,17 +7,16 @@
   </style>
   <template>
 
-    <div>
-      <h3>{{article.title}}</h3>
-      <p>{{article.summary}}</p>
-    </div>
+    <ul>
+      <li>{{category.name}}</li>
+    </ul>
 
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'part-category-article',
+    is: 'part-category-list-item',
 
     properties: {
       article: {

@@ -4,7 +4,7 @@
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../app-session/app-session.html">
 <link rel="import" href="part-admin-articles-create.html">
-<link rel="import" href="part-admin-articles-items.html">
+<link rel="import" href="part-admin-articles-list.html">
 <dom-module id="page-admin-articles">
   <style>
     :host {
@@ -17,8 +17,7 @@
 
     <app-page>
       <h1>Articles</h1>
-
-      <part-admin-articles-items articles="{{articles}}"></part-admin-articles-items>
+      <part-admin-articles-list items="{{articles}}"></part-admin-articles-list>
       <part-admin-articles-create></part-admin-articles-create>
     </app-page>
 
@@ -29,7 +28,11 @@
 
     is: 'page-admin-articles',
 
-    properties: {},
+    properties: {
+      articles: {
+        type: Array
+      }
+    },
 
     ready: function () {
       this.$.find.send();

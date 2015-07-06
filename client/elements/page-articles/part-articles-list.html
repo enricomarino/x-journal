@@ -1,0 +1,35 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="part-articles-list-item.html">
+<dom-module id="part-articles-list">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <template is="dom-repeat" items="{{items}}" filter="filter">
+      <part-articles-list-item item="{{item}}"></part-articles-list-item>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-articles-list',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    },
+
+    filter: function (item) {
+      item.permalink = '/articles/' + item.id;
+      return item;
+    }
+
+  });
+</script>

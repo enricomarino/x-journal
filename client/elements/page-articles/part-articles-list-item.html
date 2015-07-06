@@ -1,0 +1,32 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">
+<dom-module id="part-articles-list-item">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <ul>
+      <li>{{item.title}}</li>
+      <li>{{item.subtitle}}</li>
+      <li>{{item.summary}}</li>
+      <li><a is="app-link" href="{{item.permalink}}">view</a></li>
+    </ul>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-articles-list-item',
+
+    properties: {
+      item: {
+        type: Object
+      }
+    }
+
+  });
+</script>
