@@ -1,0 +1,36 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="part-admin-authors-list-item.html">
+<dom-module id="part-admin-authors-list">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <template is="dom-repeat" items="{{items}}" filter="filter">
+      <part-admin-authors-list-item item="{{item}}"></part-admin-authors-list-item>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-admin-authors-list',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    },
+
+    ready: function () {},
+
+    filter: function (item) {
+      item.editlink = '/admin/authors/' + item.id;
+      return true;
+    }
+
+  });
+</script>

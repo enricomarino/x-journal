@@ -1,6 +1,8 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-model-find/api-model-find.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="part-admin-authors-list.html">
 <dom-module id="page-admin-authors">
   <style>
     :host {
@@ -9,8 +11,11 @@
   </style>
   <template>
 
+    <api-model-find id="find" collection="Authors" response="{{authors}}"></api-model-find>
+
     <app-page>
       <h1>Authors</h1>
+      <part-admin-authors-list items="{{authors}}"></part-admin-authors-list>
     </app-page>
 
   </template>
@@ -20,9 +25,15 @@
 
     is: 'page-admin-authors',
 
-    properties: {},
+    properties: {
+      authors: {
+        type: Array
+      }
+    },
 
-    ready: function () {}
+    ready: function () {
+      this.$.find.send();
+    }
 
   });
 </script>
