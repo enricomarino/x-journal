@@ -1,8 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="../app-session/app-session.html">
-<dom-module id="page-admin">
+<dom-module id="page-admin-authors">
   <style>
     :host {
       display: block;
@@ -11,13 +10,7 @@
   <template>
 
     <app-page>
-      <h1>Admin</h1>
-
-      <ul>
-        <li><a is="app-link" href="/admin/articles">articles</a></li>
-        <li><a is="app-link" href="/admin/authors">authors</a></li>
-        <li><a is="app-link" href="/admin/categories">categories</a></li>
-      </ul>
+      <h1>Authors</h1>
     </app-page>
 
   </template>
@@ -25,7 +18,7 @@
 <script>
   Polymer({
 
-    is: 'page-admin',
+    is: 'page-admin-authors',
 
     properties: {},
 

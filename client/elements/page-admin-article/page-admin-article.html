@@ -1,7 +1,10 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="../api-model-get/api-model-get.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="part-admin-article-form.html">
 <dom-module id="page-admin-article">
   <style>
     :host {
@@ -10,8 +13,15 @@
   </style>
   <template>
 
+    <api-model-get id="get" auto collection="Articles"
+      model-id="{{article_id}}" model="{{article}}">
+    </api-model-get>
+
     <app-page>
       <h1>Edit article</h1>
+
+      <part-admin-article-form article="{{article}}"></part-admin-article-form>
+
     </app-page>
 
   </template>
@@ -21,9 +31,11 @@
 
     is: 'page-admin-article',
 
-    properties: {},
-
-    ready: function () {}
+    properties: {
+      article: {
+        type: Object
+      }
+    }
 
   });
 </script>

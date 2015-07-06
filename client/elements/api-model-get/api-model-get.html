@@ -7,7 +7,7 @@
     <app-session id="session"></app-session>
 
     <iron-ajax id="ajax" auto$="{{auto}}" method="GET" url="{{url}}"
-      last-response="{{response}}" handleAs="json"
+      last-response="{{model}}" handleAs="json"
       last-error="{{error}}">
     </iron-ajax>
 
@@ -34,7 +34,7 @@
         type: Boolean,
         value: false
       },
-      response: {
+      model: {
         type: Object,
         notify: true
       },

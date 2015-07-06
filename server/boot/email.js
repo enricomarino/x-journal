@@ -1,4 +1,4 @@
-module.exports = function mountRestApi(server) {
+module.exports = function (server) {
 
   var email_connector = server.dataSources.Email.connector;
   var email_options = email_connector.transportForName('smtp').transporter.options;
@@ -7,6 +7,4 @@ module.exports = function mountRestApi(server) {
     pass: process.env.EMAIL_PASS
   };
 
-  var restApiRoot = server.get('restApiRoot');
-  server.use(restApiRoot, server.loopback.rest());
 };

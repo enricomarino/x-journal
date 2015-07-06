@@ -1,0 +1,62 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="../api-model-update/api-model-update.html">
+<dom-module id="part-admin-article-form">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-update id="update" collection="Articles"
+      model-id="{{article.id}}" model="{{article}}">
+    </api-model-update>
+
+    <form on-submit="on_submit">
+      <div>
+        <label>title</label>
+        <input is="iron-input" bind-value="{{article.title}}">
+      </div>
+      <div>
+        <label>subtitle</label>
+        <input is="iron-input" bind-value="{{article.subtitle}}">
+      </div>
+      <div>
+        <label>summary</label>
+        <iron-autogrow-textarea bind-value="{{article.summary}}">
+          <textarea></textarea>
+        </iron-autogrow-textarea>
+      </div>
+      <div>
+        <label>content</label>
+        <iron-autogrow-textarea bind-value="{{article.content}}">
+          <textarea></textarea>
+        </iron-autogrow-textarea>
+      </div>
+      <div>
+        <input type="submit" value="update">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-admin-article-form',
+
+    properties: {
+      article: {
+        type: Object
+      }
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.update.send();
+    }
+
+  });
+</script>

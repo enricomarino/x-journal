@@ -12,6 +12,10 @@
   <link rel="import" href="/elements/page-about/page-about.html">
   <link rel="import" href="/elements/page-admin/page-admin.html">
   <link rel="import" href="/elements/page-admin-article/page-admin-article.html">
+  <link rel="import" href="/elements/page-admin-articles/page-admin-articles.html">
+  <link rel="import" href="/elements/page-admin-author/page-admin-author.html">
+  <link rel="import" href="/elements/page-admin-authors/page-admin-authors.html">
+  <link rel="import" href="/elements/page-admin-categories/page-admin-categories.html">
   <link rel="import" href="/elements/page-admin-category/page-admin-category.html">
   <link rel="import" href="/elements/page-article/page-article.html">
   <link rel="import" href="/elements/page-category/page-category.html">
@@ -27,7 +31,11 @@
     <app-route path="/" page="page-home"></app-route>
     <app-route path="/about" page="page-about"></app-route>
     <app-route path="/admin" page="page-admin"></app-route>
+    <app-route path="/admin/articles" page="page-admin-articles"></app-route>
     <app-route path="/admin/articles/:article_id" page="page-admin-article"></app-route>
+    <app-route path="/admin/authors" page="page-admin-authors"></app-route>
+    <app-route path="/admin/authors/:author_id" page="page-admin-author"></app-route>
+    <app-route path="/admin/categories" page="page-admin-categories"></app-route>
     <app-route path="/admin/categories/:category_id" page="page-admin-category"></app-route>
     <app-route path="/articles/:article_id/" page="page-article"></app-route>
     <app-route path="/categories/:category_id/" page="page-category"></app-route>
