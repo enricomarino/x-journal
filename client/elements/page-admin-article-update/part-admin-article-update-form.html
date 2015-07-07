@@ -1,8 +1,8 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="/components/iron-input/iron-input.html">
-<link rel="import" href="../api-model-update/api-model-update.html">
-<dom-module id="part-admin-article-form">
+<link rel="import" href="/elements/api-model-update/api-model-update.html">
+<dom-module id="part-admin-article-update-form">
   <style>
     :host {
       display: block;
@@ -11,7 +11,8 @@
   <template>
 
     <api-model-update id="update" collection="Articles"
-      model-id="{{article.id}}" model="{{article}}">
+      model-id="{{article.id}}" model="{{article}}"
+      on-response="on_response">
     </api-model-update>
 
     <form on-submit="on_submit">
@@ -36,6 +37,10 @@
         </iron-autogrow-textarea>
       </div>
       <div>
+        <label>category</label>
+        <input is="iron-input" bind-value="{{article.category}}">
+      </div>
+      <div>
         <input type="submit" value="update">
       </div>
     </form>
@@ -45,7 +50,7 @@
 <script>
   Polymer({
 
-    is: 'part-admin-article-form',
+    is: 'part-admin-article-update-form',
 
     properties: {
       article: {
@@ -56,6 +61,10 @@
     on_submit: function (event) {
       event.preventDefault();
       this.$.update.send();
+    },
+
+    on_response: function (event) {
+      page('/admin/articles');
     }
 
   });

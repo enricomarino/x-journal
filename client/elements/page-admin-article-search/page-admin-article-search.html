@@ -1,9 +1,9 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/elements/api-model-find/api-model-find.html">
-<link rel="import" href="/elements/app-link/app-link.html">
 <link rel="import" href="/elements/app-page/app-page.html">
-<link rel="import" href="part-articles-items.html">
-<dom-module id="page-articles">
+<link rel="import" href="part-admin-article-search-actions.html">
+<link rel="import" href="part-admin-article-search-items.html">
+<dom-module id="page-admin-article-search">
   <style>
     :host {
       display: block;
@@ -11,13 +11,12 @@
   </style>
   <template>
 
-    <api-model-find id="find" collection="Articles"
-      page="{{page}}" perpage="{{perpage}}"
-      response="{{articles}}"></api-model-find>
+    <api-model-find id="find" collection="Articles" response="{{articles}}"></api-model-find>
 
     <app-page>
       <h1>Articles</h1>
-      <part-articles-items items="{{articles}}"></part-articles-items>
+      <part-admin-article-search-items items="{{articles}}"></part-admin-article-search-items>
+      <part-admin-article-search-actions></part-admin-article-search-actions>
     </app-page>
 
   </template>
@@ -25,19 +24,11 @@
 <script>
   Polymer({
 
-    is: 'page-articles',
+    is: 'page-admin-article-search',
 
     properties: {
       articles: {
         type: Array
-      },
-      page: {
-        type: Number,
-        value: 0
-      },
-      perpage: {
-        type: Number,
-        value: 10
       }
     },
 

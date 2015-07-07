@@ -1,6 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="part-admin-authors-list-item.html">
-<dom-module id="part-admin-authors-list">
+<link rel="import" href="part-admin-author-search-item.html">
+<dom-module id="part-admin-author-search-items">
   <style>
     :host {
       display: block;
@@ -9,7 +9,7 @@
   <template>
 
     <template is="dom-repeat" items="{{items}}" filter="filter">
-      <part-admin-authors-list-item item="{{item}}"></part-admin-authors-list-item>
+      <part-admin-author-search-item item="{{item}}"></part-admin-author-search-item>
     </template>
 
   </template>
@@ -17,7 +17,7 @@
 <script>
   Polymer({
 
-    is: 'part-admin-authors-list',
+    is: 'part-admin-author-search-items',
 
     properties: {
       items: {

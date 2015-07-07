@@ -1,7 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../app-link/app-link.html">
-<link rel="import" href="part-articles-list-item.html">
-<dom-module id="part-articles-list">
+<link rel="import" href="part-admin-article-search-item.html">
+<dom-module id="part-admin-article-search-items">
   <style>
     :host {
       display: block;
@@ -10,7 +9,7 @@
   <template>
 
     <template is="dom-repeat" items="{{items}}" filter="filter">
-      <part-articles-list-item item="{{item}}"></part-articles-list-item>
+      <part-admin-article-search-item item="{{item}}"></part-admin-article-search-item>
     </template>
 
   </template>
@@ -18,7 +17,7 @@
 <script>
   Polymer({
 
-    is: 'part-articles-list',
+    is: 'part-admin-article-search-items',
 
     properties: {
       items: {
@@ -26,9 +25,11 @@
       }
     },
 
+    ready: function () {},
+
     filter: function (item) {
-      item.permalink = '/articles/' + item.id;
-      return item;
+      item.editlink = '/admin/articles/' + item.id;
+      return true;
     }
 
   });

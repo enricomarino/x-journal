@@ -5,6 +5,7 @@
   },
   "mongo": {
     "name": "mongo",
+    "database": "journal",
     "connector": "mongodb"
   },
   "email": {

@@ -1,0 +1,39 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/elements/app-page/app-page.html">
+<link rel="import" href="part-admin-category-search-actions.html">
+<link rel="import" href="part-admin-category-search-items.html">
+<dom-module id="page-admin-category-search">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-find id="find" collection="Categories" response="{{items}}"></api-model-find>
+
+    <app-page>
+      <h1>Categories</h1>
+      <part-admin-category-search-items items="{{items}}"></part-admin-category-search-items>
+      <part-admin-category-search-actions></part-admin-category-search-actions>
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-admin-category-search',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    },
+
+    ready: function () {
+      this.$.find.send();
+    }
+
+  });
+</script>

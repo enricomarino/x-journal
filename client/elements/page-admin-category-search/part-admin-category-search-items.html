@@ -1,0 +1,36 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="part-admin-category-search-item.html">
+<dom-module id="part-admin-category-search-items">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <template is="dom-repeat" items="{{items}}" filter="filter">
+      <part-admin-category-search-item item="{{item}}"></part-admin-category-search-item>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-admin-category-search-items',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    },
+
+    ready: function () {},
+
+    filter: function (item) {
+      item.editlink = '/admin/categories/' + item.id;
+      return true;
+    }
+
+  });
+</script>

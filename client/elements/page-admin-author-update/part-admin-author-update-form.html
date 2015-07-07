@@ -1,0 +1,46 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/elements/api-model-update/api-model-update.html">
+<dom-module id="part-admin-article-update-form">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-update id="update" collection="Authors"
+      model-id="{{author.id}}" model="{{author}}">
+    </api-model-update>
+
+    <form on-submit="on_submit">
+      <div>
+        <label>fullname</label>
+        <input is="iron-input" bind-value="{{author.fullname}}">
+      </div>
+      <div>
+        <input type="submit" value="update">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-admin-author-update-form',
+
+    properties: {
+      author: {
+        type: Object
+      }
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.update.send();
+    }
+
+  });
+</script>

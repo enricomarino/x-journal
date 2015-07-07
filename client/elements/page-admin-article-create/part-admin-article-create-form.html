@@ -1,0 +1,71 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/elements/api-model-create/api-model-create.html">
+<dom-module id="part-admin-article-create-form">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-create id="create" collection="Articles"
+      data="{{article}}" on-response="on_response">
+    </api-model-create>
+
+    <form on-submit="on_submit">
+      <div>
+        <label>title</label>
+        <input is="iron-input" bind-value="{{article.title}}">
+      </div>
+      <div>
+        <label>subtitle</label>
+        <input is="iron-input" bind-value="{{article.subtitle}}">
+      </div>
+      <div>
+        <label>summary</label>
+        <iron-autogrow-textarea bind-value="{{article.summary}}">
+          <textarea></textarea>
+        </iron-autogrow-textarea>
+      </div>
+      <div>
+        <label>content</label>
+        <iron-autogrow-textarea bind-value="{{article.content}}">
+          <textarea></textarea>
+        </iron-autogrow-textarea>
+      </div>
+      <div>
+        <label>category</label>
+        <input is="iron-input" bind-value="{{article.category}}">
+      </div>
+      <div>
+        <input type="submit" value="create">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-admin-article-create-form',
+
+    properties: {
+      article: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.create.send();
+    },
+
+    on_response: function () {
+      page('/admin/articles');
+    }
+
+  });
+</script>

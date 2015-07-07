@@ -1,0 +1,51 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/elements/app-link/app-link.html">
+<link rel="import" href="/elements/app-page/app-page.html">
+<link rel="import" href="part-admin-category-update-form.html">
+<dom-module id="page-admin-category-update">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-get id="get" auto collection="Categories"
+      model-id="{{category_id}}" model="{{category}}">
+    </api-model-get>
+
+    <api-model-delete id="delete" auto collection="Categories"
+      model-id="{{category_id}}" on-response="on_delete">
+    </api-model-delete>
+
+    <app-page>
+      <h1>Edit category</h1>
+      <part-admin-category-update-form category="{{category}}"></part-admin-category-update-form>
+      <button on-click="on_click_delete">delete</button>
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-admin-category-update',
+
+    properties: {
+      category: {
+        type: Object
+      }
+    },
+
+    ready: function () {},
+
+    on_click_delete: function (event) {
+      this.$.delete.send();
+    },
+
+    on_delete: function (event) {
+      page('/admin/categories');
+    }
+
+  });
+</script>

@@ -4,30 +4,12 @@
   "base": "PersistedModel",
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "index": true
     }
   },
   "validations": [],
-  "relations": {
-    "articles": {
-      "type": "hasMany",
-      "model": "Article",
-      "foreignKey": "articleId"
-    }
-  },
-  "acls": [
-    {
-     "principalType": "ROLE",
-     "principalId": "$everyone",
-     "permission": "ALLOW",
-     "property": "__get__articles"
-    },
-    {
-     "principalType": "ROLE",
-     "principalId": "$everyone",
-     "permission": "ALLOW",
-     "property": "__create__articles"
-    }
-  ],
+  "relations": {},
+  "acls": [],
   "methods": []
 }

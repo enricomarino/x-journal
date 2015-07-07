@@ -2,8 +2,8 @@
 <link rel="import" href="../api-model-find/api-model-find.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="part-admin-authors-list.html">
-<dom-module id="page-admin-authors">
+<link rel="import" href="part-admin-author-search-items.html">
+<dom-module id="page-admin-author-search">
   <style>
     :host {
       display: block;
@@ -15,7 +15,7 @@
 
     <app-page>
       <h1>Authors</h1>
-      <part-admin-authors-list items="{{authors}}"></part-admin-authors-list>
+      <part-admin-author-search-items items="{{authors}}"></part-admin-author-search-items>
     </app-page>
 
   </template>
@@ -23,7 +23,7 @@
 <script>
   Polymer({
 
-    is: 'page-admin-authors',
+    is: 'page-admin-author-search',
 
     properties: {
       authors: {

@@ -11,13 +11,17 @@
   <link rel="import" href="/elements/app-route/app-route.html">
   <link rel="import" href="/elements/page-about/page-about.html">
   <link rel="import" href="/elements/page-admin/page-admin.html">
-  <link rel="import" href="/elements/page-admin-article/page-admin-article.html">
-  <link rel="import" href="/elements/page-admin-articles/page-admin-articles.html">
-  <link rel="import" href="/elements/page-admin-author/page-admin-author.html">
-  <link rel="import" href="/elements/page-admin-authors/page-admin-authors.html">
-  <link rel="import" href="/elements/page-admin-categories/page-admin-categories.html">
-  <link rel="import" href="/elements/page-admin-category/page-admin-category.html">
+  <link rel="import" href="/elements/page-admin-article-create/page-admin-article-create.html">
+  <link rel="import" href="/elements/page-admin-article-search/page-admin-article-search.html">
+  <link rel="import" href="/elements/page-admin-article-update/page-admin-article-update.html">
+  <link rel="import" href="/elements/page-admin-author-create/page-admin-author-create.html">
+  <link rel="import" href="/elements/page-admin-author-search/page-admin-author-search.html">
+  <link rel="import" href="/elements/page-admin-author-update/page-admin-author-update.html">
+  <link rel="import" href="/elements/page-admin-category-create/page-admin-category-create.html">
+  <link rel="import" href="/elements/page-admin-category-search/page-admin-category-search.html">
+  <link rel="import" href="/elements/page-admin-category-update/page-admin-category-update.html">
   <link rel="import" href="/elements/page-article/page-article.html">
+  <link rel="import" href="/elements/page-articles/page-articles.html">
   <link rel="import" href="/elements/page-category/page-category.html">
   <link rel="import" href="/elements/page-contact/page-contact.html">
   <link rel="import" href="/elements/page-home/page-home.html">
@@ -31,12 +35,15 @@
     <app-route path="/" page="page-home"></app-route>
     <app-route path="/about" page="page-about"></app-route>
     <app-route path="/admin" page="page-admin"></app-route>
-    <app-route path="/admin/articles" page="page-admin-articles"></app-route>
-    <app-route path="/admin/articles/:article_id" page="page-admin-article"></app-route>
-    <app-route path="/admin/authors" page="page-admin-authors"></app-route>
-    <app-route path="/admin/authors/:author_id" page="page-admin-author"></app-route>
-    <app-route path="/admin/categories" page="page-admin-categories"></app-route>
-    <app-route path="/admin/categories/:category_id" page="page-admin-category"></app-route>
+    <app-route path="/admin/articles/new" page="page-admin-article-create"></app-route>
+    <app-route path="/admin/articles" page="page-admin-article-search"></app-route>
+    <app-route path="/admin/articles/:article_id" page="page-admin-article-update"></app-route>
+    <app-route path="/admin/authors/new" page="page-admin-author-create"></app-route>
+    <app-route path="/admin/authors" page="page-admin-author-search"></app-route>
+    <app-route path="/admin/authors/:author_id" page="page-admin-author-update"></app-route>
+    <app-route path="/admin/categories/new" page="page-admin-category-create"></app-route>
+    <app-route path="/admin/categories" page="page-admin-category-search"></app-route>
+    <app-route path="/admin/categories/:category_id" page="page-admin-category-update"></app-route>
     <app-route path="/articles/:article_id/" page="page-article"></app-route>
     <app-route path="/categories/:category_id/" page="page-category"></app-route>
     <app-route path="/contact" page="page-contact"></app-route>

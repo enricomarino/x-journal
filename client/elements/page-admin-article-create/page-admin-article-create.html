@@ -1,0 +1,33 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="part-admin-article-create-form.html">
+<dom-module id="page-admin-article-create">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-page>
+      <h1>Create article</h1>
+
+      <part-admin-article-create-form article="{{article}}"></part-admin-article-create-form>
+
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-admin-article-create',
+
+    properties: {
+      article: {
+        type: Object
+      }
+    }
+
+  });
+</script>

@@ -1,0 +1,54 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/elements/api-model-create/api-model-create.html">
+<dom-module id="part-admin-author-create-form">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-create id="update" collection="Authors"
+      model="{{author}}" on-response="on_response">
+    </api-model-create>
+
+    <form on-submit="on_submit">
+      <div>
+        <label>email</label>
+        <input is="iron-input" bind-value="{{author.email}}">
+      </div>
+      <div>
+        <label>password</label>
+        <input is="iron-input" type="password" bind-value="{{author.password}}">
+      </div>
+      <div>
+        <input type="submit" value="create">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-admin-author-create-form',
+
+    properties: {
+      author: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.create.send();
+    },
+
+    on_response: function (event) {
+      page('/admin/authors/');
+    }
+
+  });
+</script>

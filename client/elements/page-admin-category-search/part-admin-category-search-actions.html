@@ -1,7 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../app-link/app-link.html">
-<link rel="import" href="../app-page/app-page.html">
-<dom-module id="page-admin-categories">
+<link rel="import" href="/elements/app-link/app-link.html">
+<dom-module id="part-admin-category-search-actions">
   <style>
     :host {
       display: block;
@@ -9,16 +8,16 @@
   </style>
   <template>
 
-    <app-page>
-      <h1>Categories</h1>
-    </app-page>
+    <div>
+      <a href="/admin/categories/new">add category</a>
+    </div>
 
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'page-admin-categories',
+    is: 'part-admin-category-search-actions',
 
     properties: {},
 

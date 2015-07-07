@@ -1,0 +1,38 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/elements/app-link/app-link.html">
+<link rel="import" href="/elements/app-page/app-page.html">
+<link rel="import" href="part-admin-author-update-form.html">
+<dom-module id="page-admin-author-update">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-get id="get" auto collection="Authors"
+      model-id="{{author_id}}" model="{{author}}">
+    </api-model-get>
+
+    <app-page>
+      <h1>Edit author</h1>
+      <part-admin-author-update-form author="{{author}}"></part-admin-author-update-form>
+    </app-page>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-admin-author-update',
+
+    properties: {
+      author: {
+        type: Object
+      }
+    },
+
+    ready: function () {}
+
+  });
+</script>
