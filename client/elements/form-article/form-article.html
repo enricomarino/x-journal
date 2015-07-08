@@ -2,7 +2,9 @@
 <link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="/components/iron-input/iron-input.html">
 <link rel="import" href="/elements/api-model-update/api-model-update.html">
-<dom-module id="part-admin-article-update-form">
+<link rel="import" href="field-article-author.html">
+<link rel="import" href="field-article-category.html">
+<dom-module id="form-article">
   <style>
     :host {
       display: block;
@@ -37,17 +39,12 @@
         </iron-autogrow-textarea>
       </div>
       <div>
+        <label>author</label>
+        <field-article-author bind-value="{{article.authorId}}"></field-article-author>
+      </div>
+      <div>
         <label>category</label>
-        <input is="iron-input" bind-value="{{article.category}}">
-
-      </div>
-      <div>
-        <label>created by</label>
-        <input is="iron-input" bind-value="{{article.created_by}}">
-      </div>
-      <div>
-        <label>created at</label>
-        <input is="iron-input" bind-value="{{article.created_at}}">
+        <field-article-category bind-value="{{article.categoryId}}"></field-article-category>
       </div>
       <div>
         <input type="submit" value="update">
@@ -59,7 +56,7 @@
 <script>
   Polymer({
 
-    is: 'part-admin-article-update-form',
+    is: 'form-article',
 
     properties: {
       article: {

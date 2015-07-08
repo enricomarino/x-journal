@@ -11,7 +11,9 @@
   </style>
   <template>
 
-    <api-model-find id="find" collection="Articles" response="{{articles}}"></api-model-find>
+    <api-model-find id="find" collection="Articles"
+      include="{{include}}" response="{{articles}}">
+    </api-model-find>
 
     <app-page>
       <h1>Articles</h1>
@@ -29,6 +31,10 @@
     properties: {
       articles: {
         type: Array
+      },
+      include: {
+        type: Array,
+        value: ['category', 'author']
       }
     },
 

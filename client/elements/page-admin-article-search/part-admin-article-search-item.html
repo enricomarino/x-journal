@@ -1,5 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/elements/app-link/app-link.html">
+<link rel="import" href="/elements/api-model-get/api-model-get.html">
 <dom-module id="part-admin-article-search-item">
   <style>
     :host {
@@ -12,7 +13,8 @@
       <li>{{item.title}}</li>
       <li>{{item.subtitle}}</li>
       <li>{{item.summary}}</li>
-      <li>{{item.category}}</li>
+      <li>{{item.author.fullname}}</li>
+      <li>{{item.category.name}}</li>
       <li><a is="app-link" href="{{item.editlink}}">edit</a></li>
     </ul>
 

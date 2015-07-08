@@ -55,9 +55,13 @@
         type: Object,
         value: function () { return {}; }
       },
+      include: {
+        type: Object,
+        value: function () { return {}; }
+      },
       filter: {
         type: Object,
-        computed: '_compute_filter(where, order, page, perpage)'
+        computed: '_compute_filter(where, include, order, page, perpage)'
       }
     },
 
@@ -69,13 +73,14 @@
       return url;
     },
 
-    _compute_filter: function (where, order, page, perpage) {
+    _compute_filter: function (where, include, order, page, perpage) {
       var skip = page * perpage;
       var filter = {
         where: where,
         order: order,
         skip: skip,
-        limit: perpage
+        limit: perpage,
+        include: include
       };
       return filter;
     },

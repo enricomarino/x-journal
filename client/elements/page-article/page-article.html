@@ -15,8 +15,8 @@
 
     <app-session id="session"></app-session>
 
-    <api-model-get id="get" auto collection="Articles" model-id="{{article_id}}"
-      model="{{article}}" error="{{error}}">
+    <api-model-get id="get" collection="Articles" model-id="{{article_id}}"
+      include="{{include}}" model="{{article}}" error="{{error}}">
     </api-model-get>
 
     <template is="dom-if" if="{{error}}">
@@ -27,8 +27,13 @@
 
     <template is="dom-if" if="{{article}}">
       <app-page>
-        <h1>Article</h1>
-        <part-article-content article="{{article}}"></part-article-content>
+
+        <h2>{{article.title}}</h1>
+        <h3>{{article.subtitle}}</h3>
+        <h4><span>by</span><span> </span><span>{{article.author.fullname}}</span></h4>
+        <div>{{article.summary}}</div>
+        <div>{{article.content}}</div>
+
         <part-article-image article="{{article}}"></part-article-image>
       </app-page>
     </template>
@@ -46,7 +51,17 @@
       },
       error: {
         type: Object
+      },
+      include: {
+        type: Array,
+        value: ['category', 'author']
       }
+    },
+
+    ready: function () {
+      this.async(function () {
+        this.$.get.send();
+      });
     }
 
   });

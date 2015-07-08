@@ -12,11 +12,11 @@
   <template>
 
     <api-model-find id="find" collection="Articles"
-      page="{{page}}" perpage="{{perpage}}"
+      include="{{include}}" page="{{page}}" perpage="{{perpage}}"
       response="{{articles}}"></api-model-find>
 
     <app-page>
-      <h1>Articles</h1>
+      <h1>Journal</h1>
       <part-articles-items items="{{articles}}"></part-articles-items>
     </app-page>
 
@@ -38,6 +38,10 @@
       perpage: {
         type: Number,
         value: 10
+      },
+      include: {
+        type: Array,
+        value: ['author', 'category']
       }
     },
 

@@ -14,26 +14,21 @@
 
     <api-user-logout id="logout" name="Author" on-logout="on_logout"></api-user-logout>
 
-    <template is="dom-if" if="{{!access_token}}">
-      <ul>
-        <li><a is="app-link" href="/login">login</a></li>
-      </ul>
-    </template>
+    <header>
+      <a class="brand" is="app-link" href="/">Journal</a>
 
-    <template is="dom-if" if="{{access_token}}">
-      <ul>
-        <li><a is="app-link" href="/admin">admin</a></li>
-        <li><a is="app-link" href="/admin/articles">admin articles</a></li>
-        <li><a is="app-link" href="/admin/authors">admin authors</a></li>
-        <li><a is="app-link" href="/admin/categories">admin categories</a></li>
-        <li><a href="/logout" on-click="on_click_logout">logout</a></li>
-      </ul>
-    </template>
+      <template is="dom-if" if="{{!access_token}}">
+        <a is="app-link" class="link" href="/login">login</a>
+      </template>
 
-    <ul>
-      <li><a is="app-link" href="/home">home</a></li>
-      <li><a is="app-link" href="/articles">articles</a></li>
-    </ul>
+      <template is="dom-if" if="{{access_token}}">
+        <a is="app-link" class="link" href="/admin">admin</a>
+        <a is="app-link" class="link" href="/admin/articles">articles</a>
+        <a is="app-link" class="link" href="/admin/categories">categories</a>
+        <a is="app-link" class="link" href="/admin/authors">authors</a>
+        <a href="/logout" class="link" on-click="on_click_logout">logout</a>
+      </template>
+    </header>
 
   </template>
 </dom-module>
