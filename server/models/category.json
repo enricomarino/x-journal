@@ -4,12 +4,16 @@
   "base": "PersistedModel",
   "properties": {
     "name": {
-      "type": "string",
-      "index": true
+      "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "articles": {
+      "type": "hasMany",
+      "model": "Article"
+    }
+  },
   "acls": [],
   "methods": []
 }

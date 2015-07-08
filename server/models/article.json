@@ -15,6 +15,9 @@
     "created_at": {
       "type": "date"
     },
+    "created_by": {
+      "type": "string"
+    },
     "content": {
       "type": "string"
     }
@@ -22,13 +25,11 @@
   "relations": {
     "author": {
       "type": "belongsTo",
-      "model": "Author",
-      "foreignKey": "authorId"
+      "model": "Author"
     },
     "category": {
-      "type": "hasOne",
-      "model": "Category",
-      "foreignKey": "categoryId"
+      "type": "belongsTo",
+      "model": "Category"
     }
   },
   "validations": [

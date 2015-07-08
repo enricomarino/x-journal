@@ -23,15 +23,16 @@
     <template is="dom-if" if="{{access_token}}">
       <ul>
         <li><a is="app-link" href="/admin">admin</a></li>
-        <li><a is="app-link" href="/admin/articles">articles</a></li>
-        <li><a is="app-link" href="/admin/authors">authors</a></li>
-        <li><a is="app-link" href="/admin/categories">categories</a></li>
+        <li><a is="app-link" href="/admin/articles">admin articles</a></li>
+        <li><a is="app-link" href="/admin/authors">admin authors</a></li>
+        <li><a is="app-link" href="/admin/categories">admin categories</a></li>
         <li><a href="/logout" on-click="on_click_logout">logout</a></li>
       </ul>
     </template>
 
     <ul>
       <li><a is="app-link" href="/home">home</a></li>
+      <li><a is="app-link" href="/articles">articles</a></li>
     </ul>
 
   </template>

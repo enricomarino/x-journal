@@ -16,8 +16,7 @@
   "relations": {
     "articles": {
       "type": "hasMany",
-      "model": "Article",
-      "foreignKey": "authorId"
+      "model": "Article"
     }
   },
   "acls": [
