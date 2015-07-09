@@ -1,4 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../api-user-logout/api-user-logout.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-session/app-session.html">
@@ -7,6 +8,36 @@
     :host {
       display: block;
     }
+
+    .header {
+      @apply(--layout);
+      @apply(--layout-justified);
+      @apply(--layout-center);
+      @apply(--layout-fixed-top);
+      height: 60px;
+      background: transparent;
+      /*line-height: 60px;*/
+    }
+    .header .space {
+      @apply(--layout-flex);
+    }
+    .header .brand a {
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+      font-size: 30px;
+    }
+    .header .links {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+      list-style: none;
+      margin: 0;
+    }
+    .header .links a {
+      text-decoration: none;
+      display: block;
+      padding: 1em;
+    }
   </style>
   <template>
 
@@ -14,20 +45,28 @@
 
     <api-user-logout id="logout" name="Author" on-logout="on_logout"></api-user-logout>
 
-    <header>
-      <a class="brand" is="app-link" href="/">Journal</a>
+    <header class="header">
+      <div class="brand">
+        <a is="app-link" href="/">Journal</a>
+      </div>
+      <div class="space"></div>
+      <nav class="nav">
+        <template is="dom-if" if="{{!access_token}}">
+          <ul>
+            <li><a is="app-link" class="link" href="/login">login</a></li>
+          </ul>
+        </template>
 
-      <template is="dom-if" if="{{!access_token}}">
-        <a is="app-link" class="link" href="/login">login</a>
-      </template>
-
-      <template is="dom-if" if="{{access_token}}">
-        <a is="app-link" class="link" href="/admin">admin</a>
-        <a is="app-link" class="link" href="/admin/articles">articles</a>
-        <a is="app-link" class="link" href="/admin/categories">categories</a>
-        <a is="app-link" class="link" href="/admin/authors">authors</a>
-        <a href="/logout" class="link" on-click="on_click_logout">logout</a>
-      </template>
+        <template is="dom-if" if="{{access_token}}">
+          <ul class="links">
+            <li><a is="app-link" class="link" href="/admin">admin</a></li>
+            <li><a is="app-link" class="link" href="/admin/articles">articles</a></li>
+            <li><a is="app-link" class="link" href="/admin/categories">categories</a></li>
+            <li><a is="app-link" class="link" href="/admin/authors">authors</a></li>
+            <li><a href="/logout" class="link" on-click="on_click_logout">logout</a></li>
+          </ul>
+        </template>
+      </nav>
     </header>
 
   </template>

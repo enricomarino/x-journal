@@ -1,20 +1,50 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
 <dom-module id="part-footer">
   <style>
     :host {
       display: block;
     }
+
+    .footer {
+      @apply(--layout);
+      @apply(--layout-justified);
+      @apply(--layout-center);
+      @apply(--layout-fixed-top);
+    }
+    .footer .links {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+      list-style: none;
+      margin: 0;
+    }
+    .footer .copyright {
+      padding: 10px;
+    }
+    .footer a {
+      text-decoration: none;
+      display: block;
+    }
+    .footer .links a {
+      padding: 1em;
+    }
+
   </style>
   <template>
 
-    <div>
-      <ul>
-        <li><a is="app-link" href="/about">about</a></li>
-        <li><a is="app-link" href="/contact">contact</a></li>
-        <li><a is="app-link" href="/privacy">privacy</a></li>
-        <li><a is="app-link" href="/terms">terms</a></li>
-      </ul>
-    </div>
+    <footer class="footer">
+      <div class="copyright">
+        <span>Journal</span>
+      </div>
+      <nav class="nav">
+        <ul class="links">
+          <li><a is="app-link" href="/about">about</a></li>
+          <li><a is="app-link" href="/contact">contact</a></li>
+          <li><a is="app-link" href="/privacy">privacy</a></li>
+          <li><a is="app-link" href="/terms">terms</a></li>
+        </ul>
+      </nav>
+    </footer>
 
   </template>
 </dom-module>

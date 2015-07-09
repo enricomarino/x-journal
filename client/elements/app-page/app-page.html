@@ -1,4 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../part-header/part-header.html">
 <link rel="import" href="../part-footer/part-footer.html">
 <dom-module id="app-page">
@@ -6,14 +7,28 @@
     :host {
       display: block;
     }
+
+    .page {
+      @apply(--layout-vertical);
+      min-height: 100vh;
+    }
+    .page .space {
+      @apply(--layout-flex);
+    }
+    .page .content {
+      margin: 0 15px;
+    }
   </style>
   <template>
 
+  <div class="page">
     <part-header></part-header>
-
-    <content select="*"></content>
-
+    <div class="content">
+      <content select="*"></content>
+    </div>
+    <div class="space"></div>
     <part-footer></part-footer>
+  </div>
 
   </template>
 </dom-module>

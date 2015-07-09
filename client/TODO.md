@@ -1,6 +1,8 @@
+add style
+
 add field created_at (use moment)
 
-add style
+add field location (for author)
 
 delete api-user-create (use api-model-create)
 
