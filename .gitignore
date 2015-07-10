@@ -4,3 +4,4 @@ client/components
 common/unzip
 *.swp
 *.env
+storage
