@@ -1,0 +1,32 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<!-- <link rel="import" href="../app-link/app-link.html"> -->
+<dom-module id="part-image-item">
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
+  <template>
+
+    <a href="{{item.url}}" target="_blank">
+      <img src="{{item.thumb_url}}">
+    </a>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-image-item',
+
+    properties: {
+      item: {
+        type: Object
+      }
+    },
+
+    ready: function () {
+    }
+
+  });
+</script>

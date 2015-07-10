@@ -1,0 +1,64 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-model-get-all/api-model-get-all.html">
+<link rel="import" href="part-image-items.html">
+<dom-module id="part-image-containers">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-model-get-all id="getall" auto collection="Images"
+     response="{{images}}" on-response="on_response">
+    </api-model-get-all>
+
+      <!-- <template is="dom-repeat" items="{{images}}"> -->
+        <!-- <h4>Container <code>{{item}}</code></h4> -->
+        <part-image-items items="{{images}}"></part-image-items>
+      <!-- </template> -->
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-image-containers',
+
+    properties: {
+      images: {
+        type: Array,
+        value: function () { return []; }
+      }
+
+      // ,
+      // lists: {
+      //   type: Object,
+      //   value: function () { return {}; }
+      // },
+      // containers:{
+      //   type: Array,
+      //   value: []
+      // }
+    },
+
+    ready: function () {
+      this.$.getall.send();
+    },
+
+    // on_response: function (event) {
+    //   this.images.forEach(function (image) {
+    //     var container = image.container;
+    //     if (this.containers.indexOf(container) === -1) {
+    //       this.containers.push(container);
+    //       this.lists[container] = [];
+    //     }
+
+    //     this.lists[container].push(image);
+    //   }, this);
+    // }
+
+    on_response: function () {}
+
+  });
+</script>

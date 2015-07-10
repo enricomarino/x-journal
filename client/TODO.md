@@ -1,6 +1,8 @@
 add style
 
-add field created_at (use moment)
+add tags
+
+fix input for datetime
 
 add field location (for author)
 

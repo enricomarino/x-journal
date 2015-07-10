@@ -2,7 +2,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
 var env = require('node-env-file');
-var aws = require('aws-sdk');
+var multer = require('multer');
 
 env(__dirname + '/.env');
 
@@ -15,7 +15,10 @@ boot(app, __dirname);
 
 app.use(loopback.static(path.resolve(__dirname, '../client')));
 app.use(loopback.static(path.resolve(__dirname, '../common')));
+app.use('/storage', loopback.static(path.resolve(__dirname, './storage'), {index: false}));
+// TO-DO: read storage dir from .env
 
+app.use(multer({inMemory: true}));
 app.use(loopback.json());
 app.use(loopback.urlencoded({ extended: true }));
 

@@ -12,8 +12,9 @@
       <li>{{item.title}}</li>
       <li>{{item.subtitle}}</li>
       <li>{{item.summary}}</li>
-      <li>{{item.category.name}}</li>
-      <li>{{item.author.fullname}}</li>
+      <li><span>by</span> <span>{{item.author.fullname}}</span></li>
+      <li><span>published</span> <part-date date="{{item.published_at}}"></part-date></li>
+      <li><span>in</span> <span>{{item.category.name}}</span></li>
       <li><a is="app-link" href="{{item.permalink}}">view</a></li>
     </ul>
 

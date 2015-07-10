@@ -4,6 +4,8 @@
 <link rel="import" href="/elements/api-model-update/api-model-update.html">
 <link rel="import" href="field-article-author.html">
 <link rel="import" href="field-article-category.html">
+<link rel="import" href="field-article-tags.html">
+<link rel="import" href="field-article-image.html">
 <dom-module id="form-article">
   <style>
     :host {
@@ -38,6 +40,12 @@
           <textarea></textarea>
         </iron-autogrow-textarea>
       </div>
+
+      <div>
+        <label>image</label>
+        <field-article-image image="{{image}}"></field-article-image>
+      </div>
+
       <div>
         <label>author</label>
         <field-article-author bind-value="{{article.authorId}}"></field-article-author>
@@ -46,9 +54,15 @@
         <label>category</label>
         <field-article-category bind-value="{{article.categoryId}}"></field-article-category>
       </div>
+<!--
+      <div>
+        <label>tags</label>
+        <field-article-tags bind-value="{{article.tags}}"></field-article-tags>
+      </div>
+-->
       <div>
         <label>published at</label>
-        <input is="iron-input" type="date" bind-value="{{article.published_at}}">
+        <input is="iron-input" type="datetime-local" step="60" bind-value="{{article.published_at}}">
         <button id="now" on-click="on_click_now">now</button>
       </div>
       <div>
@@ -66,7 +80,16 @@
     properties: {
       article: {
         type: Object
+      },
+      image: {
+        type: Object,
+        observer: 'on_image'
       }
+    },
+
+    on_image: function (image) {
+      console.log(image);
+      this.article.image = image.id;
     },
 
     on_submit: function (event) {

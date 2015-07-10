@@ -9,7 +9,7 @@
     "dataSource": "mongo"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
@@ -36,6 +36,10 @@
   },
   "Tag": {
     "dataSource": "mongo"
+  },
+  "Image": {
+    "dataSource": "mongo",
+    "public": true
   },
 
   "Email": {

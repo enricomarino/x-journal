@@ -7,7 +7,9 @@
   </style>
   <template>
 
-    <div id="image">image</div>
+    <a href="{{image.url}}" target="_blank">
+      <img src="{{image.thumb_url}}">
+    </a>
 
   </template>
 </dom-module>
@@ -17,9 +19,17 @@
     is: 'part-article-image',
 
     properties: {
-      article: {
-        type: Object
+      image: {
+        type: Object,
+        observer: 'on_image'
       }
+    },
+
+    on_image: function (image) {
+      image.url = image.base_url + '/' + 'original' + image.extension;
+      // l'originale ha l'estensione originale
+      image.thumb_url = image.base_url + '/thumb-100.jpg';
+      // le thumbs hanno estensione .jpg
     },
 
     ready: function () {}

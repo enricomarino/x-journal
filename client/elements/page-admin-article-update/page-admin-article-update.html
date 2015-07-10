@@ -12,7 +12,7 @@
   <template>
 
     <api-model-get id="get" auto collection="Articles"
-      model-id="{{article_id}}" model="{{article}}" on-response="on_get">
+      model-id="{{article_id}}" model="{{article}}">
     </api-model-get>
 
     <api-model-delete id="delete" collection="Articles"
@@ -34,17 +34,8 @@
 
     properties: {
       article: {
-        type: Object,
-        observe: 'on_article'
+        type: Object
       }
-    },
-
-    on_article: function () {
-      console.log(this.article);
-    },
-
-    on_get: function () {
-      console.log(this.article);
     },
 
     delete: function () {

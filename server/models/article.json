@@ -37,9 +37,13 @@
     "tags": {
       "type": "hasMany",
       "model": "Tag"
+    },
+    "image": {
+      "type": "hasOne",
+      "model": "Image"
     }
   },
-  "validations": [
+  "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",
@@ -51,8 +55,15 @@
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "image_upload"
     }
   ],
   "methods": [],
-  "acls": []
+  "validations": []
 }

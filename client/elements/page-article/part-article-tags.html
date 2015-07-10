@@ -1,0 +1,32 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<dom-module id="part-article-tags">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <ul>
+      <template is="dom-repeat" items="{{tags}}" as="tag">
+        <li>{{tag.name}}</li>
+      </template>
+    </ul>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-article-tags',
+
+    properties: {
+      tags: {
+        type: Array
+      }
+    },
+
+    ready: function () {}
+
+  });
+</script>

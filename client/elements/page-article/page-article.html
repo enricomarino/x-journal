@@ -3,6 +3,7 @@
 <link rel="import" href="/elements/app-link/app-link.html">
 <link rel="import" href="/elements/app-page/app-page.html">
 <link rel="import" href="/elements/app-session/app-session.html">
+<link rel="import" href="/elements/part-date/part-date.html">
 <link rel="import" href="part-article-content.html">
 <link rel="import" href="part-article-image.html">
 <dom-module id="page-article">
@@ -30,10 +31,12 @@
 
         <h2>{{article.title}}</h1>
         <h3>{{article.subtitle}}</h3>
-        <h4><span>by</span><span> </span><span>{{article.author.fullname}}</span></h4>
+        <h4><span>by</span> <span>{{article.author.fullname}}</span></h4>
+        <div><span>in</span> <span>{{article.category.name}}</span></div>
+        <div><span>published</span> <part-date date="{{article.published_at}}"></part-date></div>
         <div>{{article.summary}}</div>
         <div>{{article.content}}</div>
-
+        <part-article-tags tags="{{article.tags}}"></part-article-tags>
         <part-article-image article="{{article}}"></part-article-image>
       </app-page>
     </template>
@@ -54,7 +57,7 @@
       },
       include: {
         type: Array,
-        value: ['category', 'author']
+        value: ['category', 'author', 'image']
       }
     },
 
