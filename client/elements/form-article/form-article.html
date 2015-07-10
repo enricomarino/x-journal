@@ -47,6 +47,11 @@
         <field-article-category bind-value="{{article.categoryId}}"></field-article-category>
       </div>
       <div>
+        <label>published at</label>
+        <input is="iron-input" type="date" bind-value="{{article.published_at}}">
+        <button id="now" on-click="on_click_now">now</button>
+      </div>
+      <div>
         <input type="submit" value="update">
       </div>
     </form>
@@ -71,6 +76,12 @@
 
     on_response: function (event) {
       page('/admin/articles');
+    },
+
+    on_click_now: function (event) {
+      event.preventDefault();
+      this.article.published_at = new Date();
+      console.log(this.article)
     }
 
   });

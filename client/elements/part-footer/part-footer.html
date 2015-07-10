@@ -7,19 +7,20 @@
     }
 
     .footer {
+      background: #efefef;
+    }
+    .footer .container {
       @apply(--layout);
       @apply(--layout-justified);
       @apply(--layout-center);
-      @apply(--layout-fixed-top);
+      margin: 0 15px;
     }
     .footer .links {
       @apply(--layout-horizontal);
       @apply(--layout-wrap);
+      -webkit-padding-start: 0px;
       list-style: none;
       margin: 0;
-    }
-    .footer .copyright {
-      padding: 10px;
     }
     .footer a {
       text-decoration: none;
@@ -33,17 +34,19 @@
   <template>
 
     <footer class="footer">
-      <div class="copyright">
-        <span>Journal</span>
+      <div class="container">
+        <nav class="nav">
+          <ul class="links">
+            <li><a is="app-link" href="/about">about</a></li>
+            <li><a is="app-link" href="/contact">contact</a></li>
+            <li><a is="app-link" href="/privacy">privacy</a></li>
+            <li><a is="app-link" href="/terms">terms</a></li>
+          </ul>
+        </nav>
+        <div class="made">
+          <span>made with</span> <span>♥</span> <span>in Rome</span>
+        </div>
       </div>
-      <nav class="nav">
-        <ul class="links">
-          <li><a is="app-link" href="/about">about</a></li>
-          <li><a is="app-link" href="/contact">contact</a></li>
-          <li><a is="app-link" href="/privacy">privacy</a></li>
-          <li><a is="app-link" href="/terms">terms</a></li>
-        </ul>
-      </nav>
     </footer>
 
   </template>

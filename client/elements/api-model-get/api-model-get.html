@@ -6,7 +6,7 @@
 
     <app-session id="session"></app-session>
 
-    <iron-ajax id="ajax" method="GET" url="{{url}}"
+    <iron-ajax id="ajax" auto$="{{auto}}" method="GET" url="{{url}}"
       params="{{params}}" headers="{{headers}}"
       last-response="{{model}}" handleAs="json"
       last-error="{{error}}">

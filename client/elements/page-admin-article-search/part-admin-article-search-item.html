@@ -1,6 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/elements/app-link/app-link.html">
 <link rel="import" href="/elements/api-model-get/api-model-get.html">
+<link rel="import" href="/elements/part-date/part-date.html">
 <dom-module id="part-admin-article-search-item">
   <style>
     :host {
@@ -13,8 +14,16 @@
       <li>{{item.title}}</li>
       <li>{{item.subtitle}}</li>
       <li>{{item.summary}}</li>
-      <li>{{item.author.fullname}}</li>
-      <li>{{item.category.name}}</li>
+      <li><span>created</span> <part-date date="{{item.created_at}}"></part-date></li>
+      <li><span>updated</span> <part-date date="{{item.updated_at}}"></part-date></li>
+      <li><span>published</span> <part-date date="{{item.published_at}}"></part-date></li>
+      <li><span>by</span> <span>{{item.author.fullname}}</span></li>
+      <li><span>in</span> <span>{{item.category.name}}</span></li>
+      <ul>
+        <template is="dom-repeat" items="{{item.tags}}" as="tag">
+          <li>{{tag.name}}</li>
+        </template>
+      </ul>
       <li><a is="app-link" href="{{item.editlink}}">edit</a></li>
     </ul>
 
@@ -29,9 +38,7 @@
       item: {
         type: Object
       }
-    },
-
-    ready: function () {}
+    }
 
   });
 </script>

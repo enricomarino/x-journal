@@ -2,7 +2,6 @@
 <link rel="import" href="/elements/api-model-delete/api-model-delete.html">
 <link rel="import" href="/elements/api-model-get/api-model-get.html">
 <link rel="import" href="/elements/app-page/app-page.html">
-<link rel="import" href="part-admin-article-update-form.html">
 <link rel="import" href="../form-article/form-article.html">
 <dom-module id="page-admin-article-update">
   <style>
@@ -22,8 +21,6 @@
 
     <app-page>
       <h1>Edit article</h1>
-
-      <!-- <part-admin-article-update-form article="{{article}}"></part-admin-article-update-form> -->
       <form-article article="{{article}}"></form>
       <button on-click="on_click_delete">delete</button>
     </app-page>
@@ -37,8 +34,13 @@
 
     properties: {
       article: {
-        type: Object
+        type: Object,
+        observe: 'on_article'
       }
+    },
+
+    on_article: function () {
+      console.log(this.article);
     },
 
     on_get: function () {

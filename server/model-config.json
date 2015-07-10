@@ -34,6 +34,9 @@
   "Category": {
     "dataSource": "mongo"
   },
+  "Tag": {
+    "dataSource": "mongo"
+  },
 
   "Email": {
     "dataSource": "email"

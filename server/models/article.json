@@ -12,11 +12,17 @@
     "summary": {
       "type": "string"
     },
+    "content": {
+      "type": "string"
+    },
     "created_at": {
       "type": "date"
     },
-    "content": {
-      "type": "string"
+    "updated_at": {
+      "type": "date"
+    },
+    "published_at": {
+      "type": "date"
     }
   },
   "relations": {
@@ -27,6 +33,10 @@
     "category": {
       "type": "belongsTo",
       "model": "Category"
+    },
+    "tags": {
+      "type": "hasMany",
+      "model": "Tag"
     }
   },
   "validations": [

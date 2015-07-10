@@ -1,0 +1,14 @@
+{
+  "name": "Tag",
+  "plural": "Tags",
+  "base": "PersistedModel",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
