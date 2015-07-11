@@ -1,7 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../util-xml-parser/util-xml-parser.html">
-<dom-module id="api-image-list">
+<link rel="import" href="../xml-parser/xml-parser.html">
+<dom-module id="api-s3-list">
   <template>
 
     <iron-ajax id="request" method="GET" url="/api/Images/signed_list"
@@ -13,7 +13,7 @@
       handle-as="text" last-response="{{s3_response_xml}}">
     </iron-ajax>
 
-    <util-xml-parser xml="{{s3_response_xml}}" json="{{s3_response_json}}"></util-xml-parser>
+    <xml-parser xml="{{s3_response_xml}}" json="{{s3_response_json}}"></xml-parser>
 
   </template>
 </dom-module>
@@ -22,7 +22,7 @@
 
   Polymer({
 
-    is: 'api-image-list',
+    is: 'api-s3-list',
 
     properties: {
       folder: {

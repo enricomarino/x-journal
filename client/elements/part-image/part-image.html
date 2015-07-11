@@ -1,0 +1,48 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<dom-module id="part-image">
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
+  <template>
+
+    <a href="{{url}}" target="_blank">
+      <img src="{{thumb_url}}">
+    </a>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-image',
+
+    properties: {
+      image: {
+        type: Object
+      },
+      size: {
+        type: Number,
+        value: 400
+      },
+      url: {
+        type: String,
+        computed: '_compute_url(image)'
+      },
+      thumb_url: {
+        type: String,
+        computed: '_compute_thumb_url(image, size)'
+      }
+    },
+
+    _compute_url: function (image) {
+      return image.base_url + '/' + 'original' + image.extension;
+    },
+
+    _compute_thumb_url: function (image, size) {
+      return image.base_url + '/thumb-' + size + '.jpg';
+    }
+
+  });
+</script>

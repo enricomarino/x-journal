@@ -6,9 +6,22 @@
 
     <app-session id="session"></app-session>
 
-    <iron-ajax id="ajax" method="POST"
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      postfix="/reset"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
+
+    <iron-ajax id="ajax"
+      method="[[method]]"
+      url="{{url}}"
+      handleAs="[[handleAs]]"
+      headers="{{headers}}"
       body="{{body}}"
-      last-response="{{response}}" handleAs="json">
+      last-response="{{response}}"
+      last-error="{{error}}">
     </iron-ajax>
 
   </template>
@@ -19,32 +32,58 @@
     is: 'api-user-reset',
 
     properties: {
-      collection: {
+      method: {
+        type: String,
+        value: 'POST'
+      },
+      path: {
         type: String,
         value: 'Users'
+      },
+      pathParams: {
+        type: Object
+      },
+      handleAs: {
+        type: String,
+        value: 'json'
+      },
+      token: {
+        type: String,
+      },
+      headers: {
+        type: Object,
+        value: function () { return {}; }
       },
       email: {
         type: String
       },
       body: {
-        type: String,
-        computed: '_compute_body(email)'
+        type: String
       },
       response: {
-        type: Object
+        type: Object,
+        notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
       }
     },
 
-    _compute_body: function (email) {
-      var body = { email: email };
-      var string = JSON.stringify(body);
-      return string;
+    observers: [
+      'on_change_token(token)',
+      'on_change_email(email)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
+    },
+
+    on_change_email: function (email) {
+      this.body = JSON.stringify({ email: email });
     },
 
     send: function () {
-      var access_token = this.$.session.get('access_token');
-      this.$.ajax.headers = { Authorization: access_token };
-      this.$.ajax.url = '/api/' + this.collection;
       this.$.ajax.generateRequest();
     }
 

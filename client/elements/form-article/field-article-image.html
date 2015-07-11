@@ -1,6 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="/elements/api-model-find/api-model-find.html">
-<link rel="import" href="/elements/part-image/part-image-upload.html">
+<link rel="import" href="../api-model-find/api-model-find.html">
+<link rel="import" href="../part-image-upload/part-image-upload.html">
 <dom-module id="field-article-image">
   <style>
     :host {
@@ -9,7 +9,10 @@
   </style>
   <template>
 
-    <part-image-upload image="{{image}}"></part-image-upload>
+    <part-image-upload
+      path="Articles/${id}/image" path-params="{{article}}"
+      image="{{image}}">
+    </part-image-upload>
 
   </template>
 </dom-module>
@@ -19,6 +22,9 @@
     is: 'field-article-image',
 
     properties: {
+      article: {
+        type: Object
+      },
       image: {
         type: Object,
         notify: true

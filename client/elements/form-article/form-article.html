@@ -14,19 +14,18 @@
   </style>
   <template>
 
-    <api-model-update id="update" collection="Articles"
-      model-id="{{article.id}}" model="{{article}}"
-      on-response="on_response">
+    <api-model-update id="update" path="Articles/${id}" path-params="{{article}}"
+      data="{{article}}" on-response="on_response">
     </api-model-update>
 
     <form on-submit="on_submit">
       <div>
         <label>title</label>
-        <input is="iron-input" bind-value="{{article.title}}">
+        <input is="iron-input" type="text" bind-value="{{article.title}}">
       </div>
       <div>
         <label>subtitle</label>
-        <input is="iron-input" bind-value="{{article.subtitle}}">
+        <input is="iron-input" type="text" bind-value="{{article.subtitle}}">
       </div>
       <div>
         <label>summary</label>
@@ -40,12 +39,10 @@
           <textarea></textarea>
         </iron-autogrow-textarea>
       </div>
-
       <div>
         <label>image</label>
-        <field-article-image image="{{image}}"></field-article-image>
+        <field-article-image article="{{article}}" image="{{image}}"></field-article-image>
       </div>
-
       <div>
         <label>author</label>
         <field-article-author bind-value="{{article.authorId}}"></field-article-author>
@@ -66,6 +63,7 @@
         <button id="now" on-click="on_click_now">now</button>
       </div>
       <div>
+        <br>
         <input type="submit" value="update">
       </div>
     </form>

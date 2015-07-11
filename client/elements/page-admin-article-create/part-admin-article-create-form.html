@@ -10,7 +10,7 @@
   </style>
   <template>
 
-    <api-model-create id="create" collection="Articles"
+    <api-model-create id="create" path="Articles"
       data="{{article}}" on-response="on_response">
     </api-model-create>
 
@@ -36,10 +36,7 @@
         </iron-autogrow-textarea>
       </div>
       <div>
-        <label>category</label>
-        <input is="iron-input" bind-value="{{article.category}}">
-      </div>
-      <div>
+        <br>
         <input type="submit" value="create">
       </div>
     </form>

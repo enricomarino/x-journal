@@ -9,8 +9,8 @@
   </style>
   <template>
 
-    <api-model-create id="update" collection="Authors"
-      model="{{author}}" on-response="on_response">
+    <api-model-create id="create" path="Authors"
+      data="{{author}}" on-response="on_response">
     </api-model-create>
 
     <form on-submit="on_submit">
@@ -23,6 +23,7 @@
         <input is="iron-input" type="password" bind-value="{{author.password}}">
       </div>
       <div>
+        <br>
         <input type="submit" value="create">
       </div>
     </form>

@@ -1,13 +1,30 @@
-<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <link rel="import" href="../app-session/app-session.html">
 <dom-module id="api-user-login">
   <template>
 
     <app-session id="session"></app-session>
 
-    <iron-ajax id="ajax" method="POST" content-type="application/json"
-      last-response="{{response}}" handle-as="json" on-response="on_response"
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      postfix="/login"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
+
+    <iron-ajax id="ajax"
+      auto="[[auto]]"
+      method="[[method]]"
+      content-type="{{contentType}}"
+      handleAs="[[handleAs]]"
+      url="{{url}}"
+      params="{{params}}"
+      headers="{{headers}}"
+      body="{{body}}"
+      last-response="{{response}}"
       last-error="{{error}}">
     </iron-ajax>
 
@@ -19,12 +36,43 @@
     is: 'api-user-login',
 
     properties: {
-      collection: {
+      auto: {
+        type: Boolean,
+        value: false
+      },
+      method: {
+        type: String,
+        value: 'POST'
+      },
+      contentType: {
+        type: String,
+        value: 'application/json'
+      },
+      path: {
         type: String,
         value: 'Users'
       },
-      credentials: {
+      pathParams: {
         type: Object
+      },
+      url: {
+        type: String
+      },
+      params: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      headers: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      handleAs: {
+        type: String,
+        value: 'json'
+      },
+      credentials: {
+        type: Object,
+        value: function () { return {}; }
       },
       response: {
         type: Object,
@@ -36,16 +84,25 @@
       }
     },
 
-    send: function () {
-      this.$.ajax.url = '/api/' + this.collection + '/login';
-      this.$.ajax.body = JSON.stringify(this.credentials);
-      this.$.ajax.generateRequest();
+    observers: [
+      'on_change_credentials(credentials)',
+      'on_response(response)'
+    ],
+
+    on_change_credentials: function (credentials) {
+      this.body = JSON.stringify(credentials);
     },
 
-    on_response: function (event) {
-      this.$.session.set('access_token', this.response.id);
-      this.$.session.set('user_id', this.response.userId);
-      this.$.session.set('ttl', this.response.ttl)
+    on_response: function (response) {
+      var session = this.$.session;
+      session.set('access_token', response.id);
+      session.set('user_id', response.userId);
+      session.set('ttl', response.ttl);
+      this.fire('login');
+    },
+
+    send: function () {
+      this.$.ajax.generateRequest();
     }
 
   });

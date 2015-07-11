@@ -1,14 +1,23 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
 <dom-module id="api-user-logout">
   <template>
 
-    <app-session id="session"></app-session>
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      postfix="/logout"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
 
-    <iron-ajax id="ajax" method="POST"
-      last-response="{{response}}" handle-as="json"
-      on-response="on_response" on-error="on_error">
+    <iron-ajax id="ajax"
+      method="[[method]]"
+      url="{{url}}"
+      handleAs="[[handleAs]]"
+      header="{{headers}}"
+      last-response="{{response}}"
+      last-error="{{error}}">
     </iron-ajax>
 
   </template>
@@ -19,20 +28,49 @@
     is: 'api-user-logout',
 
     properties: {
-      collection: {
+      method: {
+        type: String,
+        value: 'POST'
+      },
+      path: {
         type: String,
         value: 'Users'
       },
+      pathParams: {
+        type: Object
+      },
+      handleAs: {
+        type: String,
+        value: 'json'
+      },
+      token: {
+        type: String,
+      },
+      headers: {
+        type: Object,
+        value: function () { return {}; }
+      },
       response: {
+        type: Object,
+        notify: true
+      },
+      error: {
         type: Object,
         notify: true
       }
     },
 
+    observers: [
+      'on_change_token(token)',
+      'on_response(response)',
+      'on_error(error)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
+    },
+
     send: function () {
-      var access_token = this.$.session.get('access_token');
-      this.$.ajax.headers = { Authorization: access_token };
-      this.$.ajax.url = '/api/' + this.collection + '/logout';
       this.$.ajax.generateRequest();
     },
 
@@ -44,7 +82,6 @@
     on_error: function (event) {
       this.$.session.unset('access_token');
       this.fire('logout');
-      console.warn(event);
     }
 
   });

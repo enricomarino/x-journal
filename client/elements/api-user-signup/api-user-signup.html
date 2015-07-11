@@ -1,15 +1,20 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../api-user-create/api-user-create.html">
+<link rel="import" href="../api-model-create/api-model-create.html">
 <link rel="import" href="../api-user-login/api-user-login.html">
 <dom-module id="api-user-signup">
   <template>
 
-    <api-user-create id="create" collection="{{collection}}" credentials="{{credentials}}"
-      on-response="on_create" on-error="on_error">
-    </api-user-create>
+    <api-model-create id="create"
+      path="{{path}}"
+      data="{{credentials}}"
+      on-response="on_create">
+    </api-model-create>
 
-    <api-user-login id="login" collection="{{collection}}" credentials="{{credentials}}"
-      response="{{user}}" on-response="on_login" on-error="on_error">
+    <api-user-login id="login"
+      path="{{path}}"
+      credentials="{{credentials}}"
+      response="{{user}}"
+      on-response="on_login">
     </api-user-login>
 
   </template>
@@ -20,7 +25,7 @@
     is: 'api-user-signup',
 
     properties: {
-      collection: {
+      path: {
         type: String,
         value: 'Users'
       },
@@ -28,6 +33,10 @@
         type: Object
       },
       user: {
+        type: Object,
+        notify: true
+      },
+      error: {
         type: Object,
         notify: true
       }
@@ -44,7 +53,7 @@
 
     on_login: function (event) {
       event.stopPropagation();
-      this.fire('response', this.user);
+      this.fire('signup', this.user);
     }
 
   });

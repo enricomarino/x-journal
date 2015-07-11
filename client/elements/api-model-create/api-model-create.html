@@ -1,14 +1,27 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <dom-module id="api-model-create">
   <template>
 
-    <app-session id="session"></app-session>
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
 
-    <iron-ajax id="ajax" method="POST"
-      content-type="application/json"
-      last-response="{{response}}" handleAs="json">
+    <iron-ajax id="ajax"
+      auto="[[auto]]"
+      method="[[method]]"
+      content-type="[[contentType]]"
+      handleAs="[[handleAs]]"
+      url="{{url}}"
+      params="{{params}}"
+      headers="{{headers}}"
+      body="{{body}}"
+      last-response="{{model}}"
+      last-error="{{error}}">
     </iron-ajax>
 
   </template>
@@ -19,8 +32,17 @@
     is: 'api-model-create',
 
     properties: {
-      collection: {
-        type: String
+      auto: {
+        type: Boolean,
+        value: false
+      },
+      method: {
+        type: String,
+        value: 'POST'
+      },
+      contentType: {
+        type: String,
+        value: 'application/json'
       },
       path: {
         type: String
@@ -29,34 +51,43 @@
         type: Object
       },
       url: {
-        type: String,
-        computed: '_compute_url(path, pathParams)'
+        type: String
+      },
+      params: {
+        type: Object,
+        value: function () { return {}; }
       },
       data: {
-        type: Object
+        type: Object,
+        value: function () { return {}; }
       },
-      response: {
+      body: {
+        type: String
+      },
+      model: {
+        type: Object,
+        notify: true
+      },
+      error: {
         type: Object,
         notify: true
       }
     },
 
-    _compute_url: function (path, pathParams) {
-      var regexp = /\${(\w+)}/ig;
-      var url = path.replace(regexp, function (match, key) {
-        return pathParams[key];
-      });
-      console.log(url);
-      return url;
+    observers: [
+      'on_change_token(token)',
+      'on_change_data(data)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
+    },
+
+    on_change_data: function (data) {
+      this.body = JSON.stringify(data);
     },
 
     send: function () {
-      var access_token = this.$.session.get('access_token');
-      this.$.ajax.headers = { Authorization: access_token };
-      this.$.ajax.body = JSON.stringify(this.data);
-      console.log(this.data);
-      // this.$.ajax.body = this.data;
-      this.$.ajax.url = this.url || '/api/' + this.collection;
       this.$.ajax.generateRequest();
     }
 

@@ -21,11 +21,13 @@
     .header .space {
       @apply(--layout-flex);
     }
-    .header .brand a {
-      text-decoration: none;
-      display: block;
+    .header .brand {
       padding: 10px;
       font-size: 30px;
+    }
+    .header .brand a {
+      text-decoration: none;
+      /*display: block;*/
     }
     .header .links {
       @apply(--layout-horizontal);
@@ -41,30 +43,17 @@
   </style>
   <template>
 
-    <app-session id="session"></app-session>
-
-    <api-user-logout id="logout" name="Author" on-logout="on_logout"></api-user-logout>
-
     <header class="header">
       <div class="brand">
-        <a is="app-link" href="/">Journal</a>
+        <a is="app-link" href="/admin">x-</a><a is="app-link" href="/">{{brand}}</a>
       </div>
       <div class="space"></div>
       <nav class="nav">
-        <template is="dom-if" if="{{!access_token}}">
-          <ul>
-            <li><a is="app-link" class="link" href="/login">login</a></li>
-          </ul>
-        </template>
-
-        <template is="dom-if" if="{{access_token}}">
-          <ul class="links">
-            <li><a is="app-link" class="link" href="/admin">admin</a></li>
-            <li><a is="app-link" class="link" href="/admin/articles">articles</a></li>
-            <li><a is="app-link" class="link" href="/admin/categories">categories</a></li>
-            <li><a is="app-link" class="link" href="/admin/authors">authors</a></li>
-            <li><a href="/logout" class="link" on-click="on_click_logout">logout</a></li>
-          </ul>
+        <ul class="links">
+          <template is="dom-repeat" items="{{categories}}" as="category" filter="filter">
+            <li><a is="app-link" class="link" href="{{category.url}}">{{category.name}}</a></li>
+          </template>
+        </ul>
         </template>
       </nav>
     </header>
@@ -77,22 +66,17 @@
     is: 'part-header',
 
     properties: {
+      brand: {
+        type: String,
+        value: 'journal'
+      },
       access_token: {
         type: String
+      },
+      categories: {
+        type: Array,
+        value: []
       }
-    },
-
-    ready: function () {
-      this.access_token = this.$.session.get('access_token');
-    },
-
-    on_click_logout: function (event) {
-      event.preventDefault();
-      this.$.logout.send();
-    },
-
-    on_logout: function () {
-      page('/');
     }
 
   });

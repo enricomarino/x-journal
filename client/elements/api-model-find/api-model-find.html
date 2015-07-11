@@ -1,13 +1,25 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <dom-module id="api-model-find">
   <template>
 
-    <app-session id="session"></app-session>
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
 
-    <iron-ajax id="ajax" method="GET"
-      last-response="{{response}}" handleAs="json">
+    <iron-ajax id="ajax"
+      auto="{{auto}}"
+      method="[[method]]"
+      url="{{url}}"
+      params="{{params}}"
+      headers="{{headers}}"
+      handleAs="[[handleAs]]"
+      last-response="{{models}}"
+      last-error="{{error}}">
     </iron-ajax>
 
   </template>
@@ -18,8 +30,13 @@
     is: 'api-model-find',
 
     properties: {
-      collection: {
-        type: String
+      auto: {
+        type: Boolean,
+        value: false
+      },
+      method: {
+        type: String,
+        value: 'GET'
       },
       path: {
         type: String
@@ -28,16 +45,34 @@
         type: Object
       },
       url: {
-        type: String,
-        computed: '_compute_url(path, pathParams)'
+        type: String
       },
-      response: {
-        type: Array,
-        notify: true
-      },
-      error: {
+      params: {
         type: Object,
-        notify: true
+        value: function () { return {}; }
+      },
+      headers: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      handleAs: {
+        type: String,
+        value: 'json'
+      },
+      token: {
+        type: String
+      },
+      include: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      where: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      order: {
+        type: String,
+        value: ''
       },
       page: {
         type: Number,
@@ -47,52 +82,39 @@
         type: Number,
         value: 100
       },
-      order: {
-        type: String,
-        value: ''
+      models: {
+        type: Array,
+        notify: true
       },
-      where: {
+      error: {
         type: Object,
-        value: function () { return {}; }
-      },
-      include: {
-        type: Object,
-        value: function () { return {}; }
-      },
-      filter: {
-        type: Object,
-        computed: '_compute_filter(where, include, order, page, perpage)'
+        notify: true
       }
     },
 
-    _compute_url: function (path, pathParams) {
-      var regexp = /\${(\w+)}/ig;
-      var url = path.replace(regexp, function (match, key) {
-        return pathParams[key];
-      });
-      return url;
+    observers: [
+      'on_change_token(token)',
+      'on_change_filter(where, include, order, page, perpage)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
     },
 
-    _compute_filter: function (where, include, order, page, perpage) {
+    on_change_filter: function (where, include, order, page, perpage) {
       var skip = page * perpage;
-      var filter = {
+      var data = {
         where: where,
         order: order,
         skip: skip,
         limit: perpage,
         include: include
       };
-      return filter;
+      var filter = JSON.stringify(data);
+      this.params.filter = filter;
     },
 
     send: function () {
-      var access_token = this.$.session.get('access_token');
-      if (access_token) {
-        this.$.ajax.headers = { Authorization: access_token };
-      }
-      var query = JSON.stringify(this.filter);
-      this.$.ajax.params = { filter: query };
-      this.$.ajax.url = this.url || '/api/' + this.collection;
       this.$.ajax.generateRequest();
     }
 

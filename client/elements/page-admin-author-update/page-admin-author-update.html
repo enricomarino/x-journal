@@ -1,6 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="/elements/app-link/app-link.html">
-<link rel="import" href="/elements/app-page/app-page.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../app-session/app-session.html">
 <link rel="import" href="part-admin-author-update-form.html">
 <dom-module id="page-admin-author-update">
   <style>
@@ -10,8 +11,11 @@
   </style>
   <template>
 
-    <api-model-get id="get" auto collection="Authors"
-      model-id="{{author_id}}" model="{{author}}">
+    <app-session id="session"></app-session>
+
+    <api-model-get id="get" token="{{token}}"
+      path="Authors/${author_id}" path-params="{{pathParams}}"
+      model="{{author}}">
     </api-model-get>
 
     <app-page>
@@ -29,10 +33,18 @@
     properties: {
       author: {
         type: Object
+      },
+      token: {
+        type: String
       }
     },
 
-    ready: function () {}
+    ready: function () {
+      this.token = this.$.session.get('access_token');
+      this.async(function () {
+        this.$.get.send();
+      });
+    }
 
   });
 </script>

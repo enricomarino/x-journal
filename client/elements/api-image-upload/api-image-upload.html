@@ -6,8 +6,9 @@
 
     <app-session id="session"></app-session>
 
-    <api-model-create id="create" collection="Images" data="{{params}}"
-      response="{{image}}" on-response="on_response">
+    <api-model-create id="create"
+      path="{{path}}" path-params="{{pathParams}}" data="{{data}}"
+      model="{{image}}" on-response="on_response">
     </api-model-create>
 
     <input id="input" type="file" on-change="on_file">
@@ -20,7 +21,14 @@
     is: 'api-image-upload',
 
     properties: {
-      params: {
+      data: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      path: {
+        type: String
+      },
+      pathParams: {
         type: Object
       },
       upload_response: {
@@ -34,21 +42,26 @@
     },
 
     on_file: function (event) {
-      this.file = this.$.input.files[0];
-      this.params.filename = this.file.name;
-      this.params.filetype = this.file.type;
-      this.params.container = this.params.container || 'no-container'; // TO-DO: to be done serverside
-      this.body = JSON.stringify(this.params);
-      this.$.create.send();
+      var file = this.$.input.files[0];
+      var data = {};
+      data.filename = file.name;
+      data.filetype = file.type;
+      data.container = 'standard';
+      this.data = data;
+      this.file = file;
+      this.async(function () {
+        this.$.create.send();
+      })
     },
 
     on_response: function (event) {
+      event.stopPropagation();
       var formData = new FormData();
       formData.append('file', this.file);
-
+      var access_token = this.$.session.get('access_token');
       var xhr = new XMLHttpRequest();
       xhr.open('POST', this.image.signed_url);
-      xhr.setRequestHeader('Authorization', this.$.session.get('access_token'));
+      xhr.setRequestHeader('Authorization', access_token);
       xhr.send(formData);
     },
 

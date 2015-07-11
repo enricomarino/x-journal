@@ -1,6 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../api-image-delete/api-image-delete.html">
-<dom-module id="part-image-list-item">
+<link rel="import" href="../api-s3-delete/api-s3-delete.html">
+<dom-module id="part-s3-list-item">
   <style>
     :host {
       display: inline-block;
@@ -17,7 +17,7 @@
   </style>
   <template>
 
-    <api-image-delete id="request" file-name="{{item.key}}"></api-image-delete>
+    <api-s3-delete id="request" file-name="{{item.key}}"></api-s3-delete>
 
     <div id="image">
       <template is="dom-if" if="{{preview}}">
@@ -36,7 +36,7 @@
 <script>
   Polymer({
 
-    is: 'part-image-list-item',
+    is: 'part-s3-list-item',
 
     properties: {
       item: {

@@ -1,7 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
-<dom-module id="api-image-upload">
+<dom-module id="api-s3-upload">
   <template>
 
     <iron-ajax id="request" method="GET"
@@ -18,7 +17,7 @@
 <script>
   Polymer({
 
-    is: 'api-image-upload',
+    is: 'api-s3-upload',
 
     properties: {
       file: {

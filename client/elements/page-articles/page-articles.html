@@ -11,12 +11,16 @@
   </style>
   <template>
 
-    <api-model-find id="find" collection="Articles"
+    <app-session id="session"></app-session>
+
+    <api-model-find id="find" path="Articles"
       include="{{include}}" page="{{page}}" perpage="{{perpage}}"
-      response="{{articles}}"></api-model-find>
+      models="{{models}}">
+    </api-model-find>
 
     <app-page>
-      <part-articles-items items="{{articles}}"></part-articles-items>
+      <h1>Articles</h1>
+      <part-articles-items items="{{models}}"></part-articles-items>
     </app-page>
 
   </template>
@@ -27,8 +31,11 @@
     is: 'page-articles',
 
     properties: {
-      articles: {
+      models: {
         type: Array
+      },
+      access_token: {
+        type: String
       },
       page: {
         type: Number,
@@ -45,6 +52,7 @@
     },
 
     ready: function () {
+      this.access_token = this.$.session.get('access_token');
       this.$.find.send();
     }
 

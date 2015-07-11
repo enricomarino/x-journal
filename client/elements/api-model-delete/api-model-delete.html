@@ -1,13 +1,24 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <dom-module id="api-model-delete">
   <template>
 
-    <app-session id="session"></app-session>
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
 
-    <iron-ajax id="ajax" method="DELETE"
-      last-response="{{response}}" handleAs="json">
+    <iron-ajax id="ajax"
+      auto="{{auto}}"
+      method="[[method]]"
+      url="{{url}}"
+      params="{{params}}"
+      headers="{{headers}}"
+      last-response="{{model}}"
+      last-error="{{error}}">
     </iron-ajax>
 
   </template>
@@ -18,13 +29,35 @@
     is: 'api-model-delete',
 
     properties: {
-      collection: {
+      auto: {
+        type: Boolean,
+        value: false
+      },
+      method: {
+        type: String,
+        value: 'DELETE'
+      },
+      path: {
         type: String
       },
-      modelId: {
+      pathParams: {
+        type: Object
+      },
+      url: {
         type: String
       },
-      response: {
+      params: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      headers: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      token: {
+        type: String
+      },
+      model: {
         type: Object,
         notify: true
       },
@@ -34,14 +67,17 @@
       }
     },
 
+    observers: [
+      'on_change_token(token)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
+    },
+
     send: function () {
-      var access_token = this.$.session.get('access_token');
-      this.$.ajax.headers = { Authorization: access_token };
-      this.$.ajax.body = JSON.stringify(this.data);
-      this.$.ajax.url = '/api/' + this.collection + '/' + this.modelId;
       this.$.ajax.generateRequest();
     }
-
 
   });
 </script>

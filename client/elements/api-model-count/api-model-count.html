@@ -1,13 +1,26 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <dom-module id="api-model-count">
   <template>
 
-    <app-session id="session"></app-session>
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      postfix="/count"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
 
-    <iron-ajax id="ajax" method="GET" handleAs="json"
-      last-response="{{response}}" on-response="on_response">
+    <iron-ajax id="ajax"
+      auto="{{auto}}"
+      method="[[method]]"
+      url="{{url}}"
+      params="{{params}}"
+      headers="{{headers}}"
+      handleAs="[[handleAs]]"
+      last-response="{{models}}"
+      last-error="{{error}}">
     </iron-ajax>
 
   </template>
@@ -18,11 +31,57 @@
     is: 'api-model-count',
 
     properties: {
-      collection: {
+      auto: {
+        type: Boolean,
+        value: false
+      },
+      method: {
+        type: String,
+        value: 'GET'
+      },
+      path: {
         type: String
       },
-      auto: {
-        type: Boolean
+      pathParams: {
+        type: Object
+      },
+      url: {
+        type: String
+      },
+      params: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      headers: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      handleAs: {
+        type: String,
+        value: 'json'
+      },
+      token: {
+        type: String
+      },
+      include: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      where: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      order: {
+        type: String,
+        value: ''
+      },
+      page: {
+        type: Number,
+        value: 0
+      },
+      perpage: {
+        type: Number,
+        value: 100
       },
       response: {
         type: Object
@@ -30,18 +89,42 @@
       count: {
         type: Number,
         notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
       }
     },
 
-    send: function () {
-      var access_token = this.$.session.get('access_token');
-      this.$.ajax.headers = { Authorization: access_token };
-      this.$.ajax.url = '/api/' + this.collection + '/count';
-      this.$.ajax.generateRequest();
+    observers: [
+      'on_change_token(token)',
+      'on_change_filter(where, include, order, page, perpage)',
+      'on_response(response)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
     },
 
-    on_response: function () {
-      this.count = this.response.count;
+    on_change_filter: function (where, include, order, page, perpage) {
+      var skip = page * perpage;
+      var data = {
+        where: where,
+        order: order,
+        skip: skip,
+        limit: perpage,
+        include: include
+      };
+      var filter = JSON.stringify(data);
+      this.params.filter = filter;
+    },
+
+    on_response: function (response) {
+      this.count = response.count;
+    },
+
+    send: function () {
+      this.$.ajax.generateRequest();
     }
 
   });

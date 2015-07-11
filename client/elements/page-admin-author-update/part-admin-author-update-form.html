@@ -1,8 +1,9 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="/components/iron-input/iron-input.html">
-<link rel="import" href="/elements/api-model-update/api-model-update.html">
-<dom-module id="part-admin-article-update-form">
+<link rel="import" href="../api-model-update/api-model-update.html">
+<link rel="import" href="../app-session/app-session.html">
+<dom-module id="part-admin-author-update-form">
   <style>
     :host {
       display: block;
@@ -10,16 +11,20 @@
   </style>
   <template>
 
-    <api-model-update id="update" collection="Authors"
-      model-id="{{author.id}}" model="{{author}}">
+    <app-session id="session"></app-session>
+
+    <api-model-update id="update" token="{{token}}"
+      path="Authors/${id}" path-params="{{author}}"
+      data="{{author}}">
     </api-model-update>
 
     <form on-submit="on_submit">
       <div>
         <label>fullname</label>
-        <input is="iron-input" bind-value="{{author.fullname}}">
+        <input is="iron-input" type="text" bind-value="{{author.fullname}}">
       </div>
       <div>
+        <br>
         <input type="submit" value="update">
       </div>
     </form>
@@ -33,8 +38,16 @@
 
     properties: {
       author: {
-        type: Object
+        type: Object,
+        value: function () { return {}; }
+      },
+      token: {
+        type: String
       }
+    },
+
+    ready: function () {
+      this.token = this.$.session.get('access_token');
     },
 
     on_submit: function (event) {

@@ -3,13 +3,13 @@
 <dom-module id="field-article-author">
   <style>
     :host {
-      display: block;
+      display: inline-block;
     }
   </style>
   <template>
 
-    <api-model-find id="find" collection="Authors"
-      response="{{items}}">
+    <api-model-find id="find" path="Authors"
+      models="{{items}}">
     </api-model-find>
 
     <select id="select" on-change="on_value_change">

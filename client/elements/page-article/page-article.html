@@ -3,41 +3,52 @@
 <link rel="import" href="/elements/app-link/app-link.html">
 <link rel="import" href="/elements/app-page/app-page.html">
 <link rel="import" href="/elements/app-session/app-session.html">
+<link rel="import" href="/elements/part-image/part-image.html">
 <link rel="import" href="/elements/part-date/part-date.html">
 <link rel="import" href="part-article-content.html">
-<link rel="import" href="part-article-image.html">
 <dom-module id="page-article">
   <style>
     :host {
       display: block;
+    }
+
+    .summary,
+    .content {
+      margin-top: 20px;
+    }
+    .content {
+      margin-bottom: 20px;
     }
   </style>
   <template>
 
     <app-session id="session"></app-session>
 
-    <api-model-get id="get" collection="Articles" model-id="{{article_id}}"
-      include="{{include}}" model="{{article}}" error="{{error}}">
+    <api-model-get id="get"
+      path="Articles/${article_id}" path-params="{{pathParams}}" include="{{include}}"
+      model="{{article}}" error="{{error}}">
     </api-model-get>
 
-    <template is="dom-if" if="{{error}}">
-      <app-page page>
-        <h1>404</h1>
-      </app-page>
-    </template>
+    <api-model-get id="get_image"
+      path="Articles/${id}/image" path-params="{{article}}"
+      model="{{image}}" error="{{error}}">
+    </api-model-get>
 
     <template is="dom-if" if="{{article}}">
       <app-page>
-
-        <h2>{{article.title}}</h1>
-        <h3>{{article.subtitle}}</h3>
-        <h4><span>by</span> <span>{{article.author.fullname}}</span></h4>
-        <div><span>in</span> <span>{{article.category.name}}</span></div>
-        <div><span>published</span> <part-date date="{{article.published_at}}"></part-date></div>
-        <div>{{article.summary}}</div>
-        <div>{{article.content}}</div>
+        <h1>{{article.title}}</h1>
+        <h2>{{article.subtitle}}</h2>
+        <h3><span>by</span> <span>{{article.author.fullname}}</span></h3>
+        <h4>
+          <span>published</span>
+          <part-date date="{{article.published_at}}"></part-date>
+          <span>in</span>
+          <span>{{article.category.name}}</span>
+        </h4>
+        <div class="summary">{{article.summary}}</div>
+        <div class="content">{{article.content}}</div>
         <part-article-tags tags="{{article.tags}}"></part-article-tags>
-        <part-article-image article="{{article}}"></part-article-image>
+        <part-image image="{{image}}"></part-image>
       </app-page>
     </template>
 
@@ -52,19 +63,46 @@
       article: {
         type: Object
       },
-      error: {
+      pathParams: {
         type: Object
+      },
+      access_token: {
+        type: String
       },
       include: {
         type: Array,
-        value: ['category', 'author', 'image']
+        value: ['category', 'author']
+      },
+      image: {
+        type: Object
+      },
+      error: {
+        type: Object
       }
     },
 
+    observers: [
+      'on_get_article(article)',
+      'on_get_image(image)'
+    ],
+
     ready: function () {
+      this.access_token = this.$.session.get('access_token');
       this.async(function () {
         this.$.get.send();
       });
+    },
+
+    on_get_article: function () {
+      this.$.get_image.send();
+    },
+
+    on_get_image: function () {
+
+    },
+
+    on_error: function (event) {
+      console.log('error', event);
     }
 
   });

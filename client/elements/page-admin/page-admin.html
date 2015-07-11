@@ -9,14 +9,21 @@
   </style>
   <template>
 
+    <app-session id="session"></app-session>
+
+    <api-user-logout id="logout" path="Authors" token="{{token}}"
+      on-logout="on_logout">
+    </api-user-logout>
+
     <app-page>
       <h1>Admin</h1>
 
       <nav>
         <ul>
-          <li><a is="app-link" href="/admin/articles">admin articles</a></li>
-          <li><a is="app-link" href="/admin/authors">admin authors</a></li>
-          <li><a is="app-link" href="/admin/categories">admin categories</a></li>
+          <li><a is="app-link" href="/admin/articles">articles</a></li>
+          <li><a is="app-link" href="/admin/authors">authors</a></li>
+          <li><a is="app-link" href="/admin/categories">categories</a></li>
+          <li><a href="/" on-click="logout">logout</a></li>
         </ul>
       </nav>
 
@@ -29,9 +36,24 @@
 
     is: 'page-admin',
 
-    properties: {},
+    properties: {
+      token: {
+        type: String
+      }
+    },
 
-    ready: function () {}
+    ready: function () {
+      this.token = this.$.session.get('access_token');
+    },
+
+    logout: function (event) {
+      event.preventDefault();
+      this.$.logout.send();
+    },
+
+    on_logout: function (event) {
+      page('/');
+    }
 
   });
 </script>

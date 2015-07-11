@@ -1,7 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="part-login-form.html">
+<link rel="import" href="../form-login/form-login.html">
 <dom-module id="page-login">
   <style>
     :host {
@@ -12,7 +12,7 @@
 
     <app-page>
       <h3>Login</h3>
-      <part-login-form redirect="{{redirect}}"></part-login-form>
+      <form-login on-login="on_login"></form-login>
     </app-page>
 
   </template>
@@ -29,7 +29,9 @@
       }
     },
 
-    ready: function () {}
+    on_login: function () {
+      page(this.redirect);
+    }
 
   });
 </script>

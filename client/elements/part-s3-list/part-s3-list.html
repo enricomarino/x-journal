@@ -1,7 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../api-image-list/api-image-list.html">
-<link rel="import" href="part-image-list-item.html">
-<dom-module id="part-image-list">
+<link rel="import" href="../api-s3-list/api-s3-list.html">
+<link rel="import" href="part-s3-list-item.html">
+<dom-module id="part-s3-list">
   <style>
     :host {
       display: block;
@@ -14,14 +14,14 @@
   </style>
   <template>
 
-    <api-image-list id="list" list="{{list}}" folder="{{folder}}"></api-image-list>
+    <api-s3-list id="list" list="{{list}}" folder="{{folder}}"></api-s3-list>
 
     <template is="dom-if" if="{{!list.length}}">
       <span>empty</span>
     </template>
 
     <template is="dom-repeat" items="{{list}}" filter="filter">
-      <part-image-list-item item="{{item}}"></part-image-list-item>
+      <part-s3-list-item item="{{item}}"></part-s3-list-item>
     </template>
 
   </template>
@@ -29,7 +29,7 @@
 <script>
   Polymer({
 
-    is: 'part-image-list',
+    is: 'part-s3-list',
 
     properties: {
       user: {

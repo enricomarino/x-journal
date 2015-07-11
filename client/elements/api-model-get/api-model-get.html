@@ -1,14 +1,24 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <dom-module id="api-model-get">
   <template>
 
-    <app-session id="session"></app-session>
+    <string-interpolate
+      string="{{path}}"
+      prefix="/api/"
+      params="{{pathParams}}"
+      result="{{url}}">
+    </string-interpolate>
 
-    <iron-ajax id="ajax" auto$="{{auto}}" method="GET" url="{{url}}"
-      params="{{params}}" headers="{{headers}}"
-      last-response="{{model}}" handleAs="json"
+    <iron-ajax id="ajax"
+      auto="{{auto}}"
+      method="[[method]]"
+      url="{{url}}"
+      params="{{params}}"
+      headers="{{headers}}"
+      handleAs="[[handleAs]]"
+      last-response="{{model}}"
       last-error="{{error}}">
     </iron-ajax>
 
@@ -20,38 +30,40 @@
     is: 'api-model-get',
 
     properties: {
-      collection: {
-        type: String
-      },
-      modelId: {
-        type: String
-      },
-      url: {
-        type: String,
-        notify: true,
-        computed: 'compute_url(collection, modelId)'
-      },
       auto: {
         type: Boolean,
         value: false
       },
-      include: {
-        type: Array
-      },
-      filter: {
+      method: {
         type: String,
-        computed: 'compute_filter(include)'
+        value: 'GET'
+      },
+      path: {
+        type: String
+      },
+      pathParams: {
+        type: Object
+      },
+      url: {
+        type: String
       },
       params: {
         type: Object,
-        computed: 'compute_params(filter)'
-      },
-      access_token: {
-        type: String
+        value: function () { return {}; }
       },
       headers: {
         type: Object,
-        computed: 'compute_headers(access_token)'
+        value: function () { return {}; }
+      },
+      handleAs: {
+        type: String,
+        value: 'json'
+      },
+      token: {
+        type: String
+      },
+      include: {
+        type: Array
       },
       model: {
         type: Object,
@@ -63,24 +75,19 @@
       }
     },
 
-    compute_url: function (collection, modelId) {
-      return '/api/' + collection + '/' + modelId;
+    observers: [
+      'on_change_token(token)',
+      'on_change_filter(include)'
+    ],
+
+    on_change_token: function (token) {
+      this.headers.Authorization = token;
     },
 
-    compute_filter: function (include) {
-      return JSON.stringify({include: include });
-    },
-
-    compute_params: function (filter) {
-      return { filter: filter };
-    },
-
-    compute_headers: function (access_token) {
-      return { Authorization: access_token };
-    },
-
-    ready: function () {
-      this.access_token = this.$.session.get('access_token');
+    on_change_filter: function (include) {
+      var data = { include: include };
+      var filter = JSON.stringify(data);
+      this.params.filter = filter;
     },
 
     send: function () {

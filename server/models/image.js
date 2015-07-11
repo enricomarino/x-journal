@@ -194,7 +194,7 @@ module.exports = function(Image) {
           extension: extension,
           filename: filename_no_ext,
           size: file.size,
-          base_url: path.join(storage, container, image_id)
+          base_url: '/' + path.join(storage, container, image_id)
         };
 
         if (payload.check !== secret || expired) {
@@ -215,16 +215,14 @@ module.exports = function(Image) {
     });
   };
 
-  Image.remoteMethod(
-      'upload',
-      {
-        accepts: [
-          {arg: 'media_token', type: 'string', http: {source: 'query'}},
-          {arg: 'req', type: 'object', http: {source: 'req'}}
-        ],
-        returns: {arg: 'image', type: 'object'},
-        http: {path: '/upload', verb: 'post'}
-      }
-  );
+  Image.remoteMethod('upload', {
+    accepts: [
+      { arg: 'media_token', type: 'string', http: { source: 'query' } },
+      { arg: 'req', type: 'object', http: { source: 'req' } }
+    ],
+    returns: { arg: 'image', type: 'object' },
+    http: { path: '/upload', verb: 'post' }
+  });
+
 };
 

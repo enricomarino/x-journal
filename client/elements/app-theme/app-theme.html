@@ -27,4 +27,63 @@ body {
   padding: 0;
 }
 
+html /deep/ h1 {
+  font-weight: 400;
+}
+
+html /deep/ input {
+  font-family: monospace;
+  font-size: 14px;
+  padding: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid #aaa;
+}
+
+html /deep/ input[type="text"] {
+  width: 396px;
+}
+
+html /deep/ input:focus {
+  outline: none;
+  border-bottom: 1px solid black;
+}
+
+html /deep/ input[type="submit"] {
+  border: none;
+  background-color: #efefef;
+  width: auto;
+}
+
+html /deep/ input[type="datetime-local"],
+html /deep/ input[type="file"] {
+  border: none;
+}
+
+html /deep/ iron-autogrow-textarea {
+  border: none;
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 4px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+html /deep/ iron-autogrow-textarea:focus {
+  border-bottom: 1px solid black;
+}
+
+html /deep/ button {
+  border: none;
+  background-color: #efefef;
+  padding: 4px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+html /deep/ label {
+  display: block;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
 </style>

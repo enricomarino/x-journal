@@ -3,18 +3,18 @@
 <dom-module id="field-article-category">
   <style>
     :host {
-      display: block;
+      display: inline-block;
     }
   </style>
   <template>
 
-    <api-model-find id="find" collection="Categories"
-      response="{{categories}}">
+    <api-model-find id="find" path="Categories"
+      models="{{items}}">
     </api-model-find>
 
     <select id="select" on-change="on_value_change">
       <option disabled></option>
-      <template is="dom-repeat" items="{{categories}}">
+      <template is="dom-repeat" items="{{items}}">
         <option value="{{item.id}}">{{item.name}}</option>
       </template>
     </select>
@@ -31,6 +31,9 @@
         type: String,
         observer: 'on_bind_value_change',
         notify: true
+      },
+      items: {
+        type: Array
       }
     },
 

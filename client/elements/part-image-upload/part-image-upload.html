@@ -8,11 +8,12 @@
   </style>
   <template>
 
-    <api-image-upload id="upload" folder="{{folder}}"
-      file="{{file}}" file-name="{{fileName}}">
-    </api-image-upload>
-
-    <input id="input" type="file" on-change="on_change">
+<!--
+    <input is="iron-input" id="container" type="text" bind-value="{{params.container}}" />
+    <input is="iron-input" id="description" type="text" bind-value="{{params.description}}" />
+    <input is="iron-input" id="caption" type="text" bind-value="{{params.caption}}" />
+-->
+    <api-image-upload params="{{params}}" path="{{path}}" path-params="{{pathParams}}"></api-image-upload>
 
   </template>
 </dom-module>
@@ -22,36 +23,22 @@
     is: 'part-image-upload',
 
     properties: {
-      user: {
-        type: Object
+      params: {
+        type: Object,
+        value: function () {
+          return {
+            container: "standard",
+            description: "a random description",
+            caption: "a random caption"
+          };
+        }
       },
-      preview: {
-        type: Boolean,
-        value: false
-      },
-      folder: {
-        type: String,
-        value: ''
-      },
-      file: {
-        type: Object
-      },
-      fileName: {
+      path: {
         type: String
       },
-      list: {
-        type: Array,
-        value: []
+      pathParams: {
+        type: Object
       }
-    },
-
-    on_change: function () {
-      var file = this.$.input.files[0];
-      if (!file) {
-        return;
-      }
-      this.fileName = this.fileName || file.name;
-      this.file = file;
     }
 
   });
