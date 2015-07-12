@@ -3,6 +3,7 @@
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="part-admin-author-search-items.html">
+<link rel="import" href="part-admin-author-search-actions.html">
 <dom-module id="page-admin-author-search">
   <style>
     :host {
@@ -16,6 +17,7 @@
     <app-page>
       <h1>Authors</h1>
       <part-admin-author-search-items items="{{authors}}"></part-admin-author-search-items>
+      <part-admin-author-search-actions items="{{authors}}"></part-admin-author-search-actions>
     </app-page>
 
   </template>

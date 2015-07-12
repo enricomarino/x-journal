@@ -36,19 +36,19 @@
 
     <template is="dom-if" if="{{article}}">
       <app-page>
+        <part-image image="{{image}}"></part-image>
         <h1>{{article.title}}</h1>
         <h2>{{article.subtitle}}</h2>
-        <h3><span>by</span> <span>{{article.author.fullname}}</span></h3>
-        <h4>
+        <h3><span>by</span> <em>{{article.author.fullname}}</em></h3>
+        <!-- <div class="summary">{{article.summary}}</div> -->
+        <div class="content">{{article.content}}</div>
+        <div>
           <span>published</span>
           <part-date date="{{article.published_at}}"></part-date>
           <span>in</span>
           <span>{{article.category.name}}</span>
-        </h4>
-        <div class="summary">{{article.summary}}</div>
-        <div class="content">{{article.content}}</div>
+        </div>
         <part-article-tags tags="{{article.tags}}"></part-article-tags>
-        <part-image image="{{image}}"></part-image>
       </app-page>
     </template>
 

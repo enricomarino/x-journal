@@ -15,8 +15,12 @@
 
     <form on-submit="on_submit">
       <div>
+        <label>fullname</label>
+        <input is="iron-input" type="text" bind-value="{{author.fullname}}">
+      </div>
+      <div>
         <label>email</label>
-        <input is="iron-input" bind-value="{{author.email}}">
+        <input is="iron-input" type="email" bind-value="{{author.email}}">
       </div>
       <div>
         <label>password</label>

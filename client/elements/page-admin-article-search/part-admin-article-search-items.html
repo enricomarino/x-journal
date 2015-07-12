@@ -28,6 +28,7 @@
     ready: function () {},
 
     filter: function (item) {
+      item.viewlink = '/articles/' + item.id;
       item.editlink = '/admin/articles/' + item.id;
       return true;
     }

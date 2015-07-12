@@ -76,15 +76,15 @@
 
     observers: [
       'on_change_token(token)',
-      'on_change_data(data)'
+      'on_change_data(data.*)'
     ],
 
     on_change_token: function (token) {
       this.headers.Authorization = token;
     },
 
-    on_change_data: function (data) {
-      this.body = JSON.stringify(data);
+    on_change_data: function (event) {
+      this.body = JSON.stringify(this.data);
     },
 
     send: function () {

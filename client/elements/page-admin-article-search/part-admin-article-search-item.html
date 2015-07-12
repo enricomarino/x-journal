@@ -1,7 +1,8 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="/elements/app-link/app-link.html">
-<link rel="import" href="/elements/api-model-get/api-model-get.html">
-<link rel="import" href="/elements/part-date/part-date.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../api-model-get/api-model-get.html">
+<link rel="import" href="../part-date/part-date.html">
+<link rel="import" href="../api-model-get/api-model-get.html">
 <dom-module id="part-admin-article-search-item">
   <style>
     :host {
@@ -10,22 +11,32 @@
   </style>
   <template>
 
-    <ul>
-      <li>{{item.title}}</li>
-      <li>{{item.subtitle}}</li>
-      <li>{{item.summary}}</li>
-      <li><span>created</span> <part-date date="{{item.created_at}}"></part-date></li>
-      <li><span>updated</span> <part-date date="{{item.updated_at}}"></part-date></li>
-      <li><span>published</span> <part-date date="{{item.published_at}}"></part-date></li>
-      <li><span>by</span> <span>{{item.author.fullname}}</span></li>
-      <li><span>in</span> <span>{{item.category.name}}</span></li>
-      <ul>
+    <api-model-get id="get" path="Articles/${id}/image" path-params="{{item}}"
+      model="{{image}}">
+    </api-model-get>
+
+    <div>
+      <div>
+        <part-image size="100" image="{{image}}"></part-image>
+      </div>
+      <div>
+        <div>{{item.title}}</div>
+      </div>
+      <div>
+        <div><span>by</span> <span>{{item.author.fullname}}</span></div>
+        <div><span>published </span><part-date date="{{item.published_at}}"></div>
+        <div><span>in</span> <span>{{item.category.name}}</span></li>
+      </div>
+      <div>
         <template is="dom-repeat" items="{{item.tags}}" as="tag">
           <li>{{tag.name}}</li>
         </template>
-      </ul>
-      <li><a is="app-link" href="{{item.editlink}}">edit</a></li>
-    </ul>
+      </div>
+      <div>
+        <a is="app-link" href="{{item.viewlink}}">view</a>
+        <a is="app-link" href="{{item.editlink}}">edit</a>
+      </div>
+    </div>
 
   </template>
 </dom-module>
@@ -38,6 +49,14 @@
       item: {
         type: Object
       }
+    },
+
+    observers: [
+      'on_change_item(item)'
+    ],
+
+    on_change_item: function (item) {
+      this.$.get.send();
     }
 
   });

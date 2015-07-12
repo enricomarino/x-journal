@@ -8,15 +8,33 @@
   </style>
   <template>
 
-    <ul>
-      <li>{{item.title}}</li>
-      <li>{{item.subtitle}}</li>
-      <li>{{item.summary}}</li>
-      <li><span>by</span> <span>{{item.author.fullname}}</span></li>
-      <li><span>published</span> <part-date date="{{item.published_at}}"></part-date></li>
-      <li><span>in</span> <span>{{item.category.name}}</span></li>
-      <li><a is="app-link" href="{{item.permalink}}">view</a></li>
-    </ul>
+    <api-model-get id="get" auto path="Articles/${id}/image" path-params="{{item}}"
+      model="{{image}}">
+    </api-model-get>
+
+    <div>
+      <div>
+        <part-image size="400" image="{{image}}"></part-image>
+      </div>
+      <div>
+        <div>{{item.title}}</div>
+        <div>{{item.subtitle}}</div>
+        <div>{{item.summary}}</div>
+      </div>
+      <div>
+        <div><span>by</span> <span>{{item.author.fullname}}</span></div>
+        <div><span>published </span><part-date date="{{item.published_at}}"></div>
+        <div><span>in</span> <span>{{item.category.name}}</span></li>
+      </div>
+      <div>
+        <template is="dom-repeat" items="{{item.tags}}" as="tag">
+          <li>{{tag.name}}</li>
+        </template>
+      </div>
+      <div>
+        <a is="app-link" href="{{item.permalink}}">view</a>
+      </div>
+    </div>
 
   </template>
 </dom-module>
