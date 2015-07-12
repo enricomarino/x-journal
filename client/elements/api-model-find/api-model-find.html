@@ -94,7 +94,7 @@
 
     observers: [
       'on_change_token(token)',
-      'on_change_filter(where, include, order, page, perpage)'
+      'on_change_filter(where.*, include.*, order, page, perpage)'
     ],
 
     on_change_token: function (token) {
@@ -102,13 +102,13 @@
     },
 
     on_change_filter: function (where, include, order, page, perpage) {
-      var skip = page * perpage;
+      var skip = this.page * this.perpage;
       var data = {
-        where: where,
-        order: order,
+        where: this.where,
+        order: this.order,
         skip: skip,
-        limit: perpage,
-        include: include
+        limit: this.perpage,
+        include: this.include
       };
       var filter = JSON.stringify(data);
       this.params.filter = filter;

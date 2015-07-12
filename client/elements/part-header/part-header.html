@@ -1,8 +1,8 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../api-user-logout/api-user-logout.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../api-model-find/api-model-find.html">
 <dom-module id="part-header">
   <style>
     :host {
@@ -43,6 +43,10 @@
   </style>
   <template>
 
+    <api-model-find id="find" path="Categories"
+      models="{{categories}}">
+    </api-model-find>
+
     <header class="header">
       <div class="brand">
         <a is="app-link" href="/admin">x-</a><a is="app-link" href="/">{{brand}}</a>
@@ -65,6 +69,10 @@
 
     is: 'part-header',
 
+    ready: function () {
+      this.$.find.send();
+    },
+
     properties: {
       brand: {
         type: String,
@@ -77,6 +85,11 @@
         type: Array,
         value: []
       }
+    },
+
+    filter: function (category) {
+      category.url = '/categories/' + category.id;
+      return true;
     }
 
   });

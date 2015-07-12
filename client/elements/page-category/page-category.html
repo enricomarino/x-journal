@@ -3,7 +3,7 @@
 <link rel="import" href="../api-model-find/api-model-find.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="part-category-list.html">
+<link rel="import" href="../page-articles/part-articles-items.html">
 <dom-module id="page-category">
   <style>
     :host {
@@ -12,14 +12,17 @@
   </style>
   <template>
 
-    <api-model-find id="find" collection="Categories"
-      page="{{page}}" perpage="{{perpage}}"
-      response="{{categories}}"></api-model-find>
+    <api-model-get auto path="Categories/${category_id}" path-params="{{pathParams}}"
+      model="{{category}}" on-response="on_get_category">
+    </api-model-get>
+
+    <api-model-find id="find" path="Articles"
+      where="{{where}}" models="{{articles}}">
+    </api-model-find>
 
     <app-page>
-      <h1>Category</h1>
-      <h2>{{category}}</h2>
-      <part-category-list items="{{categories}}"></part-category-list>
+      <h1><span>Articles in </span><span>{{category.name}}</span></h1>
+      <part-articles-items items="{{articles}}"></part-articles-items>
     </app-page>
 
   </template>
@@ -30,7 +33,10 @@
     is: 'page-category',
 
     properties: {
-      categories: {
+      category: {
+        type: Object
+      },
+      articles: {
         type: Array
       },
       page: {
@@ -40,10 +46,14 @@
       perpage: {
         type: Number,
         value: 10
+      },
+      where: {
+        type: Object
       }
     },
 
-    ready: function () {
+    on_get_category: function () {
+      this.where = { categoryId: this.category.id };
       this.$.find.send();
     }
 
