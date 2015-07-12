@@ -1,7 +1,10 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-session/app-session.html">
 <dom-module id="api-user-logout">
   <template>
+
+    <app-session id="session"></app-session>
 
     <string-interpolate
       string="{{path}}"
@@ -15,9 +18,10 @@
       method="[[method]]"
       url="{{url}}"
       handleAs="[[handleAs]]"
-      header="{{headers}}"
+      headers="{{headers}}"
       last-response="{{response}}"
-      last-error="{{error}}">
+      last-error="{{error}}"
+      on-response="on_response">
     </iron-ajax>
 
   </template>
@@ -61,13 +65,13 @@
     },
 
     observers: [
-      'on_change_token(token)',
-      'on_response(response)',
-      'on_error(error)'
+      'on_change_token(token)'
     ],
 
     on_change_token: function (token) {
+      console.log(token);
       this.headers.Authorization = token;
+      console.log(this.headers)
     },
 
     send: function () {
@@ -75,12 +79,10 @@
     },
 
     on_response: function (event) {
-      this.$.session.unset('access_token');
-      this.fire('logout');
-    },
-
-    on_error: function (event) {
-      this.$.session.unset('access_token');
+      var session = this.$.session;
+      session.unset('access_token', response.id);
+      session.unset('user_id', response.userId);
+      session.unset('ttl', response.ttl);
       this.fire('logout');
     }
 
