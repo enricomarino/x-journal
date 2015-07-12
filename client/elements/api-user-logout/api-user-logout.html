@@ -78,9 +78,9 @@
 
     on_response: function (event) {
       var session = this.$.session;
-      session.unset('access_token', response.id);
-      session.unset('user_id', response.userId);
-      session.unset('ttl', response.ttl);
+      session.unset('access_token');
+      session.unset('user_id');
+      session.unset('ttl');
       this.fire('logout');
     }
 

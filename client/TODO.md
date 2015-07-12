@@ -1,6 +1,8 @@
 add style
 
-fix logout
+add pagination (for articles)
+
+add filter (for articles)
 
 add tags
 
