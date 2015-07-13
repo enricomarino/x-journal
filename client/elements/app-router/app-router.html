@@ -49,11 +49,12 @@
             element.setAttribute(property, params[property]);
           }
         }
+        element.pathParams = params;
+        element.context = context;
         context.element = element;
         app.page = element;
         while (container.firstChild) container.removeChild(container.firstChild);
         container.appendChild(element);
-        element.pathParams = params;
         scroll(0,0);
       };
     }

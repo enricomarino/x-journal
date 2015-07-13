@@ -16,11 +16,10 @@
       auto="{{auto}}"
       method="[[method]]"
       url="{{url}}"
-      params="{{params}}"
-      headers="{{headers}}"
       handleAs="[[handleAs]]"
-      last-response="{{models}}"
-      last-error="{{error}}">
+      last-response="{{response}}"
+      last-error="{{error}}"
+      on-response="on_response">
     </iron-ajax>
 
   </template>
@@ -63,25 +62,9 @@
       token: {
         type: String
       },
-      include: {
-        type: Object,
-        value: function () { return {}; }
-      },
       where: {
         type: Object,
         value: function () { return {}; }
-      },
-      order: {
-        type: String,
-        value: ''
-      },
-      page: {
-        type: Number,
-        value: 0
-      },
-      perpage: {
-        type: Number,
-        value: 100
       },
       response: {
         type: Object
@@ -97,34 +80,41 @@
     },
 
     observers: [
-      'on_change_token(token)',
-      'on_change_filter(where, include, order, page, perpage)',
-      'on_response(response)'
+      'on_change_options(token, where)'
     ],
 
-    on_change_token: function (token) {
-      this.headers.Authorization = token;
+    get headers () {
+      return this.token ? { Authorization: this.token } : {};
     },
 
-    on_change_filter: function (where, include, order, page, perpage) {
-      var skip = page * perpage;
-      var data = {
-        where: where,
-        order: order,
-        skip: skip,
-        limit: perpage,
-        include: include
-      };
-      var filter = JSON.stringify(data);
-      this.params.filter = filter;
+    get params () {
+      var filter = this.where;
+      var stringified_filter = JSON.stringify(filter);
+      var params = { where: stringified_filter };
+      return params;
     },
 
-    on_response: function (response) {
-      this.count = response.count;
+    on_response: function () {
+      this.count = this.response.count;
     },
 
     send: function () {
+      var ajax = this.$.ajax;
+      ajax.params = this.params;
+      ajax.headers = this.headers;
       this.$.ajax.generateRequest();
+    },
+
+    on_change_options: function () {
+      this.debounce('send', function () {
+        if (!this.url && this.url !== '') {
+          return;
+        }
+
+        if (this.auto) {
+          this.send();
+        }
+      }, this.debounce_duration);
     }
 
   });

@@ -24,23 +24,29 @@
 
     <app-session id="session"></app-session>
 
-    <api-model-get id="get"
-      path="Articles/${article_id}" path-params="{{pathParams}}" include="{{include}}"
-      model="{{article}}" error="{{error}}">
-    </api-model-get>
-
-    <api-model-get id="get_image"
-      path="Articles/${id}/image" path-params="{{article}}"
-      model="{{image}}" error="{{error}}">
+    <api-model-get id="get_article"
+      auto
+      path="Articles/${article_id}"
+      path-params="{{context.params}}"
+      include="{{include}}"
+      model="{{article}}"
+      error="{{error}}">
     </api-model-get>
 
     <template is="dom-if" if="{{article}}">
+      <api-model-get id="get_image"
+        auto
+        path="Articles/${article_id}/image"
+        path-params="{{context.params}}"
+        model="{{image}}">
+      </api-model-get>
+
       <app-page>
         <part-image image="{{image}}"></part-image>
         <h1>{{article.title}}</h1>
         <h2>{{article.subtitle}}</h2>
         <h3><span>by</span> <em>{{article.author.fullname}}</em></h3>
-        <!-- <div class="summary">{{article.summary}}</div> -->
+        <div class="summary">{{article.summary}}</div>
         <div class="content">{{article.content}}</div>
         <div>
           <span>published</span>
@@ -49,6 +55,12 @@
           <span>{{article.category.name}}</span>
         </div>
         <part-article-tags tags="{{article.tags}}"></part-article-tags>
+      </app-page>
+    </template>
+
+    <template is="dom-if" if="{{error}}">
+      <app-page>
+        <h1>404</h1>
       </app-page>
     </template>
 
@@ -61,9 +73,6 @@
 
     properties: {
       article: {
-        type: Object
-      },
-      pathParams: {
         type: Object
       },
       access_token: {
@@ -79,30 +88,6 @@
       error: {
         type: Object
       }
-    },
-
-    observers: [
-      'on_get_article(article)',
-      'on_get_image(image)'
-    ],
-
-    ready: function () {
-      this.access_token = this.$.session.get('access_token');
-      this.async(function () {
-        this.$.get.send();
-      });
-    },
-
-    on_get_article: function () {
-      this.$.get_image.send();
-    },
-
-    on_get_image: function () {
-
-    },
-
-    on_error: function (event) {
-      console.log('error', event);
     }
 
   });

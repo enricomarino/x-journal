@@ -3,6 +3,7 @@
 <link rel="import" href="../api-model-find/api-model-find.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../part-pages/part-pages.html">
 <link rel="import" href="../page-articles/part-articles-items.html">
 <dom-module id="page-category">
   <style>
@@ -12,17 +13,34 @@
   </style>
   <template>
 
-    <api-model-get auto path="Categories/${category_id}" path-params="{{pathParams}}"
-      model="{{category}}" on-response="on_get_category">
+    <api-model-get id="get_category"
+      path="Categories/${category_id}"
+      path-params="{{context.params}}"
+      model="{{category}}">
     </api-model-get>
 
-    <api-model-find id="find" path="Articles"
-      where="{{where}}" models="{{articles}}">
+    <api-model-count id="count_articles"
+      path="Articles"
+      where="{{where}}"
+      count="{{count}}">
+    </api-model-count>
+
+    <api-model-find id="find_articles"
+      path="Articles"
+      where="{{where}}"
+      include="{{include}}"
+      page="{{context.params.page}}"
+      perpage="{{perpage}}"
+      models="{{articles}}">
     </api-model-find>
 
     <app-page>
       <h1><span>Articles in </span><span>{{category.name}}</span></h1>
       <part-articles-items items="{{articles}}"></part-articles-items>
+
+      <part-pages count="{{count}}" perpage="{{perpage}}" current="{{context.params.page}}"
+        on-select="on_select_page">
+      </part-pages>
     </app-page>
 
   </template>
@@ -36,25 +54,34 @@
       category: {
         type: Object
       },
-      articles: {
-        type: Array
-      },
-      page: {
-        type: Number,
-        value: 0
+      count: {
+        type: Number
       },
       perpage: {
         type: Number,
-        value: 10
+        value: 1
       },
       where: {
         type: Object
+      },
+      include: {
+        type: Array,
+        value: ['author', 'category', 'tags']
+      },
+      articles: {
+        type: Array
       }
     },
 
-    on_get_category: function () {
-      this.where = { categoryId: this.category.id };
-      this.$.find.send();
+    on_select_page: function (event, detail) {
+      page('/categories/' + this.context.params.category_id + '/page/' + detail.page);
+    },
+
+    attached: function () {
+      this.where = { categoryId: this.context.params.category_id };
+      this.$.get_category.send();
+      this.$.count_articles.send();
+      this.$.find_articles.send();
     }
 
   });

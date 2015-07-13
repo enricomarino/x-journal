@@ -1,5 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../api-model-find/api-model-find.html">
 <dom-module id="part-articles-item">
   <style>
     :host {
@@ -8,13 +9,14 @@
   </style>
   <template>
 
-    <api-model-get id="get" auto path="Articles/${id}/image" path-params="{{item}}"
-      model="{{image}}">
-    </api-model-get>
+    <api-model-find id="image" path="Images" path-params="{{item}}"
+      where="{{where}}"
+      models="{{images}}">
+    </api-model-find>
 
     <div>
       <div>
-        <part-image size="400" image="{{image}}"></part-image>
+        <part-image size="400" image="{{images.0}}"></part-image>
       </div>
       <div>
         <div>{{item.title}}</div>
@@ -22,9 +24,9 @@
         <div>{{item.summary}}</div>
       </div>
       <div>
-        <div><span>by</span> <span>{{item.author.fullname}}</span></div>
+        <div><span>by </span><span>{{item.author.fullname}}</span></div>
         <div><span>published </span><part-date date="{{item.published_at}}"></div>
-        <div><span>in</span> <span>{{item.category.name}}</span></li>
+        <div><span>in </span><span>{{item.category.name}}</span></li>
       </div>
       <div>
         <template is="dom-repeat" items="{{item.tags}}" as="tag">
@@ -46,7 +48,22 @@
     properties: {
       item: {
         type: Object
+      },
+      images: {
+        type: Array
+      },
+      where: {
+        type: Object
       }
+    },
+
+    observers: [
+      'on_get_item(item)'
+    ],
+
+    on_get_item: function (item) {
+      this.where = { articleId: item.id };
+      this.$.image.send();
     }
 
   });
