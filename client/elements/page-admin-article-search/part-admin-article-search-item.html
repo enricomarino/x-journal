@@ -1,4 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../api-model-get/api-model-get.html">
 <link rel="import" href="../part-date/part-date.html">
@@ -8,6 +9,24 @@
     :host {
       display: block;
     }
+
+    .card {
+      @apply(--layout-flex);
+      /*@apply(--layout-horizontal);*/
+      /*margin-bottom: 8px;*/
+    }
+    .card__cover {
+      @apply(--layout-flex);
+      /*@apply(--layout-col-3);*/
+      position: relative;
+      /*width: 140px;*/
+      height: 200px;
+    }
+    .card__info {
+      @apply(--layout-flex);
+      /*@apply(--layout-self-end);*/
+      padding: 8px;
+    }
   </style>
   <template>
 
@@ -15,26 +34,24 @@
       model="{{image}}">
     </api-model-get>
 
-    <div>
-      <div>
-        <part-image size="100" image="{{image}}"></part-image>
+    <div class="card">
+      <div class="card__cover">
+        <part-image thumb size="400" image="{{image}}"></part-image>
       </div>
-      <div>
-        <div>{{item.title}}</div>
-      </div>
-      <div>
-        <div><span>by</span> <span>{{item.author.fullname}}</span></div>
-        <div><span>published </span><part-date date="{{item.published_at}}"></div>
-        <div><span>in</span> <span>{{item.category.name}}</span></li>
-      </div>
-      <div>
-        <template is="dom-repeat" items="{{item.tags}}" as="tag">
-          <li>{{tag.name}}</li>
-        </template>
-      </div>
-      <div>
-        <a is="app-link" href="{{item.viewlink}}">view</a>
-        <a is="app-link" href="{{item.editlink}}">edit</a>
+      <div class="card__info">
+        <div class="card__title">
+          <strong>{{item.title}}</strong><br>
+          <strong>{{item.subtitle}}</strong>
+        </div>
+        <div class="card__details">
+          <div><span>by</span> <span>{{item.author.fullname}}</span></div>
+          <div><span>published </span><part-date date="{{item.published_at}}"></div>
+          <div><span>in</span> <span>{{item.category.name}}</span></div>
+        </div>
+        <div class="card__actions">
+          <a is="app-link" href="{{item.viewlink}}">view</a>
+          <a is="app-link" href="{{item.editlink}}">edit</a>
+        </div>
       </div>
     </div>
 

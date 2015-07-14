@@ -19,6 +19,17 @@
     .content {
       margin-bottom: 20px;
     }
+
+    .page .cover {
+      position: relative;
+      height: 400px;
+    }
+
+    .cover__info {
+      position: absolute;
+      padding: 20px;
+      bottom: 0;
+    }
   </style>
   <template>
 
@@ -41,11 +52,16 @@
         model="{{image}}">
       </api-model-get>
 
-      <app-page>
-        <part-image image="{{image}}"></part-image>
-        <h1>{{article.title}}</h1>
-        <h2>{{article.subtitle}}</h2>
-        <h3><span>by</span> <em>{{article.author.fullname}}</em></h3>
+      <app-page class="page">
+        <div class="cover">
+          <part-image image="{{image}}">
+            <div class="cover__info">
+              <h1>{{article.title}}</h1>
+              <h2>{{article.subtitle}}</h2>
+              <h3><span>by</span> <em>{{article.author.fullname}}</em></h3>
+            </div>
+          </part-image>
+        </div>
         <div class="summary">{{article.summary}}</div>
         <div class="content">{{article.content}}</div>
         <div>

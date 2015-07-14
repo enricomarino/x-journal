@@ -6,6 +6,28 @@
     :host {
       display: block;
     }
+
+    .card__cover {
+      position: relative;
+      height: 300px;
+    }
+
+    .card__title {
+      box-sizing: border-box;
+      position: absolute;
+      width: 100%;
+      padding: 12px;
+      bottom: 0;
+    }
+    .card__info {
+      padding: 12px;
+    }
+
+    .card__title h2,
+    .card__title h3 {
+      margin-top: 8px;
+      margin-bottom: 0px;
+    }
   </style>
   <template>
 
@@ -14,28 +36,38 @@
       models="{{images}}">
     </api-model-find>
 
-    <div class="item" model="article">
-      <div>
-        <part-image size="400" image="{{images.0}}"></part-image>
+    <div class="card">
+      <a is="app-link" href="{{item.permalink}}">
+        <div class="card__cover">
+          <part-image class="card__image" image="{{images.0}}">
+            <div class="card__title">
+              <h2>{{item.title}}</h2>
+              <h3>{{item.subtitle}}</h3>
+            </div>
+          </part-image>
+        </div>
+      </a>
+      <div class="card__info">
+        <div>
+          <span>by </span>
+          <em>{{item.author.fullname}}</em>
+        </div>
+        <div>
+          <span>published </span>
+          <part-date date="{{item.published_at}}">
+        </div>
+        <div>
+          <span>in </span>
+          <span><a href="{{url_category}}">{{item.category.name}}</a></span>
+        </div>
       </div>
-      <div>
-        <div>{{item.title}}</div>
-        <div>{{item.subtitle}}</div>
-        <div>{{item.summary}}</div>
-      </div>
-      <div>
-        <div><span>by </span><span>{{item.author.fullname}}</span></div>
-        <div><span>published </span><part-date date="{{item.published_at}}"></div>
-        <div><span>in </span><span>{{item.category.name}}</span></li>
-      </div>
-      <div>
+<!--
+      <div class="card__info">
         <template is="dom-repeat" items="{{item.tags}}" as="tag">
-          <li>{{tag.name}}</li>
+          <em>{{tag.name}}</em>
         </template>
       </div>
-      <div>
-        <a is="app-link" href="{{item.permalink}}">view</a>
-      </div>
+-->
     </div>
 
   </template>
@@ -54,6 +86,9 @@
       },
       where: {
         type: Object
+      },
+      url_category: {
+        type: String
       }
     },
 
@@ -63,6 +98,7 @@
 
     on_get_item: function (item) {
       this.where = { articleId: item.id };
+      this.url_category = '/categories/' + item.categoryId;
       this.$.image.send();
     }
 

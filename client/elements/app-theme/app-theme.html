@@ -14,7 +14,7 @@
 
 html,
 body {
-  /*font-family: 'Helvetica', 'Arial', sans-serif;*/
+  /*font-family: sans-serif;*/
   font-family: monospace;
   font-size: 14px;
   font-weight: 400;
@@ -25,6 +25,11 @@ html,
 body {
   margin: 0;
   padding: 0;
+  color: #333;
+}
+
+html /deep/ * {
+  box-sizing: border-box;
 }
 
 html /deep/ h1 {
@@ -86,6 +91,17 @@ html /deep/ label {
   display: block;
   font-weight: 600;
   margin-top: 10px;
+}
+
+html /deep/ .card {
+
+}
+
+html /deep/ .card a {
+  text-decoration: none;
+  color: #333;
+}
+html /deep/ .card a: {
 }
 
 </style>
