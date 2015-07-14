@@ -2,6 +2,7 @@
 <link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="/components/iron-input/iron-input.html">
 <link rel="import" href="/elements/api-model-update/api-model-update.html">
+<link rel="import" href="../input-datetime/input-datetime.html">
 <link rel="import" href="field-article-author.html">
 <link rel="import" href="field-article-category.html">
 <link rel="import" href="field-article-tags.html">
@@ -30,13 +31,11 @@
       <div>
         <label>summary</label>
         <iron-autogrow-textarea bind-value="{{article.summary}}">
-          <textarea></textarea>
         </iron-autogrow-textarea>
       </div>
       <div>
         <label>content</label>
         <iron-autogrow-textarea bind-value="{{article.content}}">
-          <textarea></textarea>
         </iron-autogrow-textarea>
       </div>
       <div>
@@ -59,9 +58,9 @@
 -->
       <div>
         <label>published at</label>
-        <input is="iron-input" type="datetime-local" step="60" bind-value="{{article.published_at}}">
-        <button id="now" on-click="on_click_now">now</button>
+        <input-datetime value="{{article.published_at}}"></input-datetime>
       </div>
+
       <div>
         <br>
         <input type="submit" value="update">

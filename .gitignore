@@ -5,3 +5,4 @@ common/unzip
 *.swp
 *.env
 storage
+faker/images
