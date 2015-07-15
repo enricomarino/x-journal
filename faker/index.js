@@ -3,8 +3,6 @@ var DEBUG = true;
 var async = require('async');
 var faker = require('faker');
 var request = require('request');
-var curry = require('curry');
-var stream2buffer = require('stream2buffer');
 var fs = require('fs');
 
 var categories_names = [
@@ -161,29 +159,38 @@ var upload_image = function (image, article, done) {
     return category.id === article.categoryId;
   })[0].name;
 
-  request({
-    method: 'GET',
-    url: 'http://lorempixel.com/1200/400/' + category
-  })
-  .on('end', function () {
-        request({
-          method: 'POST',
-          url: 'http://localhost:3000' + image.signed_url,
-          headers: {
-            'Authorization': token
-          },
-          formData: {
-            file: {
-              value: fs.createReadStream('./images/' + image.filename),
-              options: {
-                filename: image.filename,
-                contentType: image.filetype
+  async.retry({
+    times: 500,
+    interval: 200
+  }, function (cb) {
+    request({
+      method: 'GET',
+      url: 'http://lorempixel.com/1200/400/' + category
+    })
+    .on('error', cb)
+    .on('end', function () {
+          request({
+            method: 'POST',
+            url: 'http://localhost:3000' + image.signed_url,
+            headers: {
+              'Authorization': token
+            },
+            formData: {
+              file: {
+                value: fs.createReadStream('./images/' + image.filename),
+                options: {
+                  filename: image.filename,
+                  contentType: image.filetype
+                }
               }
             }
-          }
-        }).on('end', done);
-    })
-  .pipe(fs.createWriteStream('./images/' + image.filename));
+          })
+          .on('error', cb)
+          .on('end', cb);
+      })
+    .pipe(fs.createWriteStream('./images/' + image.filename));
+
+  }, done);
 };
 
 var create_and_save_categories = function (done) {
