@@ -1,4 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../api-user-logout/api-user-logout.html">
 <dom-module id="button-logout">
   <style>
     :host {
@@ -10,7 +12,7 @@
     <app-session id="session"></app-session>
 
     <api-user-logout id="logout" path="{{path}}" token="{{token}}"
-      on-logout="on_logout">
+      on-logout="on_logout" on-error="on_error">
     </api-user-logout>
 
     <a href="/" on-click="on_click">logout</a>
@@ -28,6 +30,9 @@
       },
       path: {
         type: String
+      },
+      redirectTo: {
+        type: String
       }
     },
 
@@ -42,7 +47,13 @@
 
     on_logout: function (event) {
       console.log(event);
-      this.fire('logout');
+      if (this.redirectTo) {
+        page(this.redirectTo);
+      }
+    },
+
+    on_error: function (event) {
+      console.log(event);
     }
 
   });

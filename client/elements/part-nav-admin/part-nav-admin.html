@@ -1,0 +1,30 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="part-nav-admin">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <nav>
+      <ul>
+        <li><a href="/admin/articles">articles</a></li>
+        <li><a href="/admin/authors">authors</a></li>
+        <li><a href="/admin/categories">categories</a></li>
+        <li><button-logout path="Authors" redirect-to="/"></button-logout></li>
+      </ul>
+    </nav>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-nav-admin',
+
+    properties: {}
+
+  });
+</script>

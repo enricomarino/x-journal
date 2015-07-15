@@ -8,12 +8,11 @@ var stream2buffer = require('stream2buffer');
 var fs = require('fs');
 
 var categories_names = [
-  'people',
+  // 'people',
   'sports',
   'animals',
   'business',
   'nature',
-  'sports',
   'technics'
 ];
 
@@ -26,7 +25,7 @@ var create_author = function (done) {
   author = {
     email: faker.internet.email(),
     fullname: faker.name.findName(),
-    password: faker.internet.password()
+    password: '123'
   };
 
   setImmediate(done);
@@ -161,40 +160,44 @@ var upload_image = function (image, article, done) {
     return category.id === article.categoryId;
   })[0].name;
 
-  request({
-    method: 'GET',
-    url: 'http://lorempixel.com/1200/400/' + category
-  })
-  .on('end', function () {
-        request({
-          method: 'POST',
-          url: 'http://localhost:3000' + image.signed_url,
-          headers: {
-            'Authorization': token
-          },
-          formData: {
-            file: {
-              value: fs.createReadStream('./images/' + image.filename),
-              options: {
-                filename: image.filename,
-                contentType: image.filetype
-              }
-            }
+  // request({
+  //   method: 'GET',
+  //   url: 'http://lorempixel.com/1200/600/' + category
+  // })
+  // .on('end', function () {
+    request({
+      method: 'POST',
+      url: 'http://localhost:3000' + image.signed_url,
+      headers: {
+        'Authorization': token
+      },
+      formData: {
+        file: {
+          value: fs.createReadStream('./images/' + image.filename),
+          options: {
+            filename: image.filename,
+            contentType: image.filetype
           }
-        }).on('end', done);
-    })
-  .pipe(fs.createWriteStream('./images/' + image.filename));
+        }
+      }
+    }).on('end', done);
+  // })
+  // .pipe(fs.createWriteStream('./images/' + image.filename));
 };
 
 var create_and_save_categories = function (done) {
-  async.eachLimit(categories_names, 4, async.seq(
+  async.each(categories_names, async.seq(
+  // async.eachLimit(categories_names, 1, async.seq(
     create_category,
     post_category
   ), done);
+
+
 };
 
 var create_and_save_articles = function (done) {
-  async.timesLimit(100, 4, async.seq(
+  async.times(30, async.seq(
+  // async.timesLimit(100, 1, async.seq(
     create_article,
     post_article,
     create_image,
@@ -211,6 +214,7 @@ async.series([
   create_and_save_articles
 ], function (err, res) {
   if (err) {
+    console.log('ERROR :(');
     console.error(err);
   }
 

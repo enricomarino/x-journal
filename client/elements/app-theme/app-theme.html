@@ -14,8 +14,8 @@
 
 html,
 body {
-  /*font-family: sans-serif;*/
-  font-family: monospace;
+  font-family: sans-serif;
+  /*font-family: monospace;*/
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -32,8 +32,25 @@ html /deep/ * {
   box-sizing: border-box;
 }
 
+html /deep/ .content {
+  font-family: Georgia;
+  font-size: 18px;
+  letter-spacing: 0.75px;
+  line-height: 1.5em;
+}
+
+html /deep/ .summary {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+html /deep/ .content .published {
+  font-size: 16px;
+}
+
 html /deep/ h1 {
   font-weight: 400;
+  font-size: 44px;
 }
 
 html /deep/ input {
@@ -104,4 +121,29 @@ html /deep/ .card a {
 html /deep/ .card a: {
 }
 
+html /deep/ part-jumbotron part-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  padding-bottom: 20px;
+  color: white;
+}
+
+html /deep/ part-jumbotron part-container h1 {
+  margin-bottom: 10px;
+  font-weight: 800;
+  font-size: 44px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  line-height: 1.1;
+}
+
+html /deep/ part-jumbotron part-container h1 {
+  line-height: 1.1;
+  letter-spacing: 1px;
+}
+
+html /deep/ part-card header {
+
+}
 </style>

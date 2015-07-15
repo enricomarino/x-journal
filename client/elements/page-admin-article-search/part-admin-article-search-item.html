@@ -12,47 +12,26 @@
 
     .card {
       @apply(--layout-flex);
-      /*@apply(--layout-horizontal);*/
-      /*margin-bottom: 8px;*/
-    }
-    .card__cover {
-      @apply(--layout-flex);
-      /*@apply(--layout-col-3);*/
-      position: relative;
-      /*width: 140px;*/
-      height: 200px;
-    }
-    .card__info {
-      @apply(--layout-flex);
-      /*@apply(--layout-self-end);*/
-      padding: 8px;
+      font-family: monospace;
+      padding: 0px 20px;
+      margin: 20px 0px;
     }
   </style>
   <template>
 
-    <api-model-get id="get" path="Articles/${id}/image" path-params="{{item}}"
-      model="{{image}}">
-    </api-model-get>
-
     <div class="card">
-      <div class="card__cover">
-        <part-image thumb size="400" image="{{image}}"></part-image>
-      </div>
-      <div class="card__info">
-        <div class="card__title">
-          <strong>{{item.title}}</strong><br>
-          <strong>{{item.subtitle}}</strong>
-        </div>
-        <div class="card__details">
-          <div><span>by</span> <span>{{item.author.fullname}}</span></div>
-          <div><span>published </span><part-date date="{{item.published_at}}"></div>
-          <div><span>in</span> <span>{{item.category.name}}</span></div>
-        </div>
-        <div class="card__actions">
-          <a is="app-link" href="{{item.viewlink}}">view</a>
-          <a is="app-link" href="{{item.editlink}}">edit</a>
-        </div>
-      </div>
+      <section>
+        <strong>{{item.title}}</strong>
+      </section>
+      <section>
+        <div><span>by </span><em>{{item.author.fullname}}</em></div>
+        <div><span>published </span><part-date date="{{item.published_at}}"></part-date></div>
+        <div><span>in </span><span>{{item.category.name}}</span></div>
+      </section>
+      <section>
+        <a is="app-link" href="{{item.viewlink}}">view</a>
+        <a is="app-link" href="{{item.editlink}}">edit</a>
+      </section>
     </div>
 
   </template>
@@ -66,14 +45,6 @@
       item: {
         type: Object
       }
-    },
-
-    observers: [
-      'on_change_item(item)'
-    ],
-
-    on_change_item: function (item) {
-      this.$.get.send();
     }
 
   });

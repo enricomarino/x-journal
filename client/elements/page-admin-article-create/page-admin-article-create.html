@@ -10,10 +10,15 @@
   <template>
 
     <app-page>
-      <h1>Create article</h1>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Create article</h1>
+        </part-container>
+      </part-jumbotron>
 
-      <part-admin-article-create-form article="{{article}}"></part-admin-article-create-form>
-
+      <part-container>
+        <part-admin-article-create-form article="{{article}}"></part-admin-article-create-form>
+      </part-container>
     </app-page>
 
   </template>

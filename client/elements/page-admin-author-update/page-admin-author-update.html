@@ -19,8 +19,15 @@
     </api-model-get>
 
     <app-page>
-      <h1>Edit author</h1>
-      <part-admin-author-update-form author="{{author}}"></part-admin-author-update-form>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Edit author</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-container>
+        <part-admin-author-update-form author="{{author}}"></part-admin-author-update-form>
+      </part-container>
     </app-page>
 
   </template>

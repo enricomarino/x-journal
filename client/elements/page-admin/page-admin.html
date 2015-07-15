@@ -3,6 +3,7 @@
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../app-session/app-session.html">
 <link rel="import" href="../button-logout/button-logout.html">
+<link rel="import" href="../part-nav-admin/part-nav-admin.html">
 <dom-module id="page-admin">
   <style>
     :host {
@@ -14,16 +15,13 @@
     <app-session id="session"></app-session>
 
     <app-page>
-      <h1>Admin</h1>
-      <nav>
-        <ul>
-          <li><a is="app-link" href="/admin/articles">articles</a></li>
-          <li><a is="app-link" href="/admin/authors">authors</a></li>
-          <li><a is="app-link" href="/admin/categories">categories</a></li>
-          <li><button-logout path="Authors" on-logout="on_logout"></button-logout></li>
-        </ul>
-      </nav>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Admin</h1>
+        </part-container>
+      </part-jumbotron>
 
+      <part-nav-admin></part-nav-admin>
     </app-page>
 
   </template>
@@ -33,17 +31,18 @@
 
     is: 'page-admin',
 
-    properties: {},
+    properties: {
+      image: {
+        type: Object,
+        value: {}
+      }
+    },
 
     attached: function () {
       var token = this.$.session.get('access_token');
       if (!token) {
         page('/login');
       }
-    },
-
-    on_logout: function (event) {
-      page('/');
     }
 
   });

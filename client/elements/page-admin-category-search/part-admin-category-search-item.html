@@ -8,10 +8,14 @@
   </style>
   <template>
 
-    <ul>
-      <li>{{item.name}}</li>
-      <li><a is="app-link" href="{{item.editlink}}">edit</a></li>
-    </ul>
+    <div>
+      <section>
+        <strong>{{item.name}}</strong>
+      </section>
+      <section>
+        <a is="app-link" href="{{item.editlink}}">edit</a>
+      </section>
+    </div>
 
   </template>
 </dom-module>
@@ -24,9 +28,7 @@
       item: {
         type: Object
       }
-    },
-
-    ready: function () {}
+    }
 
   });
 </script>

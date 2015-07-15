@@ -4,7 +4,9 @@
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../part-pages/part-pages.html">
-<link rel="import" href="../page-articles/part-articles-items.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-container/part-container.html">
+<link rel="import" href="../part-cards-article/part-cards-article.html">
 <dom-module id="page-category">
   <style>
     :host {
@@ -34,9 +36,15 @@
       models="{{articles}}">
     </api-model-find>
 
-    <app-page>
-      <h1><span>Articles in </span><span>{{category.name}}</span></h1>
-      <part-articles-items items="{{articles}}"></part-articles-items>
+    <app-page class="page">
+
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>{{category.name}}</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-cards-article items="{{articles}}"></part-cards-article>
 
       <part-pages count="{{count}}" perpage="{{perpage}}" current="{{context.params.page}}"
         on-select="on_select_page">
@@ -59,7 +67,7 @@
       },
       perpage: {
         type: Number,
-        value: 2
+        value: 9
       },
       where: {
         type: Object
@@ -70,6 +78,9 @@
       },
       articles: {
         type: Array
+      },
+      image: {
+        type: Object
       }
     },
 

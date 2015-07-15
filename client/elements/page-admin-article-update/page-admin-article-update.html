@@ -22,10 +22,19 @@
     </api-model-delete>
 
     <app-page>
-      <h1>Edit article</h1>
-      <form-article article="{{article}}"></form-article>
-      <br>
-      <button on-click="on_click_delete">delete</button>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Edit articles</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-container>
+        <form-article article="{{article}}"></form-article>
+      </part-container>
+
+      <part-container>
+        <button on-click="on_click_delete">delete</button>
+      </part-container>
     </app-page>
 
   </template>

@@ -1,0 +1,49 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-model-get/api-model-get.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../part-card/part-card.html">
+<link rel="import" href="../part-image/part-image.html">
+<dom-module id="part-card-article">
+  <style>
+    :host {
+      display: block;
+      height: 300px;
+    }
+  </style>
+  <template>
+
+    <api-model-get id="image" auto
+      path="Articles/${id}/image" path-params="{{item}}"
+      model="{{image}}">
+    </api-model-get>
+
+    <string-interpolate string="/articles/${id}" params="{{item}}"
+      result="{{permalink}}">
+    </string-interpolate>
+
+    <part-card url="{{permalink}}" image="{{image}}">
+      <header>
+        <h2>{{item.title}}</h2>
+        <h3>{{item.subtitle}}</h3>
+        <h4><span>by </span><em>{{item.author.fullname}}</em></h4>
+      </header>
+    </part-card>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-card-article',
+
+    properties: {
+      item: {
+        type: Object
+      },
+      permalink: {
+        type: String
+      }
+    }
+
+  });
+</script>

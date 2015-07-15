@@ -1,7 +1,9 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../app-link/app-link.html">
-<link rel="import" href="part-contact-content.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-container/part-container.html">
+<link rel="import" href="../part-content/part-content.html">
 <dom-module id="page-contact">
   <style>
     :host {
@@ -11,8 +13,18 @@
   <template>
 
     <app-page>
-      <h1>Contact</h1>
-      <part-contact-content email="{{email}}"></part-contact-content>
+      <part-jumbotron>
+        <part-container>
+          <h1>Contact</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-container>
+        <part-content>
+          <h3>drop us a line</h3>
+          <a href="{{url}}">{{email}}</a>
+        </part-content>
+      </part-container>
     </app-page>
 
   </template>
@@ -23,13 +35,15 @@
     is: 'page-contact',
 
     properties: {
+      url: {
+        type: String,
+        value: 'mailto:info@example.com'
+      },
       email: {
         type: String,
         value: 'info@example.com'
       }
-    },
-
-    ready: function () {}
+    }
 
   });
 </script>

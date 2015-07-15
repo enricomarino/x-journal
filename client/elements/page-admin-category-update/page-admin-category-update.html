@@ -19,10 +19,21 @@
     </api-model-delete>
 
     <app-page>
-      <h1>Edit category</h1>
-      <part-admin-category-update-form category="{{category}}"></part-admin-category-update-form>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Edit category</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-container>
+        <part-admin-category-update-form category="{{category}}"></part-admin-category-update-form>
+      </part-container>
+
       <br>
-      <button on-click="on_click_delete">delete</button>
+
+      <part-container>
+        <button on-click="on_click_delete">delete</button>
+      </part-container>
     </app-page>
 
   </template>

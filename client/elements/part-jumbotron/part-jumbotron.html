@@ -1,11 +1,12 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
-<dom-module id="part-image">
+<dom-module id="part-jumbotron">
   <style>
     :host {
-      display: inline-block;
+      display: block;
       width: 100%;
-      height: 100%;
+      height: 200px;
+      position: relative;
     }
 
     #image {
@@ -17,28 +18,28 @@
       background-position: center center;
     }
 
-    #content {
+    .overlay {
       position: absolute;
       width: 100%;
       height: 100%;
-    }
-
-    .overlay {
       background-color: rgba(0,0,0,0.25);
     }
+
   </style>
   <template>
 
-    <div id="image"></div>
-    <div id="content" class="overlay">
-      <content></content>
+    <div id="image">
+      <div class="overlay">
+        <content></content>
+      </div>
     </div>
+
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'part-image',
+    is: 'part-jumbotron',
 
     properties: {
       image: {

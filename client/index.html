@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-  <title>journal</title>
+  <title>x-journal</title>
   <script src="/components/webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="/components/polymer/polymer.html">
   <link rel="import" href="/elements/app-theme/app-theme.html">
@@ -37,6 +37,7 @@
     <app-route path="/admin" page="page-admin"></app-route>
     <app-route path="/admin/articles/new" page="page-admin-article-create"></app-route>
     <app-route path="/admin/articles" page="page-admin-article-search"></app-route>
+    <app-route path="/admin/articles/page/:page" page="page-admin-article-search"></app-route>
     <app-route path="/admin/articles/:article_id" page="page-admin-article-update"></app-route>
     <app-route path="/admin/authors/new" page="page-admin-author-create"></app-route>
     <app-route path="/admin/authors" page="page-admin-author-search"></app-route>

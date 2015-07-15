@@ -3,14 +3,29 @@
   <style>
     :host {
       display: block;
-      margin: 4px;
+    }
+
+    .links {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .link {
+      display: inline-block;
+      padding: 10px;
+      text-decoration: none;
+      color: #3d3d3d;
     }
   </style>
   <template>
 
-    <template id="items" is="dom-repeat" items="{{pages}}">
-      <a href="/" on-click="on_click">{{item}}</a>
-    </template>
+    <div class="links">
+      <template id="items" is="dom-repeat" items="{{pages}}">
+        <a href="/" class="link" on-click="on_click">{{item}}</a>
+      </template>
+    </div>
 
   </template>
 </dom-module>

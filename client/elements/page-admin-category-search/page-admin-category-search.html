@@ -1,6 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="/elements/app-page/app-page.html">
-<link rel="import" href="part-admin-category-search-actions.html">
+<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-container/part-container.html">
 <link rel="import" href="part-admin-category-search-items.html">
 <dom-module id="page-admin-category-search">
   <style>
@@ -13,9 +14,19 @@
     <api-model-find id="find" path="Categories" models="{{items}}"></api-model-find>
 
     <app-page>
-      <h1>Categories</h1>
-      <part-admin-category-search-items items="{{items}}"></part-admin-category-search-items>
-      <part-admin-category-search-actions></part-admin-category-search-actions>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Categories</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-container>
+        <part-admin-category-search-items items="{{items}}"></part-admin-category-search-items>
+      </part-container>
+
+      <part-container>
+        <a href="/admin/categories/new">create category</a>
+      </part-container>
     </app-page>
 
   </template>

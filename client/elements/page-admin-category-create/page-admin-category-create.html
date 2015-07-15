@@ -11,8 +11,15 @@
   <template>
 
     <app-page>
-      <h1>Create category</h1>
-      <part-admin-category-create-form></part-admin-category-create-form>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Create category</h1>
+        </part-container>
+      </part-jumbotron>
+
+      <part-container>
+        <part-admin-category-create-form></part-admin-category-create-form>
+      </part-container>
     </app-page>
 
   </template>

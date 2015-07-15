@@ -2,6 +2,8 @@
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../form-login/form-login.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-container/part-container.html">
 <dom-module id="page-login">
   <style>
     :host {
@@ -11,8 +13,14 @@
   <template>
 
     <app-page>
-      <h3>Login</h3>
-      <form-login on-login="on_login"></form-login>
+      <part-jumbotron image="{{image}}">
+        <part-container>
+          <h1>Login</h1>
+        </part-container>
+      </part-jumbotron>
+      <part-container>
+        <form-login on-login="on_login"></form-login>
+      </part-container>
     </app-page>
 
   </template>
