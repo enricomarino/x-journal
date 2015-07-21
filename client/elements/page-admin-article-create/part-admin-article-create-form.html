@@ -1,44 +1,41 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/components/paper-input/paper-input.html">
 <link rel="import" href="/elements/api-model-create/api-model-create.html">
 <dom-module id="part-admin-article-create-form">
   <style>
     :host {
       display: block;
-      font-family: monospace;
     }
   </style>
   <template>
 
     <api-model-create id="create" path="Articles"
-      data="{{article}}" on-response="on_response">
+      data="{{data}}" on-response="on_response" model="{{article}}">
     </api-model-create>
 
-    <form on-submit="on_submit">
-      <div>
-        <label>title</label>
-        <input is="iron-input" bind-value="{{article.title}}">
+    <!-- <form on-submit="on_submit"> -->
+    <form>
+      <div class="field">
+        <label class="label">title</label>
+        <input class="input" type="text" is="iron-input" bind-value="{{data.title}}">
       </div>
-      <div>
-        <label>subtitle</label>
-        <input is="iron-input" bind-value="{{article.subtitle}}">
+      <div class="field">
+        <label class="label">subtitle</label>
+        <input class="input" type="text" is="iron-input" bind-value="{{data.subtitle}}">
       </div>
-      <div>
-        <label>summary</label>
-        <iron-autogrow-textarea bind-value="{{article.summary}}">
-          <textarea></textarea>
-        </iron-autogrow-textarea>
+      <div class="field">
+        <label class="label">summary</label>
+        <iron-autogrow-textarea bind-value="{{data.summary}}"></iron-autogrow-textarea>
       </div>
       <div>
         <label>content</label>
-        <iron-autogrow-textarea bind-value="{{article.content}}">
-          <textarea></textarea>
-        </iron-autogrow-textarea>
+        <iron-autogrow-textarea bind-value="{{data.content}}"></iron-autogrow-textarea>
       </div>
       <div>
         <br>
-        <input type="submit" value="create">
+        <input class="btn" type="submit" value="create">
       </div>
     </form>
 
@@ -50,19 +47,22 @@
     is: 'part-admin-article-create-form',
 
     properties: {
-      article: {
+      data: {
         type: Object,
         value: function () { return {}; }
+      },
+      article: {
+        type: Object
       }
     },
 
-    on_submit: function (event) {
-      event.preventDefault();
-      this.$.create.send();
-    },
+    // on_submit: function (event) {
+    //   // event.preventDefault();
+    //   this.$.create.send();
+    // },
 
     on_response: function () {
-      page('/admin/articles');
+      page('/admin/articles/' + this.article.id);
     }
 
   });

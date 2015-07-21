@@ -5,11 +5,15 @@
     :host {
       display: block;
     }
+
+    input[type="datetime-local"] {
+      font-family: inherit;
+    }
   </style>
   <template>
 
       <input is="iron-input" type="datetime-local" step="60" bind-value="{{parsed_datetime}}" on-change="on_change">
-      <button id="now" on-click="on_click_now">now</button>
+      <button id="now" class="btn" on-click="on_click_now">now</button>
 
   </template>
 </dom-module>

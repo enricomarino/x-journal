@@ -18,23 +18,12 @@
       on-response="on_delete">
     </api-model-delete>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Edit category</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-container>
+    <frame-admin>
+      <div>
+        <h2>edit category</h2>
         <part-admin-category-update-form category="{{category}}"></part-admin-category-update-form>
-      </part-container>
-
-      <br>
-
-      <part-container>
-        <button on-click="on_click_delete">delete</button>
-      </part-container>
-    </app-page>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>

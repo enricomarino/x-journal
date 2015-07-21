@@ -1,0 +1,62 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<dom-module id="input-longtext">
+  <style>
+    :host {
+      display: block;
+    }
+
+    #textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #e7e7e7;
+      font-size: 14px;
+      overflow: hidden;
+      resize: none;
+    }
+
+    #textarea:focus {
+      outline: none;
+      border-bottom: 2px solid #efefef;
+    }
+  </style>
+  <template>
+
+    <textarea id="textarea" on-keyup="update_rows" on-change="on_change_value"></textarea>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'input-longtext',
+
+    properties: {
+      bindValue: {
+        type: String,
+        observer: 'on_change_bind_value',
+        notify: true
+      }
+    },
+
+    on_change_value: function () {
+      this.bindValue = this.$.textarea.value;
+      this.update_rows();
+    },
+
+    on_change_bind_value: function () {
+      this.$.textarea.value = this.bindValue
+      this.update_rows();
+    },
+
+    on_keyup: function () {
+      this.update_rows();
+    },
+
+    update_rows: function () {
+      var text = this.$.textarea.value;
+      var rows = (text.match(/\n/g) || '\n').length + 2;
+      this.$.textarea.setAttribute('rows', rows);
+    }
+
+  });
+</script>

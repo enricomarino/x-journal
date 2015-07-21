@@ -21,6 +21,21 @@
 
     is: 'app-router',
 
+    properties: {
+      current_page: {
+        type: Object
+      },
+      current_page_name: {
+        type: String
+      },
+      previous_page: {
+        type: Object
+      },
+      previous_page_name: {
+        type: String
+      }
+    },
+
     ready: function () {
       this.container = this.$.container;
       var routes = this.querySelectorAll('app-route')
@@ -38,23 +53,37 @@
     },
 
     open: function (page_name) {
+      var router = this;
       var container = this.container;
-      var app = this;
+
       return function (context) {
+        router.previous_page_name = router.current_page_name;
+        router.previous_page = router.current_page;
+        router.current_page_name = page_name;
+        router.current_page = router.previous_page;
+
+        var current_page;
+        if (router.current_page_name !== router.previous_page_name) {
+          current_page = document.createElement(page_name);
+        } else {
+          current_page = router.previous_page;
+        }
+        router.current_page = current_page;
+
         var params = context.params;
         var property;
-        var element = document.createElement(page_name);
         for (property in params) {
           if (isNaN(property)) {
-            element.setAttribute(property, params[property]);
+            current_page.setAttribute(property, params[property]);
           }
         }
-        element.pathParams = params;
-        element.context = context;
-        context.element = element;
-        app.page = element;
-        while (container.firstChild) container.removeChild(container.firstChild);
-        container.appendChild(element);
+        current_page.pathParams = params;
+        current_page.context = context;
+
+        if (router.current_page_name !== router.previous_page_name) {
+          while (container.firstChild) container.removeChild(container.firstChild);
+          container.appendChild(current_page);
+        }
         scroll(0,0);
       };
     }

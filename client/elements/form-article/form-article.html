@@ -3,6 +3,7 @@
 <link rel="import" href="/components/iron-input/iron-input.html">
 <link rel="import" href="/elements/api-model-update/api-model-update.html">
 <link rel="import" href="../input-datetime/input-datetime.html">
+<link rel="import" href="../input-longtext/input-longtext.html">
 <link rel="import" href="field-article-author.html">
 <link rel="import" href="field-article-category.html">
 <link rel="import" href="field-article-tags.html">
@@ -11,7 +12,6 @@
   <style>
     :host {
       display: block;
-      font-family: monospace;
     }
   </style>
   <template>
@@ -21,33 +21,29 @@
     </api-model-update>
 
     <form on-submit="on_submit">
-      <div>
+      <div class="field">
         <label>title</label>
         <input is="iron-input" type="text" bind-value="{{article.title}}">
+        <p class="info">The title of the article.</p>
       </div>
-      <div>
-        <label>subtitle</label>
-        <input is="iron-input" type="text" bind-value="{{article.subtitle}}">
-      </div>
-      <div>
+      <div class="field">
         <label>summary</label>
-        <iron-autogrow-textarea bind-value="{{article.summary}}">
-        </iron-autogrow-textarea>
+        <iron-autogrow-textarea bind-value="{{article.summary}}"></iron-autogrow-textarea>
+        <p class="info">The summary of the article</p>
       </div>
-      <div>
+      <div class="field">
         <label>content</label>
-        <iron-autogrow-textarea bind-value="{{article.content}}">
-        </iron-autogrow-textarea>
+        <iron-autogrow-textarea bind-value="{{article.content}}"></iron-autogrow-textarea>
       </div>
-      <div>
+      <div class="field">
         <label>image</label>
         <field-article-image article="{{article}}" image="{{image}}"></field-article-image>
       </div>
-      <div>
+      <div class="field">
         <label>author</label>
         <field-article-author bind-value="{{article.authorId}}"></field-article-author>
       </div>
-      <div>
+      <div class="field">
         <label>category</label>
         <field-article-category bind-value="{{article.categoryId}}"></field-article-category>
       </div>
@@ -57,14 +53,13 @@
         <field-article-tags bind-value="{{article.tags}}"></field-article-tags>
       </div>
 -->
-      <div>
+      <div class="field">
         <label>published at</label>
         <input-datetime value="{{article.published_at}}"></input-datetime>
       </div>
-
       <div>
         <br>
-        <input type="submit" value="update">
+        <input class="btn" type="submit" value="update">
       </div>
     </form>
 

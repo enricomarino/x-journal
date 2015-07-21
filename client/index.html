@@ -12,7 +12,7 @@
   <link rel="import" href="/elements/page-about/page-about.html">
   <link rel="import" href="/elements/page-admin/page-admin.html">
   <link rel="import" href="/elements/page-admin-article-create/page-admin-article-create.html">
-  <link rel="import" href="/elements/page-admin-article-search/page-admin-article-search.html">
+  <link rel="import" href="/elements/page-admin-articles/page-admin-articles.html">
   <link rel="import" href="/elements/page-admin-article-update/page-admin-article-update.html">
   <link rel="import" href="/elements/page-admin-author-create/page-admin-author-create.html">
   <link rel="import" href="/elements/page-admin-author-search/page-admin-author-search.html">
@@ -28,6 +28,7 @@
   <link rel="import" href="/elements/page-login/page-login.html">
   <link rel="import" href="/elements/page-privacy/page-privacy.html">
   <link rel="import" href="/elements/page-terms/page-terms.html">
+  <link rel="import" href="/elements/page-test/page-test.html">
 </head>
 <body>
 
@@ -36,8 +37,8 @@
     <app-route path="/about" page="page-about"></app-route>
     <app-route path="/admin" page="page-admin"></app-route>
     <app-route path="/admin/articles/new" page="page-admin-article-create"></app-route>
-    <app-route path="/admin/articles" page="page-admin-article-search"></app-route>
-    <app-route path="/admin/articles/page/:page" page="page-admin-article-search"></app-route>
+    <app-route path="/admin/articles" page="page-admin-articles"></app-route>
+    <app-route path="/admin/articles/page/:page" page="page-admin-articles"></app-route>
     <app-route path="/admin/articles/:article_id" page="page-admin-article-update"></app-route>
     <app-route path="/admin/authors/new" page="page-admin-author-create"></app-route>
     <app-route path="/admin/authors" page="page-admin-author-search"></app-route>
@@ -55,6 +56,8 @@
     <app-route path="/login" page="page-login"></app-route>
     <app-route path="/privacy" page="page-privacy"></app-route>
     <app-route path="/terms" page="page-terms"></app-route>
+
+    <app-route path="/test" page="page-test"></app-route>
   </app-router>
 </body>
 </html>

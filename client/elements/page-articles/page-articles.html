@@ -71,11 +71,15 @@
       }
     },
 
+    observers: [
+      'on_change_context(context.params.*)'
+    ],
+
     on_select_page: function (event, detail) {
       page('/articles/page/' + detail.page);
     },
 
-    attached: function () {
+    on_change_context: function () {
       this.$.count_articles.send();
       this.$.find_articles.send();
     }

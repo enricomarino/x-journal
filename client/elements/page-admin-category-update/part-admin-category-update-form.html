@@ -5,7 +5,6 @@
   <style>
     :host {
       display: block;
-      font-family: monospace;
     }
   </style>
   <template>
@@ -18,11 +17,11 @@
     <form on-submit="on_submit">
       <div>
         <label>name</label>
-        <input is="iron-input" bind-value="{{category.name}}">
+        <input is="iron-input" type="text" bind-value="{{category.name}}">
       </div>
       <div>
         <br>
-        <input type="submit" value="update">
+        <input type="submit" class="btn" value="update">
       </div>
     </form>
 

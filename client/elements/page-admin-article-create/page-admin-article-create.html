@@ -1,5 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="part-admin-article-create-form.html">
 <dom-module id="page-admin-article-create">
   <style>
@@ -9,17 +9,13 @@
   </style>
   <template>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Create article</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-container>
-        <part-admin-article-create-form article="{{article}}"></part-admin-article-create-form>
-      </part-container>
-    </app-page>
+    <frame-admin>
+      <div>
+        <h2>new article</h2>
+        <part-admin-article-create-form on-submit="on_submit"
+          article="{{article}}"></part-admin-article-create-form>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>
@@ -32,6 +28,11 @@
       article: {
         type: Object
       }
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      console.log(event);
     }
 
   });

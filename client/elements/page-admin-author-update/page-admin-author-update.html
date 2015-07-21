@@ -1,6 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../app-link/app-link.html">
-<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="../app-session/app-session.html">
 <link rel="import" href="part-admin-author-update-form.html">
 <dom-module id="page-admin-author-update">
@@ -18,17 +18,12 @@
       model="{{author}}">
     </api-model-get>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Edit author</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-container>
+    <frame-admin>
+      <div>
+        <h2>edit author</h2>
         <part-admin-author-update-form author="{{author}}"></part-admin-author-update-form>
-      </part-container>
-    </app-page>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>

@@ -1,11 +1,9 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../api-model-find/api-model-find.html">
-<link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="../part-jumbotron/part-jumbotron.html">
-<link rel="import" href="../part-container/part-container.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="../part-pages/part-pages.html">
 <link rel="import" href="part-admin-article-search-items.html">
-<dom-module id="page-admin-article-search">
+<dom-module id="page-admin-articles">
   <style>
     :host {
       display: block;
@@ -13,7 +11,7 @@
   </style>
   <template>
 
-    <api-model-find id="find" auto path="Articles"
+    <api-model-find id="find" path="Articles"
       count="{{count}}" perpage="{{perpage}}" page="{{context.params.page}}"
       include="{{include}}" models="{{articles}}">
     </api-model-find>
@@ -22,33 +20,24 @@
       count="{{count}}">
     </api-model-count>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Articles</h1>
-        </part-container>
-      </part-jumbotron>
+    <frame-admin>
+      <div>
+        <h2>articles</h2>
+        <a is="app-link" class="btn" href="/admin/articles/new">create article</a>
 
-      <part-container>
-        <strong><a is="app-link" href="/admin/articles/new">create article</a></strong>
-      </part-container>
-
-      <part-container>
         <part-admin-article-search-items items="{{articles}}"></part-admin-article-search-items>
-      </part-container>
 
-      <part-pages count="{{count}}" perpage="{{perpage}}" current="{{context.params.page}}"
-        on-select="on_select_page">
-      </part-pages>
-
-    </app-page>
+        <part-pages count="{{count}}" perpage="{{perpage}}" current="{{context.params.page}}"
+          on-select="on_select_page"></part-pages>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'page-admin-article-search',
+    is: 'page-admin-articles',
 
     properties: {
       articles: {
@@ -65,6 +54,14 @@
         type: Number,
         value: 9
       }
+    },
+
+    observers: [
+      'on_change_params(context.params.*)'
+    ],
+
+    on_change_params: function () {
+      this.$.find.send();
     },
 
     on_select_page: function (event, detail) {

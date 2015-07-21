@@ -1,7 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/elements/api-model-delete/api-model-delete.html">
 <link rel="import" href="/elements/api-model-get/api-model-get.html">
-<link rel="import" href="/elements/app-page/app-page.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="../form-article/form-article.html">
 <dom-module id="page-admin-article-update">
   <style>
@@ -21,21 +21,14 @@
       on-response="on_delete">
     </api-model-delete>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Edit articles</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-container>
+    <frame-admin>
+      <div>
+        <h2>edit article</h2>
         <form-article article="{{article}}"></form-article>
-      </part-container>
-
-      <part-container>
-        <button on-click="on_click_delete">delete</button>
-      </part-container>
-    </app-page>
+        <br>
+        <button class="btn" on-click="on_click_delete">delete</button>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>

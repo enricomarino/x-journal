@@ -1,28 +1,20 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="../part-container/part-container.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="part-admin-author-create-form.html">
 <dom-module id="page-admin-author-create">
   <style>
     :host {
       display: block;
-      font-family: monospace;
     }
   </style>
   <template>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Create author</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-container>
+    <frame-admin>
+      <div>
+        <h2>new author</h2>
         <part-admin-author-create-form></part-admin-author-create-form>
-      </part-container>
-    </app-page>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>

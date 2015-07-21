@@ -84,11 +84,15 @@
       }
     },
 
+    observers: [
+      'on_change_params(context.params.*)'
+    ],
+
     on_select_page: function (event, detail) {
       page('/categories/' + this.context.params.category_id + '/page/' + detail.page);
     },
 
-    attached: function () {
+    on_change_params: function () {
       this.where = { categoryId: this.context.params.category_id };
       this.$.get_category.send();
       this.$.count_articles.send();

@@ -1,6 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="/elements/app-link/app-link.html">
-<link rel="import" href="/elements/app-page/app-page.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="part-admin-category-create-form.html">
 <dom-module id="page-admin-category-create">
   <style>
@@ -10,17 +9,12 @@
   </style>
   <template>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Create category</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-container>
+    <frame-admin>
+      <div>
+        <h2>new category</h2>
         <part-admin-category-create-form></part-admin-category-create-form>
-      </part-container>
-    </app-page>
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>
@@ -29,9 +23,7 @@
 
     is: 'page-admin-category-create',
 
-    properties: {},
-
-    ready: function () {}
+    properties: {}
 
   });
 </script>

@@ -1,9 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../app-link/app-link.html">
-<link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../frame-admin/frame-admin.html">
 <link rel="import" href="../app-session/app-session.html">
-<link rel="import" href="../button-logout/button-logout.html">
-<link rel="import" href="../part-nav-admin/part-nav-admin.html">
 <dom-module id="page-admin">
   <style>
     :host {
@@ -14,15 +11,16 @@
 
     <app-session id="session"></app-session>
 
-    <app-page>
-      <part-jumbotron image="{{image}}">
-        <part-container>
-          <h1>Admin</h1>
-        </part-container>
-      </part-jumbotron>
-
-      <part-nav-admin></part-nav-admin>
-    </app-page>
+    <frame-admin>
+      <div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+    </frame-admin>
 
   </template>
 </dom-module>
@@ -31,12 +29,7 @@
 
     is: 'page-admin',
 
-    properties: {
-      image: {
-        type: Object,
-        value: {}
-      }
-    },
+    properties: {},
 
     attached: function () {
       var token = this.$.session.get('access_token');
