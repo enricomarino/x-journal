@@ -1,0 +1,34 @@
+<link rel="import" href="/components/app-link/app-link.html">
+
+<dom-module id="item-author">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div class="item">
+      <section>
+        <strong>{{item.fullname}}</strong>
+      </section>
+      <section>
+        <a is="app-link" href="{{item.editlink}}">edit</a>
+      </section>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'item-author',
+
+    properties: {
+      item: {
+        type: Object
+      }
+    }
+
+  });
+</script>

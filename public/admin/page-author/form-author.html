@@ -1,0 +1,57 @@
+<link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/components/api-model-update/api-model-update.html">
+
+<dom-module id="form-author">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <app-session id="session"></app-session>
+
+    <api-model-update id="update" token="{{token}}"
+      path="Authors/${id}" path-params="{{author}}"
+      data="{{author}}">
+    </api-model-update>
+
+    <form class="form" on-submit="on_submit">
+      <div class="field">
+        <label class="label">fullname</label>
+        <input class="input" is="iron-input" type="text" bind-value="{{author.fullname}}">
+      </div>
+      <div class="field">
+        <input type="submit" class="button" value="update">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'form-author',
+
+    properties: {
+      author: {
+        type: Object
+      },
+      token: {
+        type: String
+      }
+    },
+
+    ready: function () {
+      this.token = this.$.session.get('access_token');
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.update.send();
+    }
+
+  });
+</script>

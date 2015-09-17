@@ -1,15 +1,23 @@
 {
   "_meta": {
     "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
       "../common/models",
       "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
     ]
   },
   "User": {
-    "dataSource": "mongo"
+    "dataSource": "db"
   },
   "AccessToken": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": false
   },
   "ACL": {
@@ -34,16 +42,7 @@
   "Category": {
     "dataSource": "mongo"
   },
-  "Tag": {
-    "dataSource": "mongo"
-  },
   "Image": {
-    "dataSource": "mongo",
-    "public": true
-  },
-
-  "Email": {
-    "dataSource": "email"
+    "dataSource": "mongo"
   }
-
 }

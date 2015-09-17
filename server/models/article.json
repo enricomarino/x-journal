@@ -23,6 +23,9 @@
     },
     "published_at": {
       "type": "date"
+    },
+    "tags": {
+    	"type": ["string"]
     }
   },
   "relations": {
@@ -33,10 +36,6 @@
     "category": {
       "type": "belongsTo",
       "model": "Category"
-    },
-    "tags": {
-      "type": "hasMany",
-      "model": "Tag"
     },
     "image": {
       "type": "hasOne",

@@ -1,0 +1,37 @@
+<link rel="import" href="item-author.html">
+
+<dom-module id="list-authors">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <div class="list">
+      <template is="dom-repeat" items="{{items}}" filter="filter">
+        <item-author item="{{item}}"></item-author>
+      </template>
+    </div>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'list-authors',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    },
+
+    filter: function (item) {
+      item.editlink = '/admin/authors/' + item.id;
+      return true;
+    }
+
+  });
+</script>

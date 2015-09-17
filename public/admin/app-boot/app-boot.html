@@ -1,0 +1,69 @@
+<link rel="import" href="/components/app-routes/app-routes.html">
+<link rel="import" href="/components/app-route/app-route.html">
+<link rel="import" href="/components/app-container/app-container.html">
+<link rel="import" href="/components/app-link/app-link.html">
+<link rel="import" href="/components/app-session/app-session.html">
+
+<link rel="import" href="../app-theme/app-theme.html">
+<link rel="import" href="../page-home/page-home.html">
+<link rel="import" href="../page-article/page-article.html">
+<link rel="import" href="../page-articles/page-articles.html">
+<link rel="import" href="../page-author/page-author.html">
+<link rel="import" href="../page-authors/page-authors.html">
+<link rel="import" href="../page-categories/page-categories.html">
+<link rel="import" href="../page-category/page-category.html">
+
+<dom-module id="app-boot">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <app-container id="app" on-login="on_login" on-logout="on_logout"></app-container>
+
+    <app-routes id="routes" on-route="on_route">
+      <app-route path="/admin" page="page-home"></app-route>
+      <app-route path="/admin/home" page="page-home"></app-route>
+      <app-route path="/admin/articles" page="page-articles"></app-route>
+      <app-route path="/admin/articles/:article_id" page="page-article"></app-route>
+      <app-route path="/admin/authors" page="page-authors"></app-route>
+      <app-route path="/admin/authors/:author_id" page="page-author"></app-route>
+      <app-route path="/admin/categories" page="page-categories"></app-route>
+      <app-route path="/admin/categories/:category_id" page="page-category"></app-route>
+    </app-routes>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'app-boot',
+
+    properties: {
+      user: {
+        type: Object
+      }
+    },
+
+    on_route: function (event) {
+      this.user = this.$.session.get('user');
+    },
+
+    on_mount: function (event) {
+      event.detail.user = this.$.session.get('user');
+    },
+
+    on_login: function (event) {
+      this.$.session.set('user', event.detail.user);
+    },
+
+    on_logout: function (event) {
+      this.$.session.unset('user');
+    }
+
+  });
+</script>

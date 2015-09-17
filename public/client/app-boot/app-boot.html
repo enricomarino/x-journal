@@ -1,0 +1,69 @@
+<link rel="import" href="/components/app-routes/app-routes.html">
+<link rel="import" href="/components/app-route/app-route.html">
+<link rel="import" href="/components/app-container/app-container.html">
+<link rel="import" href="/components/app-link/app-link.html">
+<link rel="import" href="/components/app-session/app-session.html">
+
+<link rel="import" href="../app-theme/app-theme.html">
+<link rel="import" href="../page-about/page-about.html">
+<link rel="import" href="../page-article/page-article.html">
+<link rel="import" href="../page-articles/page-articles.html">
+<link rel="import" href="../page-contact/page-contact.html">
+<link rel="import" href="../page-home/page-home.html">
+<link rel="import" href="../page-login/page-login.html">
+<link rel="import" href="../page-privacy/page-privacy.html">
+<link rel="import" href="../page-test/page-test.html">
+
+<dom-module id="app-boot">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <app-container id="container" on-login="on_login" on-logout="on_logout"></app-container>
+
+    <app-routes id="routes" on-route="on_route">
+      <app-route path="/" page="page-home"></app-route>
+      <app-route path="/home" page="page-home"></app-route>
+      <app-route path="/about" page="page-about"></app-route>
+      <app-route path="/contact" page="page-contact"></app-route>
+      <app-route path="/privacy" page="page-privacy"></app-route>
+      <app-route path="/login" page="page-login" on-route="/login"></app-route>
+      <app-route path="/articles" page="page-articles"></app-route>
+      <app-route path="/articles/:article_id" page="page-article"></app-route>
+    </app-routes>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'app-boot',
+
+    on_route: function (event) {
+      this.user = this.$.session.get('user');
+    },
+
+    on_login: function (event) {
+      this.$.session.set('user', event.detail.user);
+    },
+
+    on_logout: function (event) {
+      this.$.session.unset('user');
+    },
+
+    '/login': function (event) {
+      if (this.user) {
+        event.stopPropagation();
+        page('/');
+        return;
+      }
+    }
+
+  });
+</script>
