@@ -1,0 +1,57 @@
+<link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/components/api-model-update/api-model-update.html">
+
+<dom-module id="form-user">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <app-session id="session"></app-session>
+
+    <api-model-update id="update" token="{{token}}"
+      path="Users/${id}" path-params="{{user}}"
+      data="{{user}}">
+    </api-model-update>
+
+    <form class="form" on-submit="on_submit">
+      <div class="field">
+        <label class="label">fullname</label>
+        <input class="input" is="iron-input" type="text" bind-value="{{user.fullname}}">
+      </div>
+      <div class="field">
+        <input type="submit" class="button" value="update">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'form-user',
+
+    properties: {
+      user: {
+        type: Object
+      },
+      token: {
+        type: String
+      }
+    },
+
+    ready: function () {
+      this.token = this.$.session.get('access_token');
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.update.send();
+    }
+
+  });
+</script>

@@ -1,0 +1,35 @@
+{
+  "name": "Invite",
+  "plural": "Invites",
+  "base": "PersistedModel",
+  "properties": {
+    "email": "string",
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "editor",
+        "author"
+      ]
+    },
+    "token": {
+      "type": "string",
+      "required": false
+    },
+    "url": {
+      "type": "string",
+      "required": false
+    },
+    "expiration": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "mixins": {
+    "TimeStamp" : true
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

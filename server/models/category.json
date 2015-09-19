@@ -7,7 +7,7 @@
       "type": "string"
     },
     "description": {
-    	"type": "string"
+      "type": "string"
     }
   },
   "validations": [],
@@ -18,5 +18,5 @@
     }
   },
   "acls": [],
-  "methods": []
+  "methods": {}
 }

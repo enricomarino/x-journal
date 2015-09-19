@@ -1,10 +1,15 @@
 {
-  "name": "Author",
-  "plural": "Authors",
+  "name": "Member",
+  "plural": "Member",
   "base": "User",
   "properties": {
     "role": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "admin",
+        "editor",
+        "author"
+      ]
     },
     "fullname": {
       "type": "string"
@@ -13,11 +18,15 @@
       "type": "string"
     }
   },
+  "validations": [],
   "relations": {
     "articles": {
       "type": "hasMany",
       "model": "Article"
     }
+  },
+  "mixins": {
+    "TimeStamp" : true
   },
   "acls": [
     {
@@ -37,8 +46,13 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "__create__articles"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "invite"
     }
   ],
-  "validations": [],
-  "methods": []
+  "methods": {}
 }

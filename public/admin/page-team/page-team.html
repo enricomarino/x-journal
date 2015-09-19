@@ -1,8 +1,8 @@
 <link rel="import" href="../part-sidebar/part-sidebar.html">
 <link rel="import" href="../style-page/style-page.html">
-<link rel="import" href="list-authors.html">
+<link rel="import" href="list-members.html">
 
-<dom-module id="page-authors">
+<dom-module id="page-members">
   <template>
     <style include="style-page"></style>
 
@@ -11,8 +11,8 @@
       <div class="main">
         <div class="container">
           <h2>authors</h2>
-          <a is="app-link" class="btn" href="/admin/authors/new">create author</a>
-          <list-authors items="{{authors}}"></list-authors>
+          <a is="app-link" class="btn" href="/admin/members/new">create new team member</a>
+          <list-members items="{{members}}"></list-members>
         </div>
       </div>
     </div>
@@ -23,10 +23,10 @@
 <script>
   Polymer({
 
-    is: 'page-authors',
+    is: 'page-members',
 
     properties: {
-      authors: {
+      members: {
         type: Array
       }
     }

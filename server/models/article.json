@@ -25,13 +25,16 @@
       "type": "date"
     },
     "tags": {
-    	"type": ["string"]
+      "type": [
+        "string"
+      ]
     }
   },
+  "validations": [],
   "relations": {
     "author": {
       "type": "belongsTo",
-      "model": "Author"
+      "model": "Member"
     },
     "category": {
       "type": "belongsTo",
@@ -43,6 +46,5 @@
     }
   },
   "acls": [],
-  "methods": [],
-  "validations": []
+  "methods": {}
 }
