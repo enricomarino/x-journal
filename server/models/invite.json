@@ -12,6 +12,10 @@
         "author"
       ]
     },
+    "expiresIn": {
+      "type": "number",
+      "required": false
+    },
     "token": {
       "type": "string",
       "required": false
@@ -20,7 +24,7 @@
       "type": "string",
       "required": false
     },
-    "expiration": {
+    "expiresAt": {
       "type": "date",
       "required": false
     }
