@@ -1,0 +1,10 @@
+ho creato files e relative directory per i seguenti elementi senza sistemarne il contenuto:
+  ☐ page-signup
+  ☐ form-signup
+  ☐ page-login
+
+ ☐ public/components/app-routes è stato modificato aggiungendo la querystring: sarebbe il caso di aggiornare il relativo repository
+
+
+ ☐ api-user-segnup deve esporre error
+ ☐ api-user-create deve rinominare model in response, poiché potrebbe contenere anche l'errore

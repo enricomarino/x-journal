@@ -1,6 +1,6 @@
 {
   "name": "Member",
-  "plural": "Member",
+  "plural": "Members",
   "base": "User",
   "properties": {
     "role": {

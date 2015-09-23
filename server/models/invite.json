@@ -12,9 +12,20 @@
         "author"
       ]
     },
+    "status": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "issued",
+        "accepted",
+        "revoked"
+      ],
+      "default": "issued"
+    },
     "expiresIn": {
       "type": "number",
-      "required": false
+      "required": true,
+      "default": 7
     },
     "token": {
       "type": "string",
@@ -26,6 +37,10 @@
     },
     "expiresAt": {
       "type": "date",
+      "required": false
+    },
+    "acceptedAt": {
+       "type": "date",
       "required": false
     }
   },

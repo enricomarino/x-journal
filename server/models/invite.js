@@ -4,12 +4,13 @@ var minstache = require('minstache');
 var async = require('async');
 var if_async = require('if-async');
 
-// var duration = 7; // days
-var base_url = 'http://localhost:3000/admin/signup?token=';
+var base_url = 'http://localhost:3000/admin/signup';
 
+var url = base_url + '?token={{token}}&email={{email}}';
 var email_text = "Hello there,\n\n you have been invited to take part in x-journal as {{role}}.\n\nTo accept the invitation follow this link: {{url}}";
 var email_html = "<div><p>Hello there,</p><p>you have been invited to take part in x-journal as {{role}}.</p><p>To accept the invitation follow this link: <a href=\"{{url}}\">{{url}}</a><div>";
 
+var template_url = minstache.compile(url);
 var template_text = minstache.compile(email_text);
 var template_html = minstache.compile(email_html);
 
@@ -21,7 +22,7 @@ module.exports = function (Invite) {
 
     console.log("send_email", invite);
 
-      Invite.app.models.Email.send({
+    Invite.app.models.Email.send({
       from: "x-journal <x-journal@something.com>",
       to: invite.email,
       subject: "Invitation to partecipate in x-journal",
@@ -32,7 +33,6 @@ module.exports = function (Invite) {
 
   var is_complete = function (invite) {
     return function (cb) {
-
       var complete = invite.url !== undefined &&
                      invite.exiration !== undefined &&
                      invite.token !== undefined;
@@ -43,21 +43,17 @@ module.exports = function (Invite) {
 
   var comlpete = function (invite) {
     return function (done) {
-
-      console.log("complete");
-
-      var url = base_url + token;
-      // var expiresAt = moment().add(duration, 'd').toDate();
+      var expiresAt = moment().add(invite.expiresIn, 'd').toDate();
       var payload = {
-        invitation_id: invite._id,
-        // expiresAt: expiresAt,
+        invite_id: invite.id,
+        expiresAt: expiresAt,
         email: invite.email,
-        url: url
+        role: invite.role
       };
       var token = jwt.encode(payload, process.env.SECRET);
-      // invite.expiresAt = expiresAt;
-      invite.url = base_url + token;
+      invite.expiresAt = expiresAt;
       invite.token = token;
+      invite.url = encodeURI(template_url(invite));
       setImmediate(done);
     };
   };
