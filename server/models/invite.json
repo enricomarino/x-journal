@@ -60,12 +60,47 @@
     }
   },
   "acls": [
+    {
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "create"
+    },
+    {
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "create"
+    },
+    {
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "revoke"
+    },
+    {
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "revoke"
+    },
    {
       "principalType": "ROLE",
       "accessType": "EXECUTE",
-      "principalId": "$authenticated",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "resend"
+    },
+    {
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "admin",
       "permission": "ALLOW",
-      "property": "find"
+      "property": "resend"
     }
   ],
   "methods": {}
