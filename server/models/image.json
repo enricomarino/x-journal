@@ -1,5 +1,6 @@
 {
   "name": "Image",
+  "plural": "Images",
   "base": "PersistedModel",
   "strict": false,
   "idInjection": false,

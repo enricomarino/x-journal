@@ -4,6 +4,9 @@ var path = require('path');
 
 var app = module.exports = loopback();
 
+var morgan = require('morgan');
+app.middleware('routes:before', morgan('dev'));
+
 app.start = function() {
   return app.listen(function() {
     app.emit('started');

@@ -22,15 +22,15 @@
     "public": false
   },
   "ACL": {
-    "dataSource": "memory",
+    "dataSource": "mongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "memory",
+    "dataSource": "mongo",
     "public": false
   },
   "Role": {
-    "dataSource": "memory",
+    "dataSource": "mongo",
     "public": false
   },
   "Article": {

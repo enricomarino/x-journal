@@ -1,6 +1,7 @@
-<link rel="import" href="/components/layout-grid/layout-grid.html">
+<link rel="import" href="/components/app-session/app-session.html">
 <link rel="import" href="/components/api-user-login/api-user-login.html">
-<link rel="import" href="../form-login/form-login.html">
+<link rel="import" href="/components/layout-grid/layout-grid.html">
+<link rel="import" href="form-login.html">
 
 <dom-module id="page-login">
   <template>
@@ -17,7 +18,9 @@
       }
     </style>
 
-    <api-user-login id="login" credentials="{{credentials}}"
+    <app-session id="session"></app-session>
+
+    <api-user-login id="login" credentials="{{credentials}}" collection="Members"
       response="{{response}}" on-response="on_login" on-error="on_error">
     </api-user-login>
 
@@ -48,7 +51,7 @@
 
     on_login: function (event) {
       event.stopPropagation();
-      this.fire('login', event.detail);
+      this.fire('login', this.response);
     },
 
     on_error: function (event) {

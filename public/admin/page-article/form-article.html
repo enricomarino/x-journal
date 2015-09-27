@@ -76,7 +76,6 @@
     },
 
     on_image: function (image) {
-      console.log(image);
       this.article.image = image.id;
     },
 
@@ -92,7 +91,6 @@
     on_click_now: function (event) {
       event.preventDefault();
       this.article.published_at = new Date();
-      console.log(this.article)
     }
 
   });

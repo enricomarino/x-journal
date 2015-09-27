@@ -3,24 +3,29 @@
   "plural": "Invites",
   "base": "PersistedModel",
   "properties": {
-    "email": "string",
+    "email": {
+      "type": "string",
+      "required": true
+    },
     "role": {
       "type": "string",
       "enum": [
         "admin",
         "editor",
         "author"
-      ]
+      ],
+      "required": true,
+      "default": "author"
     },
     "status": {
       "type": "string",
       "required": true,
       "enum": [
-        "issued",
+        "pending",
         "accepted",
         "revoked"
       ],
-      "default": "issued"
+      "default": "pending"
     },
     "expiresIn": {
       "type": "number",
@@ -48,7 +53,20 @@
     "TimeStamp" : true
   },
   "validations": [],
-  "relations": {},
-  "acls": [],
+  "relations": {
+    "sender": {
+      "type": "belongsTo",
+      "model": "Member"
+    }
+  },
+  "acls": [
+   {
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "find"
+    }
+  ],
   "methods": {}
 }

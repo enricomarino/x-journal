@@ -1,6 +1,6 @@
-<link rel="import" href="item-author.html">
+<link rel="import" href="item-member.html">
 
-<dom-module id="list-authors">
+<dom-module id="list-members">
   <style>
     :host {
       display: block;
@@ -20,7 +20,7 @@
 <script>
   Polymer({
 
-    is: 'list-authors',
+    is: 'list-members',
 
     properties: {
       items: {
@@ -29,7 +29,7 @@
     },
 
     filter: function (item) {
-      item.editlink = '/admin/authors/' + item.id;
+      item.editlink = '/admin/members/' + item.id;
       return true;
     }
 

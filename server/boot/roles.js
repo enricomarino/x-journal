@@ -6,8 +6,14 @@ module.exports = function (server, done) {
 
   var create_role = function (name) {
     return function (next) {
-      Role.create({ name: name }, function (err) {
-        setImmediate(next, err);
+      // add role only if it not exists
+      Role.findOne({where: {name: name}}, function (err, role) {
+        if (err || role) {
+          setImmediate(next, err);
+          return;
+        }
+
+        Role.create({ name: name }, next);
       });
     };
   };
@@ -20,5 +26,3 @@ module.exports = function (server, done) {
   ], done);
 
 };
-
-

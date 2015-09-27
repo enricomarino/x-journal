@@ -1,20 +1,30 @@
+<link rel="import" href="/components/api-model-find/api-model-find.html">
+<link rel="import" href="/components/app-session/app-session.html">
 <link rel="import" href="../part-sidebar/part-sidebar.html">
 <link rel="import" href="../style-page/style-page.html">
 <link rel="import" href="list-members.html">
+<link rel="import" href="list-invites.html">
 
-<dom-module id="page-members">
+<dom-module id="page-team">
   <template>
     <style include="style-page"></style>
 
+    <app-session id="session"></app-session>
 
+    <api-model-find id="find_members" collection="Members" models="{{members}}" access-token="{{token}}"></api-model-find>
+    <api-model-find id="find_invites" collection="Invites" models="{{invites}}" include='["sender"]' access-token="{{token}}"></api-model-find>
 
     <div class="page">
       <part-sidebar class="sidebar"></part-sidebar>
       <div class="main">
         <div class="container">
           <h2>Team</h2>
-          <a is="app-link" class="btn" href="/admin/members/new">create new team member</a>
           <list-members items="{{members}}"></list-members>
+        </div>
+        <div class="container">
+          <h2>Invites</h2>
+          <a is="app-link" class="btn" href="/admin/invite/new">invite new team member</a>
+          <list-invites items="{{invites}}"></list-invites>
         </div>
       </div>
     </div>
@@ -25,12 +35,21 @@
 <script>
   Polymer({
 
-    is: 'page-members',
+    is: 'page-team',
 
     properties: {
       members: {
         type: Array
+      },
+      invites: {
+        type: Array
       }
+    },
+
+    attached: function () {
+      this.token = this.$.session.get('access_token');
+      this.$.find_members.send();
+      this.$.find_invites.send();
     }
 
   });
