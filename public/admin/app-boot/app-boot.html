@@ -28,7 +28,7 @@
 
     <app-container id="app" on-login="on_login" on-logout="on_logout"></app-container>
 
-    <app-routes id="routes" on-route="on_route">
+    <app-routes id="routes" on-before-route="on_route">
       <app-route path="/admin" page="page-home"></app-route>
       <app-route path="/admin/home" page="page-home"></app-route>
       <app-route path="/admin/articles" page="page-articles"></app-route>
@@ -55,26 +55,39 @@
       }
     },
 
-    on_route: function (event) {
+    attached: function (event) {
       this.user = this.$.session.get('user');
-      console.log(event.detail);
+      this.isAdmin = this.user ? this.user.role === 'admin' : false;
+      this.accessToken = this.$.session.get('access_token');
     },
 
-    on_mount: function (event) {
-      event.detail.user = this.$.session.get('user');
+    on_route: function (event) {
+      event.detail.session = {
+        accessToken: this.accessToken,
+        isAdmin: this.isAdmin,
+        user: this.user,
+      };
     },
 
     on_login: function (event) {
       this.$.session.set('access_token', event.detail.id);
       this.$.session.set('user_id', event.detail.userId);
       this.$.session.set('user', event.detail.user);
+
       this.user = event.detail.user;
+      this.accessToken = event.detail.id;
       this.isAdmin = this.user.role === 'admin';
       page('/admin/team');
     },
 
     on_logout: function (event) {
+      this.$.session.unset('access_token');
+      this.$.session.unset('user_id');
       this.$.session.unset('user');
+
+      delete this.accessToken;
+      delete this.isAdmin;
+      delete this.user;
     }
 
   });

@@ -4,7 +4,7 @@ ho creato files e relative directory per i seguenti elementi senza sistemarne il
   ✔ page-login @done (15-09-24 17:55)
 
 x-project component da aggiornare:
- ☐ public/components/app-routes è stato modificato aggiungendo la querystring: sarebbe il caso di aggiornare il relativo repository
+ ✔ public/components/app-routes è stato modificato aggiungendo la querystring: sarebbe il caso di aggiornare il relativo repository @done (15-09-28 16:35)
  ☐ api-user-segnup deve esporre error
  ☐ api-user-create deve rinominare model in response, poiché potrebbe contenere anche l'errore
  ☐ api-model-create access-token renamed accessToken
@@ -12,10 +12,10 @@ x-project component da aggiornare:
  ☐ api-model-create manca il campo header
 
 pacchetti bower da aggiornare:
- ☐ superagent non viene installato da bower
+ ✔ superagent non viene installato da bower @done (15-09-28 16:35)
 
 migiorie generali:
- ☐ nomi delle collezioni al plurale e minuscole
+ ✔ nomi delle collezioni al plurale e minuscole @done (15-09-28 16:35)
  ☐ page-member deve ricevere il member iniettato dal router
  ☐ page-invite deve ricevere l'invite iniettato dal router
 

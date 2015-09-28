@@ -1,7 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/app-link/app-link.html">
 <link rel="import" href="/components/api-user-signup/api-user-signup.html">
-<link rel="import" href="/components/app-session/app-session.html">
 
 <link rel="import" href="form-invite.html">
 <dom-module id="page-invite">
@@ -19,9 +18,7 @@
   </style>
   <template>
 
-    <app-session id="session"></app-session>
-
-    <api-model-create id="create" collection="invites" access-token="{{token}}"
+    <api-model-create id="create" collection="invites" access-token="{{route.session.accessToken}}"
       response="{{response}}" error="{{error}}" data="{{data}}"
       on-response="on_response" on-error="on_error">
     </api-model-create>
@@ -60,8 +57,8 @@
       }
     },
 
-    ready: function () {
-      this.token = this.$.session.get('access_token');
+    attached: function () {
+      console.log(this.route);
     },
 
     on_submit: function (event) {

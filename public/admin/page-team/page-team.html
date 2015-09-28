@@ -1,5 +1,4 @@
 <link rel="import" href="/components/api-model-find/api-model-find.html">
-<link rel="import" href="/components/app-session/app-session.html">
 <link rel="import" href="../part-sidebar/part-sidebar.html">
 <link rel="import" href="../style-page/style-page.html">
 <link rel="import" href="list-members.html">
@@ -14,10 +13,8 @@
     }
     </style>
 
-    <app-session id="session"></app-session>
-
-    <api-model-find id="find_members" collection="members" response="{{members}}" access-token="{{token}}"></api-model-find>
-    <api-model-find id="find_invites" collection="invites" response="{{invites}}" include='["sender"]' access-token="{{token}}"></api-model-find>
+    <api-model-find id="find_members" collection="members" response="{{members}}" access-token="{{route.session.accessToken}}"></api-model-find>
+    <api-model-find id="find_invites" collection="invites" response="{{invites}}" include='["sender"]' access-token="{{route.session.accessToken}}"></api-model-find>
 
     <div class="page">
       <part-sidebar class="sidebar"></part-sidebar>
@@ -52,8 +49,6 @@
     },
 
     attached: function () {
-      this.isAdmin = this.$.session.get('user').role === 'admin';
-      this.token = this.$.session.get('access_token');
       this.$.find_members.send();
       this.$.find_invites.send();
     }

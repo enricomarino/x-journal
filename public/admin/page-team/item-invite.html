@@ -1,6 +1,4 @@
 <link rel="import" href="/components/app-link/app-link.html">
-<link rel="import" href="/components/app-session/app-session.html">
-
 
 <dom-module id="item-invite">
   <script src="/components/superagent/superagent.js"></script>
@@ -14,8 +12,6 @@
         margin: 20px 20px 20px 20px;
       }
     </style>
-
-    <app-session id="session"></app-session>
 
     <div class="item">
       <section>
@@ -73,7 +69,7 @@
 
       superagent
         .post(url)
-        .set('Authorization', this.$.session.get('access_token'))
+        .set('Authorization', this.route.session.accessToken)
         .set('Accept', 'application/json')
         .end(function(err, res){
           if (err) {
