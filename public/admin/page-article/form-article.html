@@ -2,15 +2,17 @@
 <link rel="import" href="/components/iron-input/iron-input.html">
 <link rel="import" href="/components/api-model-update/api-model-update.html">
 <link rel="import" href="/components/input-datetime/input-datetime.html">
+<link rel="import" href="../style-form/style-form.html">
 <link rel="import" href="field-article-author.html">
 <link rel="import" href="field-article-category.html">
 <link rel="import" href="field-article-tags.html">
 <link rel="import" href="field-article-image.html">
 <dom-module id="form-article">
   <template>
+    <style include="style-form"></style>
     <style>
-      :host {
-        display: block;
+      #test {
+        border: 2px solid red;
       }
     </style>
 
@@ -25,11 +27,17 @@
       </div>
       <div class="field">
         <label class="label">summary</label>
-        <iron-autogrow-textarea class="input" bind-value="{{article.summary}}"></iron-autogrow-textarea>
+        <iron-autogrow-textarea class="textarea" rows="3"
+          bind-value="{{article.summary}}">
+          <textarea></textarea>
+        </iron-autogrow-textarea>
       </div>
       <div class="field">
         <label class="label">content</label>
-        <iron-autogrow-textarea class="input" bind-value="{{article.content}}"></iron-autogrow-textarea>
+        <iron-autogrow-textarea class="textarea" rows="6"
+          bind-value="{{article.content}}">
+          <textarea id="test"></textarea>
+        </iron-autogrow-textarea>
       </div>
       <div class="field">
         <label class="label">image</label>

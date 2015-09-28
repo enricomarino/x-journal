@@ -16,8 +16,8 @@
       <part-sidebar class="sidebar"></part-sidebar>
       <div class="main">
         <div class="container">
-          <h2>articles</h2>
-          <a is="app-link" class="btn" href="/admin/articles/new">create article</a>
+          <h2>Articles</h2>
+          <a is="app-link" class="button" href="/admin/articles/new">create article</a>
           <list-articles items="{{articles}}"></list-articles>
           <part-pages count="{{count}}" perpage="{{perpage}}" current="{{context.params.page}}"
             on-select="on_select_page"></part-pages>

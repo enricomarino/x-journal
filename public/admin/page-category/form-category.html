@@ -1,13 +1,9 @@
 <link rel="import" href="/components/iron-input/iron-input.html">
 <link rel="import" href="/components/api-model-update/api-model-update.html">
-
+<link rel="import" href="../style-form/style-form.html">
 <dom-module id="form-category">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <style include="style-form"></style>
 
     <api-model-update id="update" collection="Categories"
       model-id="{{category.id}}" model="{{category}}"
@@ -20,7 +16,7 @@
         <input class="input" is="iron-input" type="text" bind-value="{{category.name}}">
       </div>
       <div class="field">
-        <input type="submit" class="btn" value="update">
+        <input type="submit" class="button" value="update">
       </div>
     </form>
 

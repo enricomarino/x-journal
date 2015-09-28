@@ -6,24 +6,53 @@
         display: block;
       }
 
-      #form {
+      .form {
         margin-bottom: 4px;
       }
 
-      #form .field {
-        margin-bottom: 4px;
+      .field {
+        margin-bottom: 18px;
       }
 
-      #form .field .input {
-        height: 24px;
+      .field .label {
+        display: block;
+      }
+
+      .field .input {
         padding: 4px;
-        font-family: sans-serif;
-        font-size: 14px;
+        font-size: 16px;
+        font-family: font-regular;
       }
 
-      #form .field .input:focus {
+      .field .input[type="text"] {
+        border: 1px solid #eee;
+        border-radius: 2px;
+        width: 100%;
+      }
+
+      .field .input:focus {
         outline: none;
       }
+
+      .field .textarea {
+        width: 100%;
+        border: none;
+      }
+
+      .field .textarea textarea {
+        border: 1px solid #eee !important;
+        border-radius: 2px;
+      }
+
+      .field .button {
+        text-decoration: none;
+        background-color: #eee;
+        border: none;
+        font-size: inherit;
+        border-radius: 2px;
+        padding: 6px 12px;
+      }
+
     </style>
   </template>
 </dom-module>
