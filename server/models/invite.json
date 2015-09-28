@@ -1,7 +1,10 @@
 {
   "name": "Invite",
-  "plural": "Invites",
+  "plural": "invites",
   "base": "PersistedModel",
+  "mongodb": {
+    "collection": "invites"
+  },
   "properties": {
     "email": {
       "type": "string",

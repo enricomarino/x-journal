@@ -1,7 +1,10 @@
 {
   "name": "Member",
-  "plural": "Members",
+  "plural": "members",
   "base": "User",
+  "mongodb": {
+    "collection": "members"
+  },
   "properties": {
     "role": {
       "type": "string",
@@ -16,6 +19,10 @@
     },
     "location": {
       "type": "string"
+    },
+    "isMainAdmin": {
+      "type": "Boolean",
+      "required": false
     }
   },
   "validations": [],

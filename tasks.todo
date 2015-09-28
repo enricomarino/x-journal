@@ -3,10 +3,6 @@ ho creato files e relative directory per i seguenti elementi senza sistemarne il
   ✔ form-signup @done (15-09-24 17:56)
   ✔ page-login @done (15-09-24 17:55)
 
-
-
-
-
 x-project component da aggiornare:
  ☐ public/components/app-routes è stato modificato aggiungendo la querystring: sarebbe il caso di aggiornare il relativo repository
  ☐ api-user-segnup deve esporre error
@@ -18,13 +14,10 @@ x-project component da aggiornare:
 pacchetti bower da aggiornare:
  ☐ superagent non viene installato da bower
 
-
-
 migiorie generali:
  ☐ nomi delle collezioni al plurale e minuscole
  ☐ page-member deve ricevere il member iniettato dal router
  ☐ page-invite deve ricevere l'invite iniettato dal router
-
 
 migliorie incrementali:
  ✔ i metodi remoti revoke e resend di Invite devono poter essere invocati solo da un 'admin' @done (15-09-28 11:45)

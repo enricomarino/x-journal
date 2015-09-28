@@ -14,9 +14,6 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "mongo"
-  },
   "AccessToken": {
     "dataSource": "mongo",
     "public": false
@@ -49,6 +46,7 @@
     "dataSource": "mongo"
   },
   "Email": {
-    "dataSource": "email"
+    "dataSource": "email",
+    "public": false
   }
 }

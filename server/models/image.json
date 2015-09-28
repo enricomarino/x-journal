@@ -1,7 +1,10 @@
 {
   "name": "Image",
-  "plural": "Images",
+  "plural": "images",
   "base": "PersistedModel",
+  "mongodb": {
+    "collection": "images"
+  },
   "strict": false,
   "idInjection": false,
   "options": {

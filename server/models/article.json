@@ -1,7 +1,10 @@
 {
   "name": "Article",
-  "plural": "Articles",
+  "plural": "articles",
   "base": "PersistedModel",
+  "mongodb": {
+    "collection": "articles"
+  },
   "properties": {
     "title": {
       "type": "string"

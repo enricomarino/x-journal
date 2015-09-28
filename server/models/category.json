@@ -1,7 +1,10 @@
 {
   "name": "Category",
-  "plural": "Categories",
+  "plural": "categories",
   "base": "PersistedModel",
+  "mongodb": {
+    "collection": "categories"
+  },
   "properties": {
     "name": {
       "type": "string"
