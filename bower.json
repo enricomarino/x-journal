@@ -6,7 +6,7 @@
     "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0",
     "iron-input": "PolymerElements/iron-input#^1.0",
     "iron-selector": "PolymerElements/iron-selector#~1.0.4",
-    "superagent": "cvdlab/superagent#^1.4.0",
+    "superagent": "cvdlab/superagent",
     "x-element": "x-element/x-element"
   },
   "license": "MIT"

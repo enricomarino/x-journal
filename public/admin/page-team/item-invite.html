@@ -66,7 +66,7 @@
     },
 
     on_resend: function (event) {
-      var url = '/api/Invites/' + this.item.id + '/resend';
+      var url = '/api/invites/' + this.item.id + '/resend';
       var that = this;
 
       that.resent = true;
@@ -88,7 +88,7 @@
     },
 
     on_revoke: function (event) {
-      var url = '/api/Invites/' + this.item.id + '/revoke';
+      var url = '/api/invites/' + this.item.id + '/revoke';
       var that = this;
 
       that.revoked = true;

@@ -57,6 +57,7 @@
 
     on_route: function (event) {
       this.user = this.$.session.get('user');
+      console.log(event.detail);
     },
 
     on_mount: function (event) {
@@ -67,6 +68,8 @@
       this.$.session.set('access_token', event.detail.id);
       this.$.session.set('user_id', event.detail.userId);
       this.$.session.set('user', event.detail.user);
+      this.user = event.detail.user;
+      this.isAdmin = this.user.role === 'admin';
       page('/admin/team');
     },
 

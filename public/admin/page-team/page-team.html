@@ -16,8 +16,8 @@
 
     <app-session id="session"></app-session>
 
-    <api-model-find id="find_members" collection="Members" models="{{members}}" access-token="{{token}}"></api-model-find>
-    <api-model-find id="find_invites" collection="Invites" models="{{invites}}" include='["sender"]' access-token="{{token}}"></api-model-find>
+    <api-model-find id="find_members" collection="members" response="{{members}}" access-token="{{token}}"></api-model-find>
+    <api-model-find id="find_invites" collection="invites" response="{{invites}}" include='["sender"]' access-token="{{token}}"></api-model-find>
 
     <div class="page">
       <part-sidebar class="sidebar"></part-sidebar>
