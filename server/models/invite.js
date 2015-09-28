@@ -24,11 +24,10 @@ module.exports = function (Invite) {
     return userId;
   };
 
-  var send_email = function (invite, next) {
+  var send_email = function (x_data, next) {
+    var invite = x_data.invite;
     var text = template_text(invite);
     var html = template_html(invite);
-
-    console.log("send_email", invite);
 
     Invite.app.models.Email.send({
       from: "x-journal <x-journal@something.com>",
@@ -48,7 +47,8 @@ module.exports = function (Invite) {
     };
   };
 
-  var complete = function (invite) {
+  var complete = function (x_data) {
+    var invite = x_data.invite;
     return function (done) {
       var expiresAt = moment().add(invite.expiresIn, 'd').toDate();
       var payload = {
@@ -63,76 +63,87 @@ module.exports = function (Invite) {
       invite.token = token;
       invite.url = encodeURI(template_url(invite));
       invite.senderId = getCurrentUserId();
-      setImmediate(done);
+      setImmediate(done, null, x_data);
     };
   };
 
-  var retrieve_invite = function (x_data, id) {
-    return function (next) {
-      Invite.findById(id, function (err, invite) {
-        x_data.invite = invite;
-        setImmediate(next, err);
-      });
+  var retrieve_invite = function (x_data, next) {
+    Invite.findById(x_data.id, function (err, invite) {
+      x_data.invite = invite;
+      setImmediate(next, err, x_data);
+    });
+  };
+
+  var update_invite = function  (x_data, next) {
+    x_data.invite.save(function (err, invite) {
+      x_data.invite = invite;
+      setImmediate(next, err, x_data);
+    });
+  };
+
+  var check_invite = function (x_data, next) {
+    var error = null;
+    if (!x_data.invite) {
+      error = {
+        code: 10,
+        message: 'Invalid invite id.',
+      };
     }
+    setImmediate(next, error, x_data);
   };
 
-  var check_invite = function (x_data) {
-    return function (next) {
-      var error = null;
-      if (!x_data.invite) {
-        error = {
-          code: 10,
-          message: 'Invalid invite id.',
-        };
-      }
-      setImmediate(next, error);
+  var check_status = function (x_data, next) {
+    var status = x_data.valid_status;
+    var error = null;
+
+    console.log(x_data.invite.status, status);
+
+    if (x_data.invite.status !== status) {
+      error = {
+        code: 11,
+        mesage: 'Invalide invite status'
+      };
     }
+    setImmediate(next, error, x_data);
   };
 
-  var check_status = function (x_data, status) {
-    return function (next) {
-      var error = null;
-      if (x_data.invite.status !== status) {
-        error = {
-          code: 11,
-          mesage: 'Invalide invite status'
-        };
-      }
-      setImmediate(next, error);
+  var revoke_invite = function (x_data, next) {
+    x_data.invite.updateAttribute('status', 'revoked', function (err, invite) {
+      setImmediate(next, err, true);
+    });
+  };
+
+  Invite.afterRemote('create', function( ctx, invite, done) {
+    var x_data = {
+      invite: invite
     };
-  };
 
-  var revoke_invite = function (x_data) {
-    return function (next) {
-      x_data.invite.updateAttribute('status', 'revoked', function (err, invite) {
-        setImmediate(next, err, true);
-      });
-    };
-  };
-
-  Invite.afterRemote('create', function( ctx, invite, next) {
+    // TODO IMPROVE THIS WATERFALL
     async.waterfall([
-      if_async.not(is_complete(invite))
+      if_async.not(is_complete(x_data))
         .then(async.seq(
-            complete(invite),
-            invite.save.bind(invite)
+            complete(x_data),
+            update_invite
         )),
       send_email
-    ], next);
+    ], done);
   });
 
   /**
    * resend
    */
 
-  Invite.resend = function (id, cb) {
-    var x_data = {};
+  Invite.resend = function (id, done) {
+    var x_data = {
+      id: id,
+      valid_status: 'pending'
+    };
 
     async.waterfall([
-      retrieve_invite(x_data, id),
-      check_invite(x_data),
-      check_status(x_data, 'pending'),
-      function (next) { setImmediate(next, null, x_data.invite); },
+      function (next) { setImmediate(next, null, x_data); },
+      retrieve_invite,
+      check_invite,
+      check_status,
       send_email
     ], done);
   };
@@ -154,13 +165,17 @@ module.exports = function (Invite) {
    */
 
   Invite.revoke = function (id, done) {
-    var x_data = {};
+    var x_data = {
+      id: id,
+      valid_status: 'pending'
+    };
 
     async.waterfall([
-      retrieve_invite(x_data, id),
-      check_invite(x_data),
-      check_status(x_data, 'pending'),
-      revoke_invite(x_data)
+      function (next) { setImmediate(next, null, x_data); },
+      retrieve_invite,
+      check_invite,
+      check_status,
+      revoke_invite
     ], done);
 
   };

@@ -1,4 +1,5 @@
 <link rel="import" href="/components/app-link/app-link.html">
+<link rel="import" href="/components/app-session/app-session.html">
 
 <dom-module id="item-member">
   <template>
@@ -6,14 +7,21 @@
       :host {
         display: block;
       }
+
+      a[hidden] {
+        display: none;
+      }
+
     </style>
+
+    <app-session id="session"></app-session>
 
     <div class="item">
       <section>
         <strong>{{item.fullname}}</strong> (<span>{{item.email}}</span>) • <span>{{item.role}}</span>
       </section>
       <section>
-        <a is="app-link" href="{{item.editlink}}">edit</a>
+        <a is="app-link" href="{{item.editlink}}" hidden$="{{!isAdmin}}">edit</a>
       </section>
     </div>
 
@@ -27,7 +35,14 @@
     properties: {
       item: {
         type: Object
+      },
+      isAdmin: {
+        type: Boolean
       }
+    },
+
+    attached: function () {
+      this.isAdmin = this.$.session.get('user').role === 'admin';
     }
 
   });

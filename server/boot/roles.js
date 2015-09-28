@@ -22,7 +22,7 @@ module.exports = function (server, done) {
   async.waterfall([
     create_role('admin'),
     create_role('editor'),
-    create_role('author'),
+    create_role('author')
   ], done);
 
 };

@@ -27,9 +27,9 @@ migiorie generali:
 
 
 migliorie incrementali:
- ☐ i metodi remoti revoke e resend di Invite devono poter essere invocati solo da un 'admin'
- ☐ testare lo status dell'invite (deve essere 'pending') prima di inviarlo via email
- ☐ testare la validità temporale dell'invito prima di inviarlo via email
- ☐ introdurre i metodi remoti resend e revoke
+ ✔ i metodi remoti revoke e resend di Invite devono poter essere invocati solo da un 'admin' @done (15-09-28 11:45)
+ ✔ testare lo status dell'invite (deve essere 'pending') prima di inviarlo via email @done (15-09-27 20:47)
+ ✔ testare la validità temporale dell'invito prima di inviarlo via email @done (15-09-27 20:47)
+ ✔ introdurre i metodi remoti resend e revoke @done (15-09-27 20:47)
 
 

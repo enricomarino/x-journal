@@ -6,14 +6,6 @@ var email_re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((
 
 module.exports = function (Member) {
 
-  var x_ = function (f) {
-    return function (x_data) {
-      return function (done) {
-        f(x_data, arguments[arguments.length - 1]);
-      };
-    };
-  };
-
   var decode_token = function (x_data, done) {
     var token = x_data.token;
     try {
@@ -24,7 +16,7 @@ module.exports = function (Member) {
         message: 'Invalid token.'
       });
     }
-    setImmediate(done);
+    setImmediate(done, null, x_data);
   };
 
   var valid_token = function (x_data, done) {
@@ -42,7 +34,7 @@ module.exports = function (Member) {
         message: 'Your token is expired.'
       }
     }
-    setImmediate(done, error);
+    setImmediate(done, error, x_data);
   };
 
   var valid_email = function (x_data, done) {
@@ -52,7 +44,7 @@ module.exports = function (Member) {
       code: 2,
       message: 'Invalid email address.'
     };
-    setImmediate(done, error);
+    setImmediate(done, error, x_data);
   };
 
   var not_registered = function (x_data, done) {
@@ -66,7 +58,7 @@ module.exports = function (Member) {
         }
       }
 
-      setImmediate(done, err || error);
+      setImmediate(done, err || error, x_data);
     });
   };
 
@@ -82,13 +74,13 @@ module.exports = function (Member) {
       }
 
       x_data.invite = invite;
-      setImmediate(done, err || error);
+      setImmediate(done, err || error, x_data);
     });
   };
 
   var prepare_body = function (x_data, done) {
     x_data.body.role = x_data.decoded_token.role;
-    setImmediate(done);
+    setImmediate(done, null, x_data);
   };
 
   Member.beforeRemote('create', function (ctx, none, next) {
@@ -102,19 +94,20 @@ module.exports = function (Member) {
     };
 
     async.waterfall([
-      x_(decode_token)(x_data),
-      x_(valid_token)(x_data),
-      x_(valid_email)(x_data),
-      x_(not_registered)(x_data),
-      x_(retrieve_invite)(x_data),
-      x_(prepare_body)(x_data, body),
+      function (next) { setImmediate(next, null, x_data); },
+      decode_token,
+      valid_token,
+      valid_email,
+      not_registered,
+      retrieve_invite,
+      prepare_body,
     ], next);
   });
 
   var retrieve_role = function (x_data, done) {
     Member.app.models.Role.findOne({where: {name: x_data.member.role}}, function (err, role) {
       x_data.role = role;
-      setImmediate(done, err);
+      setImmediate(done, err, x_data);
     });
   };
 
@@ -122,14 +115,18 @@ module.exports = function (Member) {
     x_data.role.principals.create({
       principalType: Member.app.models.RoleMapping.USER,
       principalId: x_data.member.id
-    }, done);
+    }, function (err) {
+      setImmediate(done, err, x_data);
+    });
   };
 
   var update_invite = function (x_data, done) {
     x_data.invite.updateAttributes({
       'status': 'accepted',
       'acceptedAt': new Date()
-    }, done);
+    }, function (err) {
+      setImmediate(done, err, x_data);
+    });
   };
 
   Member.afterRemote('create', function (ctx, member, next) {
@@ -137,10 +134,10 @@ module.exports = function (Member) {
     x_data.member = member;
 
     async.waterfall([
-      x_(retrieve_role)(x_data),
-      x_(assign_role)(x_data),
-      x_(update_invite)(x_data)
+      function (next) { setImmediate(next, null, x_data); },
+      retrieve_role,
+      assign_role,
+      update_invite
     ], next);
-
   });
 };

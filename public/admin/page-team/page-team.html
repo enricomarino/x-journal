@@ -8,6 +8,11 @@
 <dom-module id="page-team">
   <template>
     <style include="style-page"></style>
+    <style>
+    a[hidden] {
+      display: none;
+    }
+    </style>
 
     <app-session id="session"></app-session>
 
@@ -23,7 +28,7 @@
         </div>
         <div class="container">
           <h2>Invites</h2>
-          <a is="app-link" class="btn" href="/admin/invite/new">invite new team member</a>
+          <a is="app-link" class="btn" href="/admin/invite/new" hidden$="{{!isAdmin}}">invite new team member</a>
           <list-invites items="{{invites}}"></list-invites>
         </div>
       </div>
@@ -47,6 +52,7 @@
     },
 
     attached: function () {
+      this.isAdmin = this.$.session.get('user').role === 'admin';
       this.token = this.$.session.get('access_token');
       this.$.find_members.send();
       this.$.find_invites.send();
