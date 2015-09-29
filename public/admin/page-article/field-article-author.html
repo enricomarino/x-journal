@@ -8,10 +8,6 @@
       }
     </style>
 
-    <api-model-find id="find" collection="Authors"
-      models="{{items}}">
-    </api-model-find>
-
     <select id="select" on-change="on_value_change">
       <option disabled></option>
       <template is="dom-repeat" items="{{items}}">
@@ -38,7 +34,7 @@
     },
 
     ready: function () {
-      this.$.find.send();
+      // this.$.find.send();
     },
 
     on_bind_value_change: function () {

@@ -8,10 +8,6 @@
       }
     </style>
 
-    <api-model-find id="find" collection="Tags"
-      response="{{tags}}">
-    </api-model-find>
-
     <select id="select" on-change="on_value_change">
       <option disabled></option>
       <template is="dom-repeat" items="{{tags}">

@@ -8,6 +8,7 @@
   <template>
     <style include="style-page"></style>
 
+<!--
     <api-model-get id="get"
       path="Articles/${article_id}" path-params="{{pathParams}}"
       model="{{article}}">
@@ -17,6 +18,7 @@
       path="Articles/${article_id}" path-params="{{pathParams}}"
       on-response="on_delete">
     </api-model-delete>
+-->
 
     <div class="page">
       <part-sidebar class="sidebar"></part-sidebar>
@@ -46,7 +48,7 @@
 
     ready: function () {
       this.async(function () {
-        this.$.get.send();
+        // this.$.get.send();
       });
     },
 

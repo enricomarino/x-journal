@@ -1,25 +1,23 @@
 <link rel="import" href="/components/app-link/app-link.html">
-<link rel="import" href="form-author.html">
 <link rel="import" href="../part-sidebar/part-sidebar.html">
 <link rel="import" href="../style-page/style-page.html">
+<link rel="import" href="form-member.html">
 
-<dom-module id="page-author">
+<dom-module id="page-member">
   <template>
     <style include="style-page"></style>
 
-    <app-session id="session"></app-session>
-
-    <api-model-get id="get" token="{{token}}"
-      path="Authors/${author_id}" path-params="{{pathParams}}"
-      model="{{author}}">
+    <api-model-get id="get" access-token="{{route.session.accessToken}}"
+      collection="members" model-id="{{member_id}}"
+      response="{{member}}">
     </api-model-get>
 
     <div class="page">
       <part-sidebar class="sidebar"></part-sidebar>
       <div class="main">
         <div class="container">
-          <h2>edit author</h2>
-          <form-author author="{{author}}"></form-author>
+          <h2>edit member</h2>
+          <form-member member="{{member}}" token="{{route.session.accessToken}}"></form-member>
         </div>
       </div>
     </div>
@@ -30,19 +28,17 @@
 <script>
   Polymer({
 
-    is: 'page-author',
+    is: 'page-member',
 
     properties: {
-      author: {
-        type: Object
-      },
-      token: {
-        type: String
+      member: {
+        type: Object,
+        value: function () { return {}; }
       }
     },
 
-    ready: function () {
-      this.token = this.$.session.get('access_token');
+    attached: function () {
+      this.set('member_id', this.route.params.member_id);
       this.async(function () {
         this.$.get.send();
       });

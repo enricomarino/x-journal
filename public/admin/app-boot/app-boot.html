@@ -8,10 +8,13 @@
 <link rel="import" href="../page-home/page-home.html">
 <link rel="import" href="../page-article/page-article.html">
 <link rel="import" href="../page-articles/page-articles.html">
-<link rel="import" href="../page-author/page-author.html">
-<link rel="import" href="../page-authors/page-authors.html">
+<link rel="import" href="../page-member/page-member.html">
+<link rel="import" href="../page-team/page-team.html">
 <link rel="import" href="../page-categories/page-categories.html">
 <link rel="import" href="../page-category/page-category.html">
+<link rel="import" href="../page-signup/page-signup.html">
+<link rel="import" href="../page-invite/page-invite.html">
+<link rel="import" href="../page-login/page-login.html">
 
 <dom-module id="app-boot">
   <style>
@@ -25,15 +28,18 @@
 
     <app-container id="app" on-login="on_login" on-logout="on_logout"></app-container>
 
-    <app-routes id="routes" on-route="on_route">
+    <app-routes id="routes" on-before-route="on_route">
       <app-route path="/admin" page="page-home"></app-route>
       <app-route path="/admin/home" page="page-home"></app-route>
       <app-route path="/admin/articles" page="page-articles"></app-route>
       <app-route path="/admin/articles/:article_id" page="page-article"></app-route>
-      <app-route path="/admin/authors" page="page-authors"></app-route>
-      <app-route path="/admin/authors/:author_id" page="page-author"></app-route>
+      <app-route path="/admin/team" page="page-team"></app-route>
+      <app-route path="/admin/members/:member_id" page="page-member"></app-route>
       <app-route path="/admin/categories" page="page-categories"></app-route>
       <app-route path="/admin/categories/:category_id" page="page-category"></app-route>
+      <app-route path="/admin/signup" page="page-signup"></app-route>
+      <app-route path="/admin/login" page="page-login"></app-route>
+      <app-route path="/admin/invite/new" page="page-invite"></app-route>
     </app-routes>
 
   </template>
@@ -49,20 +55,39 @@
       }
     },
 
-    on_route: function (event) {
+    attached: function (event) {
       this.user = this.$.session.get('user');
+      this.isAdmin = this.user ? this.user.role === 'admin' : false;
+      this.accessToken = this.$.session.get('access_token');
     },
 
-    on_mount: function (event) {
-      event.detail.user = this.$.session.get('user');
+    on_route: function (event) {
+      event.detail.session = {
+        accessToken: this.accessToken,
+        isAdmin: this.isAdmin,
+        user: this.user,
+      };
     },
 
     on_login: function (event) {
+      this.$.session.set('access_token', event.detail.id);
+      this.$.session.set('user_id', event.detail.userId);
       this.$.session.set('user', event.detail.user);
+
+      this.user = event.detail.user;
+      this.accessToken = event.detail.id;
+      this.isAdmin = this.user.role === 'admin';
+      page('/admin/team');
     },
 
     on_logout: function (event) {
+      this.$.session.unset('access_token');
+      this.$.session.unset('user_id');
       this.$.session.unset('user');
+
+      delete this.accessToken;
+      delete this.isAdmin;
+      delete this.user;
     }
 
   });

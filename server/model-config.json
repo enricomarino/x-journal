@@ -10,33 +10,30 @@
       "loopback/common/mixins",
       "loopback/server/mixins",
       "../common/mixins",
+      "../node_modules/loopback-ds-timestamp-mixin",
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "db"
-  },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
-
   "Article": {
     "dataSource": "mongo"
   },
-  "Author": {
+  "Member": {
     "dataSource": "mongo"
   },
   "Category": {
@@ -44,5 +41,12 @@
   },
   "Image": {
     "dataSource": "mongo"
+  },
+  "Invite": {
+    "dataSource": "mongo"
+  },
+  "Email": {
+    "dataSource": "email",
+    "public": false
   }
 }

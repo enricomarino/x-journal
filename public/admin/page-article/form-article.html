@@ -16,10 +16,10 @@
       }
     </style>
 
-    <api-model-update id="update" path="Articles/${id}" path-params="{{article}}"
+<!--     <api-model-update id="update" path="Articles/${id}" path-params="{{article}}"
       data="{{article}}" on-response="on_response">
     </api-model-update>
-
+ -->
     <form class="form" on-submit="on_submit">
       <div class="field">
         <label class="label">title</label>
@@ -36,7 +36,7 @@
         <label class="label">content</label>
         <iron-autogrow-textarea class="textarea" rows="6"
           bind-value="{{article.content}}">
-          <textarea id="test"></textarea>
+          <textarea id="test">aaa</textarea>
         </iron-autogrow-textarea>
       </div>
       <div class="field">
@@ -84,7 +84,6 @@
     },
 
     on_image: function (image) {
-      console.log(image);
       this.article.image = image.id;
     },
 
@@ -100,7 +99,6 @@
     on_click_now: function (event) {
       event.preventDefault();
       this.article.published_at = new Date();
-      console.log(this.article)
     }
 
   });
