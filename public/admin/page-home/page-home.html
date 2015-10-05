@@ -1,14 +1,18 @@
-<link rel="import" href="../layout-admin/layout-admin.html">
+<link rel="import" href="../part-sidebar/part-sidebar.html">
 <link rel="import" href="../style-page/style-page.html">
+
 <dom-module id="page-home">
   <template>
     <style include="style-page"></style>
 
-    <layout-admin>
-      <div class="container">
-        <h1>Admin</h1>
+    <div class="page">
+      <part-sidebar class="sidebar"></part-sidebar>
+      <div class="main">
+        <div class="container">
+          <h1>Admin</h1>
+        </div>
       </div>
-    </layout-admin>
+    </div>
 
   </template>
 </dom-module>

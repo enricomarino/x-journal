@@ -1,16 +1,16 @@
-<link rel="import" href="item-category.html">
+<link rel="import" href="item-member.html">
 
-<dom-module id="list-categories">
+<dom-module id="list-members">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <div class="list">
       <template is="dom-repeat" items="{{items}}" filter="filter">
-        <item-category class="item" item="{{item}}"></item-category>
+        <item-member item="{{item}}"></item-member>
       </template>
     </div>
 
@@ -20,7 +20,7 @@
 <script>
   Polymer({
 
-    is: 'list-categories',
+    is: 'list-members',
 
     properties: {
       items: {
@@ -29,7 +29,7 @@
     },
 
     filter: function (item) {
-      item.editlink = '/admin/categories/' + item.id;
+      item.editlink = '/admin/members/' + item.id;
       return true;
     }
 

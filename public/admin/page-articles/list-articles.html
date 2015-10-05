@@ -1,8 +1,12 @@
-<link rel="import" href="../style-list/style-list.html">
 <link rel="import" href="item-article.html">
+
 <dom-module id="list-articles">
   <template>
-    <style include="style-list"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
 
     <div class="list">
       <template is="dom-repeat" items="{{items}}" filter="filter">
@@ -20,8 +24,7 @@
 
     properties: {
       items: {
-        type: Array,
-        value: function () { return []; }
+        type: Array
       }
     },
 

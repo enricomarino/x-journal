@@ -4,7 +4,7 @@
     "connector": "memory"
   },
   "mongo": {
-    "database": "x-blog",
+    "database": "x-journal",
     "name": "mongo",
     "connector": "mongodb"
   },

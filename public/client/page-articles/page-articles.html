@@ -1,16 +1,12 @@
-<link rel="import" href="../../components/api-model-find/api-model-find.html">
 <link rel="import" href="../deck-articles/deck-articles.html">
 <link rel="import" href="../part-footer/part-footer.html">
 <link rel="import" href="../part-jumbotron/part-jumbotron.html">
 <link rel="import" href="../part-header/part-header.html">
 <link rel="import" href="../style-page/style-page.html">
+
 <dom-module id="page-articles">
   <template>
     <style include="style-page"></style>
-
-    <api-model-find id="find" collection="articles" include='["author","category"]'
-      response="{{articles}}">
-    </api-model-find>
 
     <div class="page">
       <part-header class="header"></part-header>
@@ -39,10 +35,6 @@
         type: Array,
         value: function () { return []; }
       }
-    },
-
-    attached: function () {
-      this.$.find.send();
     }
 
   });

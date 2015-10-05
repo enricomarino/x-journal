@@ -1,19 +1,28 @@
 {
-  "name": "Author",
-  "plural": "authors",
+  "name": "Member",
+  "plural": "members",
   "base": "User",
   "mongodb": {
-    "collection": "authors"
+    "collection": "members"
   },
   "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "editor",
+        "author"
+      ]
+    },
     "fullname": {
       "type": "string"
     },
     "location": {
       "type": "string"
     },
-    "birthdate": {
-      "type": "date"
+    "isMainAdmin": {
+      "type": "Boolean",
+      "required": false
     }
   },
   "validations": [],

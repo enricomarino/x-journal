@@ -1,29 +1,33 @@
 <link rel="import" href="/components/app-link/app-link.html">
 
-<dom-module id="item-category">
+<dom-module id="item-member">
   <template>
     <style>
       :host {
         display: block;
       }
+
+      a[hidden] {
+        display: none;
+      }
+
     </style>
 
-    <div>
+    <div class="item">
       <section>
-        <strong>{{item.name}}</strong>
+        <strong>{{item.fullname}}</strong> (<span>{{item.email}}</span>) • <span>{{item.role}}</span>
       </section>
       <section>
-        <a is="app-link" href="{{item.editlink}}">edit</a>
+        <a is="app-link" href="{{item.editlink}}" hidden$="{{!route.session.isAdmin}}">edit</a>
       </section>
     </div>
 
   </template>
 </dom-module>
-
 <script>
   Polymer({
 
-    is: 'item-category',
+    is: 'item-member',
 
     properties: {
       item: {
