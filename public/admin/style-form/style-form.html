@@ -16,6 +16,7 @@
 
       .field .label {
         display: block;
+        font-family: font-bold;
       }
 
       .field .input {
@@ -24,7 +25,10 @@
         font-family: font-regular;
       }
 
-      .field .input[type="text"] {
+      .field .input[type="text"],
+      .field .input[type="email"],
+      .field .input[type="password"],
+      .field .input[type="date"] {
         border: 1px solid #eee;
         border-radius: 2px;
         width: 100%;

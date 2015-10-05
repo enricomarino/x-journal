@@ -1,1 +1,1 @@
-# x-journal
+# x-blog

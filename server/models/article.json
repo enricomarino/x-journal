@@ -37,14 +37,16 @@
   "relations": {
     "author": {
       "type": "belongsTo",
-      "model": "Member"
+      "model": "Author",
+      "foreignKey": "author_id"
     },
     "category": {
       "type": "belongsTo",
-      "model": "Category"
+      "model": "Category",
+      "foreignKey": "category_id"
     },
     "image": {
-      "type": "hasOne",
+      "type": "hasMany",
       "model": "Image"
     }
   },

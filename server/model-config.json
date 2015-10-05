@@ -33,16 +33,13 @@
   "Article": {
     "dataSource": "mongo"
   },
-  "Member": {
+  "Author": {
     "dataSource": "mongo"
   },
   "Category": {
     "dataSource": "mongo"
   },
   "Image": {
-    "dataSource": "mongo"
-  },
-  "Invite": {
     "dataSource": "mongo"
   },
   "Email": {

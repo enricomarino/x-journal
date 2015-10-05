@@ -10,16 +10,15 @@
 <dom-module id="form-article">
   <template>
     <style include="style-form"></style>
-    <style>
-      #test {
-        border: 2px solid red;
-      }
-    </style>
 
-<!--     <api-model-update id="update" path="Articles/${id}" path-params="{{article}}"
-      data="{{article}}" on-response="on_response">
+    <api-model-update id="update" collection="articles" model-id="{{article.id}}"
+      on-response="on_response_update" on-error="on_error">
     </api-model-update>
- -->
+
+    <api-model-delete id="delete" collection="articles" model-id="{{article.id}}"
+      on-response="on_response_delete" on-error="on_error">
+    </api-model-delete>
+
     <form class="form" on-submit="on_submit">
       <div class="field">
         <label class="label">title</label>
@@ -27,42 +26,42 @@
       </div>
       <div class="field">
         <label class="label">summary</label>
-        <iron-autogrow-textarea class="textarea" rows="3"
-          bind-value="{{article.summary}}">
-          <textarea></textarea>
+        <iron-autogrow-textarea class="textarea" rows="3" bind-value="{{article.summary}}">
         </iron-autogrow-textarea>
       </div>
       <div class="field">
         <label class="label">content</label>
-        <iron-autogrow-textarea class="textarea" rows="6"
-          bind-value="{{article.content}}">
-          <textarea id="test">aaa</textarea>
+        <iron-autogrow-textarea class="textarea" rows="6" bind-value="{{article.content}}">
         </iron-autogrow-textarea>
       </div>
       <div class="field">
         <label class="label">image</label>
-        <field-article-image class="input" article="{{article}}" image="{{image}}"></field-article-image>
+        <field-article-image class="input" article="{{article}}">
+        </field-article-image>
       </div>
       <div class="field">
         <label class="label">author</label>
-        <field-article-author class="input" bind-value="{{article.authorId}}"></field-article-author>
+        <field-article-author class="input" bind-value="{{article.authorId}}">
+        </field-article-author>
       </div>
       <div class="field">
         <label class="label">category</label>
-        <field-article-category class="input" bind-value="{{article.categoryId}}"></field-article-category>
+        <field-article-category class="input" bind-value="{{article.categoryId}}">
+        </field-article-category>
       </div>
-<!--
-      <div>
+      <div class="field">
         <label>tags</label>
         <field-article-tags bind-value="{{article.tags}}"></field-article-tags>
       </div>
--->
       <div class="field">
         <label class="label">published at</label>
         <input-datetime class="input" value="{{article.published_at}}"></input-datetime>
       </div>
       <div class="field">
         <input class="button" type="submit" value="update">
+      </div>
+      <div class="field">
+        <input class="button danger" type="submit" value="delete" on-click="request_delete">
       </div>
     </form>
 
@@ -75,30 +74,40 @@
 
     properties: {
       article: {
-        type: Object
-      },
-      image: {
         type: Object,
-        observer: 'on_image'
+        value: function () { return {}; }
       }
     },
 
-    on_image: function (image) {
-      this.article.image = image.id;
+    request_update: function () {
+      this.$.update.send();
+    },
+
+    request_delete: function () {
+      this.$.delete.send();
     },
 
     on_submit: function (event) {
       event.preventDefault();
-      this.$.update.send();
+      event.stopPropagation();
+      this.request_update();
     },
 
-    on_response: function (event) {
+    on_click_delete: function (event) {
+      event.preventDefault();
+      this.request_delete();
+    },
+
+    on_response_update: function (event) {
+      alert('article updated successfully!');
+    },
+
+    on_response_delete: function (event) {
       page('/admin/articles');
     },
 
-    on_click_now: function (event) {
-      event.preventDefault();
-      this.article.published_at = new Date();
+    on_error: function (event) {
+      console.warn(event);
     }
 
   });
